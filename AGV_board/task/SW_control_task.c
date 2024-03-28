@@ -9,7 +9,10 @@ void SW_control_task(void)
     if(steering_wheel.parameter.enable)
 	{
         
-        Steering_Wheel_CommandUpdate(&steering_wheel);
+        if(steering_wheel.parameter.receive_ms_count+steering_wheel.parameter.receive_s_count*1000-ms_count-s_count*1000>1000)
+					steering_wheel.parameter.connection_state=0;
+		
+				Steering_Wheel_CommandUpdate(&steering_wheel);
         Steering_Wheel_StatusUpdate(&steering_wheel);
 				Steering_Wheel_CommandTransmit(&steering_wheel);
 		

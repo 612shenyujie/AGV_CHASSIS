@@ -1,6 +1,7 @@
 #include "steering_communication.h"
 #include "steering_wheel.h"
 #include "chassis_power_control.h"
+#include "SW_control_task.h"
 #if defined(STM32F105) | (STM32F407)
     #include "can.h"
 #endif
@@ -420,6 +421,8 @@ STEERING_COMMUNICATION_RETURN_T steering_communication_rx_handler(uint32_t extid
 	steering_wheel_t *temp_handle;
 	pack = steering_communication_receive_unpack(extid, data1);
 	temp_handle=Steering_FindSteeringHandle_via_CANID(pack.steering_id);
+	steering_wheel.parameter.receive_ms_count=ms_count;
+	steering_wheel.parameter.receive_s_count=s_count;
 	if (temp_handle==NULL)
 	{
 		return STEERING_COMMUNICATION_WRONG_PARAM;
