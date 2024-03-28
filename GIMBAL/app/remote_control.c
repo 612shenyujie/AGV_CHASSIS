@@ -21,6 +21,7 @@ int16_t int16_abs(int16_t a)
 DELAY_TIME_T delay_time;
 RC_T RC;
 
+
 static uint8_t sbus_rx_buf[2][SBUS_RX_BUF_NUM];
 static void sbus_to_rc(volatile const uint8_t *sbus_buf, RC_CONTROL_T *rc_ctrl);
 static void RC_init(uint8_t *rx1_buf, uint8_t *rx2_buf, uint16_t dma_buf_num);
@@ -95,6 +96,7 @@ uint8_t RC_data_is_error(void)
 
 error:
     memset(&RC.rc_receive,0,sizeof(RC.rc_receive));
+		
     return 1;
 }
 

@@ -1,6 +1,7 @@
 #include "task_schedule.h"
 
 TASK_TIME_T gimbal_time;
+
 int16_t cnt;
 uint16_t pwmVal=0;
 void Init_Task(void)
@@ -36,6 +37,8 @@ void Error_State_Judge(void)
 			memset(&RC.rc_receive.key_board,0,sizeof(RC.rc_receive.key_board));
 			memset(&RC.rc_receive.rc,0,sizeof(RC.rc_receive.rc));
 			memset(&RC.rc_receive.mouse,0,sizeof(RC.rc_receive.mouse));
+			gimbal.parameter.mode=GIMBAL_MODE_NO_FORCE;
+			chassis.send.mode	=	CHASSIS_MODE_NOFORCE;
 		}
 	}
 	
