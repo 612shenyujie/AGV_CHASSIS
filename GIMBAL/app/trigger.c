@@ -3,10 +3,10 @@
 TRIGGER_T trigger;
 
 float Trigger_Angle_Loop_Data[PID_DATA_LEN]
-={30.0f,1.0f,100.0f,50.0f,5.0f,0.1f,1.0f,0.1f,0.6f,0.0f};
+={10.0f,0.01f,250.0f,15.0f,5.0f,0.1f,1.0f,0.1f,0.6f,0.0f};
 
 float Trigger_Speed_Loop_Data[PID_DATA_LEN]
-={0.60f,0.2f,0.0f,20.0f,5.0f,0.0f,0.4f,0.05f,0.0f,0.0f};
+={0.65f,0.03f,0.0f,20.0f,1.0f,0.0f,1.0f,0.5f,0.0f,0.0f};
 //拨弹轮初始化
 void Trigger_Init(void)
 {
@@ -38,6 +38,7 @@ void Trigger_Command_Update(void)
 	trigger.command.target_position	=	trigger.command.target_total_position	-	trigger.command.rounds*360.0f	;
 	PID_Calculate(&trigger.pid.angle_loop,trigger.status.total_angle,-trigger.command.target_total_position);
 	trigger.command.target_speed	=	trigger.pid.angle_loop.Output;
+//		trigger.command.target_speed	=	-10;
 	PID_Calculate(&trigger.pid.speed_loop,trigger.status.actual_speed,trigger.command.target_speed);
 	M3508_Command_Update(&trigger.motor,trigger.pid.speed_loop.Output);
 	

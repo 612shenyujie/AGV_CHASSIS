@@ -15,7 +15,9 @@
 #include "PID.h"
 #include "drv_can.h"
 
-#define FRIC_HIGH_SPEED 5200.f
+//#define FRIC_HIGH_SPEED 5200.f//13.2
+//#define FRIC_HIGH_SPEED 6200.f//16.2
+#define FRIC_HIGH_SPEED 5800.f//13.2
 #define FRIC_NONE_SPEED 0.f
 
 typedef __packed enum
@@ -48,7 +50,7 @@ typedef  struct
     float actual_speed;
     float given_current;
     float temperature;
-    
+    float feedback_speed[5];
 }FRIC_STATUE_T;
 
 typedef  struct

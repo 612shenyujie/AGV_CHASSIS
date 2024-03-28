@@ -30,9 +30,9 @@ GIMBAL_T gimbal;
 
 /*****************************************pitch轴PID*****************************************************/
 float gimbal_pitch_encoder_speed_data[PID_DATA_LEN]
-	={700.0f,0.1f,0.0f,20000.0f,15000.0f,0.0f,50.0f,10.0f,0.7f,0.0f};
+	={1200.0f,0.1f,0.0f,20000.0f,15000.0f,0.0f,50.0f,10.0f,0.7f,0.0f};
 float gimbal_pitch_encoder_position_data[PID_DATA_LEN]
-	={9.5f,0.0f,0.2f,150.0f,0.0f,0.00f,0.5f,0.1f,0.5f,0.0f};
+	={9.75f,0.1f,0.35f,150.0f,10.0f,0.00f,0.5f,0.1f,0.5f,0.0f};
 float gimbal_pitch_imu_speed_data[PID_DATA_LEN]
 	={7000.0f,28.0f,0.0f,25000.0f,10000.0f,0.0f,1000.0f,100.0f,0.7f,0.0f};
 float gimbal_pitch_imu_position_data[PID_DATA_LEN]
@@ -94,7 +94,7 @@ void Gimbal_Statue_Update(void)
         case   ENCODER_MODE :
        
         gimbal.pitch.status.actual_angle    =   gimbal.pitch.status.total_angle - gimbal.pitch.status.rounds*360.0f;
-		gimbal.pitch.status.actual_speed	=	gimbal.pitch.motor.status.velocity_rpm;
+				gimbal.pitch.status.actual_speed	=	gimbal.pitch.motor.status.velocity_rpm;
 
         break;
         case  IMU_MODE :
@@ -123,7 +123,7 @@ void Gimbal_Statue_Update(void)
          case   ENCODER_MODE :
             
            
-            gimbal.yaw.status.actual_angle    =   gimbal.yaw.status.total_angle - gimbal.yaw.status.rounds*360.0f;
+      gimbal.yaw.status.actual_angle    =   gimbal.yaw.status.total_angle - gimbal.yaw.status.rounds*360.0f;
 			gimbal.yaw.status.actual_speed	=	gimbal.yaw.motor.status.velocity_rpm;
 
         break;

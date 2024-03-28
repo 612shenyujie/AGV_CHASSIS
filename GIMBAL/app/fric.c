@@ -17,9 +17,37 @@ FRIC_T  fric;
 float left_fric_data[PID_DATA_LEN]
 	={0.042f,0.0007f,0.0f,20.0f,0.01f,0.0f,500.0f,100.0f,0.5f,0.0f};
 //right-fric-PID
+//float right_fric_data[PID_DATA_LEN]
+//	={0.044f,0.0003f,0.0f,20.0f,0.01f,0.0f,220.0f,100.0f,0.5f,0.0f};
 float right_fric_data[PID_DATA_LEN]
-	={0.044f,0.0003f,0.0f,20.0f,0.01f,0.0f,220.0f,100.0f,0.5f,0.0f};
-//摩擦轮初始化
+	={0.042f,0.0007f,0.0f,20.0f,0.01f,0.0f,500.0f,100.0f,0.5f,0.0f};
+
+	
+		float meanFilter(float* data, int size)
+{
+    float sum = 0.0f;
+    for (int i = 0; i < size; i++) {
+        sum += data[i];
+    }
+
+    return sum / size;
+}
+	
+void Fric_Filter_Data_Update(void)
+{
+	for(int i=0;i<4;i++)
+	{
+		fric.left_motor.status.feedback_speed[i+1]=fric.left_motor.status.feedback_speed[i];
+		fric.right_motor.status.feedback_speed[i+1]=fric.right_motor.status.feedback_speed[i];
+	}
+	fric.left_motor.status.feedback_speed[0]=fric.left_motor.motor.status.velocity_rpm;
+	fric.right_motor.status.feedback_speed[0]=fric.right_motor.motor.status.velocity_rpm;
+	
+}
+	
+
+	
+	//摩擦轮初始化
 void Fric_Init(void)
 {
     fric.parameter.mode =   FRIC_STOP;
@@ -36,8 +64,9 @@ void Fric_Status_Update(void)
 {
     M3508_Status_Update(&fric.left_motor.motor);
     M3508_Status_Update(&fric.right_motor.motor);
-    fric.left_motor.status.actual_speed =   fric.left_motor.motor.status.velocity_rpm;
-    fric.right_motor.status.actual_speed =   fric.right_motor.motor.status.velocity_rpm;
+	  Fric_Filter_Data_Update();
+    fric.left_motor.status.actual_speed =   meanFilter(fric.left_motor.status.feedback_speed,5);
+    fric.right_motor.status.actual_speed =   meanFilter(fric.right_motor.status.feedback_speed,5);
     fric.left_motor.status.given_current =   fric.left_motor.motor.status.given_current;
     fric.right_motor.status.given_current =   fric.right_motor.motor.status.given_current;
     fric.left_motor.status.temperature =   fric.left_motor.motor.status.temperature;

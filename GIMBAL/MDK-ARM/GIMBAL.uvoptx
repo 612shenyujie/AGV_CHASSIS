@@ -236,7 +236,7 @@
         <Ww>
           <count>16</count>
           <WinNumber>1</WinNumber>
-          <ItemText>vision_control</ItemText>
+          <ItemText>vision_control,0x0A</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>
