@@ -20,6 +20,8 @@
 #define FRIC_HIGH_SPEED 5800.f//13.2
 #define FRIC_NONE_SPEED 0.f
 
+#define XPOWER_ANGLE 1000.f
+
 typedef __packed enum
 {
     FRIC_STOP = 0,
@@ -68,11 +70,25 @@ typedef  struct
     FRIC_MOTOR_T right_motor;
 }FRIC_T;
 
+typedef __packed enum
+{
+	XPOWER_STOP = 0,
+	XPOWER_RUNNING,
+}XPOWER_MODE_E;
 
+typedef  struct 
+{
+    int16_t target_angle;
+	  XPOWER_MODE_E mode;
+	
+}XPOWER_COMMAND_T;
 
 extern FRIC_T  fric;
+extern XPOWER_COMMAND_T xpower;
 void Fric_Init(void);
 void Fric_Task(void);
+void Xpower_Command_Update(void);
+void Xpower_Send(void);
 
 #endif // !FRIC_H_
 

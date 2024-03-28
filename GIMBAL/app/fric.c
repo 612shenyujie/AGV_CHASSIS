@@ -10,8 +10,10 @@
  */
 #include "fric.h"
 #include "can_connection.h"
+#include "tim.h"
 
 FRIC_T  fric;
+XPOWER_COMMAND_T xpower;
 
 //left-fric-PID
 float left_fric_data[PID_DATA_LEN]
@@ -116,14 +118,35 @@ void Fric_Current_Update(void)
 		 CAN1_0x200_Tx_Data[2]=fric.left_motor.motor.command.give_current_lsb>>8;
 		 CAN1_0x200_Tx_Data[3]=fric.left_motor.motor.command.give_current_lsb;
         break;
-    }
-	
-	
+    }			
+}
 
 
-    
-			
-
+//更新倍镜Xpower命令
+void Xpower_Command_Update(void)
+{
+	switch(xpower.mode)
+	{
+		case XPOWER_RUNNING  :
+			xpower.target_angle = XPOWER_ANGLE;
+		break;
+		case XPOWER_STOP   :
+			xpower.target_angle = - XPOWER_ANGLE;
+		break;
+	}
+}
+//更新倍镜Xpower电流
+void Xpower_Send(void)
+{
+	switch(xpower.mode)
+	{
+		case XPOWER_RUNNING   :
+			__HAL_TIM_SetCompare(&htim8, TIM_CHANNEL_1, XPOWER_ANGLE);
+		break;
+		case XPOWER_STOP   :
+			__HAL_TIM_SetCompare(&htim8, TIM_CHANNEL_1, - XPOWER_ANGLE);
+		break;
+	}
 }
 
 // 更新Fric任务函数
@@ -135,4 +158,8 @@ void Fric_Task(void)
     Fric_Command_Update();
     // 更新Fric电流
     Fric_Current_Update();
+	  //更新倍镜Xpower命令
+	  Xpower_Command_Update();
+	  //更新倍镜Xpower电流
+	  Xpower_Send();
 }

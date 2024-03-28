@@ -160,7 +160,8 @@ typedef __packed struct
 	uint16_t gimbal_cali_cnt;
 	uint16_t spin_mode_cnt;
 	uint16_t follow_switch_cnt;
-	uint16_t	invert_cnt;
+	uint16_t invert_cnt;
+	uint16_t xpower_mode_cnt;
 }DELAY_TIME_T;
 
 void Remote_Init(void);
