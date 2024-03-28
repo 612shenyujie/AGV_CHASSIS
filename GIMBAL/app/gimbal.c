@@ -193,10 +193,12 @@ float test;
 void Gimbal_Motor_Command_Update(void)
 {
     //根据参数模式，计算出目标角度和速度
-    switch(gimbal.pitch.parameter.mode)
-    {
 				if(gimbal.pitch.command.target_angle<-39.5f) gimbal.pitch.command.target_angle=-39.5f;
 				if(gimbal.pitch.command.target_angle>18.5f)	gimbal.pitch.command.target_angle=18.5f;
+	
+			switch(gimbal.pitch.parameter.mode)
+    {
+
 			case IMU_MODE :
 				
 				gimbal.pitch.motor.command.grivity_voltage_lsb=Pitch_Gravity_Compensation();		

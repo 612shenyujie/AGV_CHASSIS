@@ -355,9 +355,9 @@ STEERING_WHEEL_RETURN_T Steering_Wheel_MotorCommandUpdate(steering_wheel_t *stee
 		steering_wheel->directive_part.motor.command.torque	= PID_Controller(&steering_wheel->directive_part.motor.PID_Handles.velocity_loop_handle, temp_err);
 		// 由于齿轮传动使得编码器转动方向为CW时，舵转动方向为CCW，反之亦然。所以要对称处理
 		if (steering_wheel->directive_part.encoder.parameter.encoder_directive_part_direction == DIRECTION_INVERSE)
-			steering_wheel->directive_part.motor.command.torque = steering_wheel->directive_part.motor.command.torque;
-		expert_power_calculate();
-		scaled_power_calculate();
+		steering_wheel->directive_part.motor.command.torque = steering_wheel->directive_part.motor.command.torque;
+//		expert_power_calculate();
+//		scaled_power_calculate();
 		#if defined(MOTION_MOTOR_M3508)
 		steering_wheel->motion_part.motor.M3508_kit.command.torque = steering_wheel->motion_part.motor.command.torque;
 #endif

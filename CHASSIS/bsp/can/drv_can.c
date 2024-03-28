@@ -231,7 +231,7 @@ uint8_t CAN_Send_EXT_Data(CAN_HandleTypeDef *hcan, uint32_t ID, uint8_t *Data, u
     tx_header.IDE = 4;
     tx_header.RTR = 0;
     tx_header.DLC = Length;
-
+		while(!HAL_CAN_GetTxMailboxesFreeLevel(hcan)){};
     return (HAL_CAN_AddTxMessage(hcan, &tx_header, Data, &used_mailbox));
 }
 
