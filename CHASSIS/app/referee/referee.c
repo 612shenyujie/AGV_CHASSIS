@@ -1,12 +1,18 @@
 #include "referee.h"
 #include "usart.h"
 #include "chassis_task.h"
+#include "fifo.h"
+#include "algorithmOfCRC.h"
+
 uint8_t usart6_buf[2][USART_RX_BUF_LENGHT];
-unsigned char SaveBuffer[90];
+
+fifo_s_t referee_fifo;
+uint8_t referee_fifo_buf[REFEREE_FIFO_BUF_LENGTH];
+frame_header_struct_t referee_receive_header;
 JudgeReceive_t JudgeReceive;
-unsigned char JudgeReceiveBuffer[JudgeBufBiggestSize];
 
 
+unpack_data_t referee_unpack_obj;
 
 void ReFeree_Usart_Init(uint8_t *rx1_buf, uint8_t *rx2_buf, uint16_t dma_buf_num)
 {
@@ -63,7 +69,8 @@ void USART6_IRQHandler(void)
             __HAL_DMA_SET_COUNTER(huart6.hdmarx, USART_RX_BUF_LENGHT);
             huart6.hdmarx->Instance->CR |= DMA_SxCR_CT;
             __HAL_DMA_ENABLE(huart6.hdmarx);
-            memcpy(JudgeReceiveBuffer,(char*)usart6_buf[0],JudgeBufBiggestSize);
+						fifo_s_puts(&referee_fifo, (char*)usart6_buf[0], this_time_rx_len);
+            
 			JudgeReceive.receive_flag	=	1;
         }
         else
@@ -73,68 +80,144 @@ void USART6_IRQHandler(void)
             __HAL_DMA_SET_COUNTER(huart6.hdmarx, USART_RX_BUF_LENGHT);
             huart6.hdmarx->Instance->CR &= ~(DMA_SxCR_CT);
             __HAL_DMA_ENABLE(huart6.hdmarx);
-             memcpy(JudgeReceiveBuffer,(char*)usart6_buf[1],JudgeBufBiggestSize);
+           fifo_s_puts(&referee_fifo, (char*)usart6_buf[1], this_time_rx_len);
 			 JudgeReceive.receive_flag	=	1;
         }
+//				Judge_Buffer_Receive_Task(JudgeReceiveBuffer,0);
 	}
 }
 
 void Referee_Init(void)
 {
 	ReFeree_Usart_Init(usart6_buf[0], usart6_buf[1], USART_RX_BUF_LENGHT);
+	fifo_s_init(&referee_fifo, referee_fifo_buf, REFEREE_FIFO_BUF_LENGTH);
 }
 
-void Judge_Buffer_Receive_Task(unsigned char ReceiveBuffer[],uint16_t DataLen)
+void Judge_Buffer_Receive_Task(uint8_t *frame)
 {
-	uint16_t cmd_id;
-	short PackPoint;
-	memcpy(&SaveBuffer[JudgeBufBiggestSize],&ReceiveBuffer[0],JudgeBufBiggestSize);		
-	for(PackPoint=0;PackPoint<JudgeBufBiggestSize;PackPoint++)		
-	{
-		if(SaveBuffer[PackPoint]==0xA5) 
-		{	
-			if((Verify_CRC8_Check_Sum(&SaveBuffer[PackPoint],5)==1))
-			{
-				cmd_id=(SaveBuffer[PackPoint+6])&0xff;
-				cmd_id=(cmd_id<<8)|SaveBuffer[PackPoint+5];  
-				DataLen=SaveBuffer[PackPoint+2]&0xff;
-				DataLen=(DataLen<<8)|SaveBuffer[PackPoint+1];
-				
-				//机器人状态数据
-				if((cmd_id==0x0201)&&(Verify_CRC16_Check_Sum(&SaveBuffer[PackPoint],DataLen+9))) 
-				{
-					memcpy(&JudgeReceive.robot_id,&SaveBuffer[PackPoint+7+0],1);
-					memcpy(&JudgeReceive.RobotLevel,&SaveBuffer[PackPoint+7+1],1);
-					memcpy(&JudgeReceive.remainHP,&SaveBuffer[PackPoint+7+2],2);
-					memcpy(&JudgeReceive.maxHP,&SaveBuffer[PackPoint+7+4],2);
-					memcpy(&JudgeReceive.HeatCool42,&SaveBuffer[PackPoint+7+6],2);
-					memcpy(&JudgeReceive.HeatMax42,&SaveBuffer[PackPoint+7+8],2);
-					memcpy(&JudgeReceive.MaxPower,&SaveBuffer[PackPoint+7+10],2);
-		  
-				}
-					
-				//实时功率、热量数据
-				if((cmd_id==0x0202)&&(Verify_CRC16_Check_Sum(&SaveBuffer[PackPoint],DataLen+9)))
-				{
-					memcpy(&JudgeReceive.realChassisOutV,&SaveBuffer[PackPoint+7+0],2);
-					memcpy(&JudgeReceive.realChassisOutA,&SaveBuffer[PackPoint+7+2],2);
-					memcpy(&JudgeReceive.realChassispower,&SaveBuffer[PackPoint+7+4],4);
-					memcpy(&JudgeReceive.remainEnergy,&SaveBuffer[PackPoint+7+8],2);
-					memcpy(&JudgeReceive.shooterHeat42,&SaveBuffer[PackPoint+7+14],2);                              // 2个字节
-				}
-				
-				//实时射击信息
-					if((cmd_id==0x0207)&&(Verify_CRC16_Check_Sum(&SaveBuffer[PackPoint],DataLen+9)))
-				{
-					memcpy(&JudgeReceive.bulletFreq, &SaveBuffer[PackPoint+7+2],1);
-					memcpy(&JudgeReceive.bulletSpeed,&SaveBuffer[PackPoint+7+3],4);
-					JudgeReceive.ShootCpltFlag = 1;
-				}
-				
-			}
-		}
+	uint16_t cmd_id = 0;
 
-	memcpy(&SaveBuffer[0],&SaveBuffer[JudgeBufBiggestSize],JudgeBufBiggestSize);
-	JudgeReceive.receive_flag	=	0;
-	}
+    uint8_t index = 0;
+
+    memcpy(&referee_receive_header, frame, sizeof(frame_header_struct_t));
+
+    index += sizeof(frame_header_struct_t);
+
+    memcpy(&cmd_id, frame + index, sizeof(uint16_t));
+    index += sizeof(uint16_t);
+				
+ switch (cmd_id)
+    {
+			case ROBOT_STATE_CMD_ID:
+				memcpy(&JudgeReceive.robot_id,frame + index,13);
+			
+			break;
+			case POWER_HEAT_DATA_CMD_ID:
+				memcpy(&JudgeReceive.realChassisOutV,frame + index,16);
+			
+			break;
+        default:
+        {
+            break;
+        }
+    }
+}
+
+void referee_unpack_fifo_data(void)
+{
+  uint8_t byte = 0;
+  uint8_t sof = HEADER_SOF;
+  unpack_data_t *p_obj = &referee_unpack_obj;
+
+
+  while ( fifo_s_used(&referee_fifo) )
+  {
+    byte = fifo_s_get(&referee_fifo);
+		
+    switch(p_obj->unpack_step)
+    {
+      case STEP_HEADER_SOF:
+      {
+        if(byte == sof)
+        {
+          p_obj->unpack_step = STEP_LENGTH_LOW;
+          p_obj->protocol_packet[p_obj->index++] = byte;
+        }
+        else
+        {
+          p_obj->index = 0;
+        }
+      }break;
+      
+      case STEP_LENGTH_LOW:
+      {
+        p_obj->data_len = byte;
+        p_obj->protocol_packet[p_obj->index++] = byte;
+        p_obj->unpack_step = STEP_LENGTH_HIGH;
+      }break;
+      
+      case STEP_LENGTH_HIGH:
+      {
+        p_obj->data_len |= (byte << 8);
+        p_obj->protocol_packet[p_obj->index++] = byte;
+
+        if(p_obj->data_len < (REF_PROTOCOL_FRAME_MAX_SIZE - REF_HEADER_CRC_CMDID_LEN))
+        {
+          p_obj->unpack_step = STEP_FRAME_SEQ;
+        }
+        else
+        {
+          p_obj->unpack_step = STEP_HEADER_SOF;
+          p_obj->index = 0;
+        }
+      }break;
+      case STEP_FRAME_SEQ:
+      {
+        p_obj->protocol_packet[p_obj->index++] = byte;
+        p_obj->unpack_step = STEP_HEADER_CRC8;
+      }break;
+
+      case STEP_HEADER_CRC8:
+      {
+        p_obj->protocol_packet[p_obj->index++] = byte;
+
+        if (p_obj->index == REF_PROTOCOL_HEADER_SIZE)
+        {
+          if ( Verify_CRC8_Check_Sum(p_obj->protocol_packet, REF_PROTOCOL_HEADER_SIZE) )
+          {
+            p_obj->unpack_step = STEP_DATA_CRC16;
+          }
+          else
+          {
+            p_obj->unpack_step = STEP_HEADER_SOF;
+            p_obj->index = 0;
+          }
+        }
+      }break;  
+      
+      case STEP_DATA_CRC16:
+      {
+        if (p_obj->index < (REF_HEADER_CRC_CMDID_LEN + p_obj->data_len))
+        {
+           p_obj->protocol_packet[p_obj->index++] = byte;  
+        }
+        if (p_obj->index >= (REF_HEADER_CRC_CMDID_LEN + p_obj->data_len))
+        {
+          p_obj->unpack_step = STEP_HEADER_SOF;
+          p_obj->index = 0;
+
+          if ( Verify_CRC16_Check_Sum(p_obj->protocol_packet, REF_HEADER_CRC_CMDID_LEN + p_obj->data_len) )
+          {
+            Judge_Buffer_Receive_Task(p_obj->protocol_packet);
+          }
+        }
+      }break;
+
+      default:
+      {
+        p_obj->unpack_step = STEP_HEADER_SOF;
+        p_obj->index = 0;
+      }break;
+    }
+  }
 }
