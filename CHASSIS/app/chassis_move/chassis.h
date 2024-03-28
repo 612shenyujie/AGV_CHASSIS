@@ -15,7 +15,12 @@
 #include "motor.h"
 #include "PID.h"
 
+#define Smoothen_Off 0 //不进行曲线平缓
+#define Uniform_Acceleration 1 //匀加速模式，用于平滑速度曲线
+#define Ease_Out 2 //缓出模式
+
 #define GIMBAL_HEAD_ANGLE -26.5f
+#define Acceleration 50 //加速度，用于平滑速度曲线的匀加速模式
 
 #define CHASSIS_SPEED_X_CHANGE_MAX 20.f
 #define CHASSIS_SPEED_Y_CHANGE_MAX 20.f
@@ -35,7 +40,7 @@ typedef struct
 	float relative_angle;
 	bool break_mode;
 	bool follow_switch;
-	bool speed_slow;
+	int speed_slow;
 }CHASSIS_PARAMETER_T;
 
 typedef struct

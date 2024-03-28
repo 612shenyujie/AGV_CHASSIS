@@ -27,7 +27,7 @@ void AGV_connoection(int ms_cnt)
         }
 				CAN_Send_EXT_Data(&hcan2,EXT_ID_Set(chassis.A_motor.ID,0,0x03),AGV_A_Tx_Data,8);        
     }
-			 if( ms_cnt%12==3)
+		if( ms_cnt%12==3)
     {
         if (chassis.parameter.mode != CHASSIS_REMOTE_CLOSE)
         {          
@@ -39,7 +39,7 @@ void AGV_connoection(int ms_cnt)
         }
 				CAN_Send_EXT_Data(&hcan2,EXT_ID_Set(chassis.B_motor.ID,0,0x03),AGV_B_Tx_Data,8);        
     }
-			 if( ms_cnt%12==6)
+		if( ms_cnt%12==6)
     {
         if (chassis.parameter.mode != CHASSIS_REMOTE_CLOSE)
         {          
@@ -51,7 +51,7 @@ void AGV_connoection(int ms_cnt)
         }
 				CAN_Send_EXT_Data(&hcan2,EXT_ID_Set(chassis.C_motor.ID,0,0x03),AGV_C_Tx_Data,8);        
     }
-			 if( ms_cnt%12==9)
+		if( ms_cnt%12==9)
     {
         if (chassis.parameter.mode != CHASSIS_REMOTE_CLOSE)
         {          

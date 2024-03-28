@@ -42,3 +42,4 @@ chassis\chassis.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 chassis\chassis.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 chassis\chassis.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 chassis\chassis.o: ..\app\chassis_move\kinematic.h
+chassis\chassis.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

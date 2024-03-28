@@ -12,7 +12,7 @@
 
 #include "gimbal_connection.h"
 #include "kinematic.h"
-
+#include "math.h"
 
 
 CHASSIS_T chassis;
@@ -20,42 +20,94 @@ YAW_T   yaw;
 PID_T   yaw_pid;
 float yaw_position_loop_data[10]= {0.07f,0.0f,0.f,2.5f,0.0f,1.0f,0.f,0.f,0.f,0.f};
 
+double sShapedRamp(double t, double t0, double k) {
+    double sigmoid = 1.0 / (1.0 + exp(-k * (t - t0)));
+    return sigmoid * t;
+}
+
 void Chassis_Speed_Slow_Motion(CHASSIS_T *chassis)
 {
-		if(chassis->parameter.speed_slow)
-		{
-			if(chassis->command.set_vx-chassis->command.vx	>CHASSIS_SPEED_X_CHANGE_MAX)
+	int Delta;
+	switch (chassis->parameter.speed_slow)
+	{
+	
+		case Uniform_Acceleration:
+			Delta = Acceleration;
+			
+			if (chassis->command.set_vx != 0)
 			{
-				chassis->command.vx+=CHASSIS_SPEED_X_CHANGE_MAX;
+				if (chassis->command.set_vx > chassis->command.vx)
+				{
+					if (chassis->command.set_vx - chassis->command.vx > Delta)
+						 chassis->command.vx += Delta;
+					else
+						 chassis->command.vx=chassis->command.set_vx;
+				}
+				if (chassis->command.set_vx < chassis->command.vx)
+				{
+					if (chassis->command.vx - chassis->command.set_vx > Delta)
+						 chassis->command.vx -= Delta;
+					else
+						 chassis->command.vx=chassis->command.set_vx;
+				}
 			}
-			else if(chassis->command.set_vx-chassis->command.vx	<-CHASSIS_SPEED_X_CHANGE_MAX)
+						if (chassis->command.set_vy != 0)
 			{
-				chassis->command.vx-=CHASSIS_SPEED_X_CHANGE_MAX;
+				if (chassis->command.set_vy > chassis->command.vy)
+				{
+					if (chassis->command.set_vy - chassis->command.vy > Delta)
+						 chassis->command.vy += Delta;
+					else
+						 chassis->command.vy=chassis->command.set_vy;
+				}
+				if (chassis->command.set_vy < chassis->command.vy)
+				{
+					if (chassis->command.vy - chassis->command.set_vy > Delta)
+						 chassis->command.vy -= Delta;
+					else
+						 chassis->command.vy=chassis->command.set_vy;
+				}
 			}
-			else 
+			
+		break;
+		
+		case Ease_Out:
+			
+			if (chassis->command.set_vx != 0)
 			{
+				
+				float Parameter_C; 
+				
+					Parameter_C = 0.05;
+				
+			
+				Delta = (chassis->command.set_vx - chassis->command.vx)*Parameter_C;
+				
+				 chassis->command.vx+=Delta;
+			}
+			if (chassis->command.set_vy != 0)
+			{
+				
+				float Parameter_C; 
+				
+					Parameter_C = 0.05;
+				
+			
+				Delta = (chassis->command.set_vy - chassis->command.vy)*Parameter_C;
+				
+				 chassis->command.vy+=Delta;
+			}
+
+		break;
+		
+		case Smoothen_Off:
 				chassis->command.vx=chassis->command.set_vx;
-			}
-			if(chassis->command.set_vy-chassis->command.vy	>CHASSIS_SPEED_Y_CHANGE_MAX)
-			{
-				chassis->command.vy+=CHASSIS_SPEED_Y_CHANGE_MAX;
-			}
-			else if(chassis->command.set_vy-chassis->command.vy	<-CHASSIS_SPEED_Y_CHANGE_MAX)
-			{
-				chassis->command.vy-=CHASSIS_SPEED_Y_CHANGE_MAX;
-			}
-			else 
-			{
 				chassis->command.vy=chassis->command.set_vy;
-			}
-				chassis->command.vw=chassis->command.set_vw;
-		}
-		else
-		{
-			chassis->command.vw=chassis->command.set_vw;
-			chassis->command.vx=chassis->command.set_vx;
-			chassis->command.vy=chassis->command.set_vy;
-		}
+		break;
+	}
+
+
+			
 }
 
 void Chassis_Inveter_Judge(void)
@@ -152,7 +204,7 @@ void Chassis_Init(void)
     chassis.parameter.mode =   CHASSIS_NORMAL;
     chassis.parameter.invert_flag =  1;//1:正向，0：反向
     chassis.parameter.break_mode    =   1;
-		chassis.parameter.speed_slow	=	1;
+		chassis.parameter.speed_slow	=	0;
     chassis.parameter.relative_angle    =   0.f;
 		chassis.A_motor.zero_position = 0x1202;
 		chassis.B_motor.zero_position = 0x174c;
