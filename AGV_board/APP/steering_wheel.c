@@ -382,6 +382,23 @@ STEERING_WHEEL_RETURN_T Steering_Wheel_PartCommandUpdate(steering_wheel_t *steer
 
 STEERING_WHEEL_RETURN_T Steering_Wheel_CommandUpdate(steering_wheel_t *steering_wheel)
 {
+	if(!steering_wheel->parameter.connection_state)
+	{
+		#ifdef AGV_BOARD_A
+		steering_wheel->command.protocol_position = A_ENCODER_ZERO_POSION;
+		#endif
+		#ifdef AGV_BOARD_B
+		steering_wheel->command.protocol_position = B_ENCODER_ZERO_POSION;
+		#endif
+		#ifdef AGV_BOARD_C
+		steering_wheel->command.protocol_position = C_ENCODER_ZERO_POSION;
+		#endif
+		#ifdef AGV_BOARD_D
+		steering_wheel->command.protocol_position = D_ENCODER_ZERO_POSION;
+		#endif
+		steering_wheel->command.protocol_speed=0;
+		
+	}
 	Steering_Wheel_PartCommandUpdate(steering_wheel);
 	Steering_Wheel_MotorCommandUpdate(steering_wheel);
 	return STEERING_WHEEL_OK;

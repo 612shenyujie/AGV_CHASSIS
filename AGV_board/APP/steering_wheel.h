@@ -133,6 +133,7 @@ typedef struct
 	STEERING_WHEEL_ENABLE_T				enable;
 	STEERING_WHEEL_ARC_OPTIMIZATION_T	arc_optimization;
 	STEERING_WHEEL_DEG_POTIMIZATION_T   deg_optimization;
+	int8_t connection_state;
 }steering_wheel_parameter_t;
 
 typedef struct
