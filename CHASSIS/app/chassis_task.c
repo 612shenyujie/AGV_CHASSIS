@@ -58,11 +58,11 @@ void Chassis_Task()
     }
 		if(time.ms_count%10==6)
     {
-//    UI_Send_Char_Task();
+    UI_Send_Char_Task();
     }
 		if(time.ms_count%10==8)
     {
-//     UI_Send_Graphic_Task();
+     UI_Send_Graphic_Task();
 			Chassis_Flag_Update(&connection);
     }
         Time_Count_Task(&time);
