@@ -285,6 +285,10 @@ void JudgementCustomizeChar(int Op_type)
 		custom_char_draw.data_cmd_id=0x0110;//绘制字符
 
 		custom_char_draw.sender_ID=JudgeReceive.robot_id;//发送者ID，机器人对应ID
+		if(JudgeReceive.robot_id == 101)
+				custom_char_draw.receiver_ID = 0x0165;
+		if(JudgeReceive.robot_id == 1)
+				custom_char_draw.receiver_ID = 0x0101;
 		if(JudgeReceive.robot_id == 103)
 				custom_char_draw.receiver_ID = 0x0167;
 		if(JudgeReceive.robot_id == 104)
@@ -307,6 +311,10 @@ void JudgementCustomizeGraphics(int Op_type)
 		custom_grapic_draw.data_cmd_id=0x0104;//绘制七个图形（内容ID，查询裁判系统手册）
 
 		custom_grapic_draw.sender_ID=JudgeReceive.robot_id;//发送者ID，机器人对应ID
+		if(JudgeReceive.robot_id == 101)
+				custom_grapic_draw.receiver_ID = 0x0165;
+		if(JudgeReceive.robot_id == 1)
+				custom_grapic_draw.receiver_ID = 0x0101;
 		if(JudgeReceive.robot_id == 103)
 				custom_grapic_draw.receiver_ID = 0x0167;
 		if(JudgeReceive.robot_id == 104)
@@ -319,6 +327,7 @@ void JudgementCustomizeGraphics(int Op_type)
 				custom_grapic_draw.receiver_ID = 0x0104;
 		if(JudgeReceive.robot_id == 5)
 				custom_grapic_draw.receiver_ID = 0x0105;
+			
 
 /*********************************自定义图像数据***********************************/
 		referee_data_load_Graphic(Op_type);
@@ -348,7 +357,7 @@ void referee_data_pack_handle(uint8_t sof,uint16_t cmd_id, uint8_t *p_data, uint
   else seq++;
 	
 	/*****数据上传*****/
-		while(HAL_DMA_GetState(&hdma_usart6_tx)); 
+		while(HAL_DMA_GetState(&hdma_usart6_tx)!=HAL_DMA_STATE_READY); 
 
 		hdma_usart6_tx.Instance->NDTR = frame_length; 
 
