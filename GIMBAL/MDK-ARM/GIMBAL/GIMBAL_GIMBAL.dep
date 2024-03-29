@@ -360,7 +360,7 @@ I (../Core/Inc/gpio.h)(0x6606BBCB)
 I (../app/task_schedule.h)(0x6606CA44)
 I (../IMU/bsp_imu.h)(0x6606BBCC)
 I (../IMU/struct_typedef.h)(0x6606BBCC)
-I (../app/fric.h)(0x6606BBCC)
+I (../app/fric.h)(0x6606F229)
 I (../bsp/motor.h)(0x6606D60B)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
 I (../PID/PID.h)(0x6606BBCC)
@@ -1694,7 +1694,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x65E2F25E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h)(0x65E2F25E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x65E2F25E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x65E2F25E)
-I (..\app\fric.h)(0x6606BBCC)
+I (..\app\fric.h)(0x6606F229)
 I (../bsp/motor.h)(0x6606D60B)
 I (../PID/PID.h)(0x6606BBCC)
 I (..\app\remote_control.h)(0x6606BBCC)
@@ -1718,8 +1718,8 @@ I (../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h)(0x65E2F25F
 I (..\app\buzzer.h)(0x6606BBCC)
 I (../bsp/buzzer_bsp.h)(0x6606BBCC)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x57F606B6)
-F (..\app\fric.c)(0x6606BBCC)(--c99 -c --cpu Cortex-M4.fp.sp -g -W -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../IMU -I ../PID -I ../app -I ../bsp -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc-I.\RTE\_GIMBAL-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o gimbal\fric.o --omf_browse gimbal\fric.crf --depend gimbal\fric.d)
-I (..\app\fric.h)(0x6606BBCC)
+F (..\app\fric.c)(0x6606F0ED)(--c99 -c --cpu Cortex-M4.fp.sp -g -W -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../IMU -I ../PID -I ../app -I ../bsp -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc-I.\RTE\_GIMBAL-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o gimbal\fric.o --omf_browse gimbal\fric.crf --depend gimbal\fric.d)
+I (..\app\fric.h)(0x6606F229)
 I (../bsp/motor.h)(0x6606D60B)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
@@ -1816,7 +1816,7 @@ I (../IMU/bsp_imu.h)(0x6606BBCC)
 I (../IMU/struct_typedef.h)(0x6606BBCC)
 I (..\app\task_schedule.h)(0x6606CA44)
 I (../Core/Inc/tim.h)(0x6606BBCB)
-I (..\app\fric.h)(0x6606BBCC)
+I (..\app\fric.h)(0x6606F229)
 I (../bsp/drv_can.h)(0x6606BBCC)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x57F606B8)
@@ -1834,7 +1834,7 @@ I (..\app\buzzer.h)(0x6606BBCC)
 I (../bsp/buzzer_bsp.h)(0x6606BBCC)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x57F606B6)
 I (..\app\vision.h)(0x6606BBCC)
-F (..\app\remote_control.c)(0x6606BBCC)(--c99 -c --cpu Cortex-M4.fp.sp -g -W -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../IMU -I ../PID -I ../app -I ../bsp -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc-I.\RTE\_GIMBAL-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o gimbal\remote_control.o --omf_browse gimbal\remote_control.crf --depend gimbal\remote_control.d)
+F (..\app\remote_control.c)(0x6606ED00)(--c99 -c --cpu Cortex-M4.fp.sp -g -W -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../IMU -I ../PID -I ../app -I ../bsp -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc-I.\RTE\_GIMBAL-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o gimbal\remote_control.o --omf_browse gimbal\remote_control.crf --depend gimbal\remote_control.d)
 I (..\app\remote_control.h)(0x6606BBCC)
 I (../Core/Inc/dma.h)(0x6606BBCB)
 I (../Core/Inc/main.h)(0x6606BBCB)
@@ -1880,7 +1880,7 @@ I (..\app\task_schedule.h)(0x6606CA44)
 I (../Core/Inc/tim.h)(0x6606BBCB)
 I (../IMU/bsp_imu.h)(0x6606BBCC)
 I (../IMU/struct_typedef.h)(0x6606BBCC)
-I (..\app\fric.h)(0x6606BBCC)
+I (..\app\fric.h)(0x6606F229)
 I (../bsp/motor.h)(0x6606D60B)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
 I (../PID/PID.h)(0x6606BBCC)
@@ -1946,7 +1946,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x65E2F25E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x65E2F25E)
 I (../IMU/bsp_imu.h)(0x6606BBCC)
 I (../IMU/struct_typedef.h)(0x6606BBCC)
-I (..\app\fric.h)(0x6606BBCC)
+I (..\app\fric.h)(0x6606F229)
 I (../bsp/motor.h)(0x6606D60B)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
 I (../PID/PID.h)(0x6606BBCC)

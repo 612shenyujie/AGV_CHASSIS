@@ -20,8 +20,8 @@
 #define FRIC_HIGH_SPEED 5800.f//13.2
 #define FRIC_NONE_SPEED 0.f
 
-#define XPOWER_ANGLE 1000.f
-
+#define XPOWER_OPEN 167.f
+#define XPOWER_CLOSE 110.f
 typedef __packed enum
 {
     FRIC_STOP = 0,

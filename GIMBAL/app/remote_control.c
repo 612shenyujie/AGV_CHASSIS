@@ -654,6 +654,7 @@ void Delay_Cnt_Task(void)
 	//follow_switch_cnt--;
 	if(delay_time.follow_switch_cnt)	delay_time.follow_switch_cnt--;
 	if(delay_time.invert_cnt)	delay_time.invert_cnt--;
+	if(delay_time.xpower_mode_cnt) delay_time.xpower_mode_cnt--;
 };
 
 void Remote_Init(void)
@@ -672,23 +673,20 @@ void Xpower_Mode_Update(void)
 		case HANDLE_CONTROL :
 		break;
 		case KEYBOARD_CONTROL :
-			switch(xpower.mode)
-			{
-				case XPOWER_STOP   :
-					if(RC.rc_receive.key_board.button.Z && delay_time.xpower_mode_cnt==0)
+			
+					if(RC.rc_receive.key_board.button.X && delay_time.xpower_mode_cnt==0&&xpower.mode!=XPOWER_STOP)
 					{
 						xpower.mode=XPOWER_STOP;
 						delay_time.xpower_mode_cnt=400;
 					}
-				break;
-				case XPOWER_RUNNING   :
-					if(RC.rc_receive.key_board.button.X && delay_time.xpower_mode_cnt==0)
+				
+					if(RC.rc_receive.key_board.button.X && delay_time.xpower_mode_cnt==0&&xpower.mode!=XPOWER_RUNNING)
 					{
 						xpower.mode=XPOWER_RUNNING;
 						delay_time.xpower_mode_cnt=400;
 					}
-				break;
-			}
+				
+			
 			break;
    }
 }

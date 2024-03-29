@@ -128,10 +128,10 @@ void Xpower_Command_Update(void)
 	switch(xpower.mode)
 	{
 		case XPOWER_RUNNING  :
-			xpower.target_angle = XPOWER_ANGLE;
+			xpower.target_angle = XPOWER_OPEN;
 		break;
 		case XPOWER_STOP   :
-			xpower.target_angle = - XPOWER_ANGLE;
+			xpower.target_angle = XPOWER_CLOSE;
 		break;
 	}
 }
@@ -141,10 +141,10 @@ void Xpower_Send(void)
 	switch(xpower.mode)
 	{
 		case XPOWER_RUNNING   :
-			__HAL_TIM_SetCompare(&htim8, TIM_CHANNEL_1, XPOWER_ANGLE);
+			__HAL_TIM_SetCompare(&htim8, TIM_CHANNEL_1, 500+(XPOWER_OPEN/180)*2000);
 		break;
 		case XPOWER_STOP   :
-			__HAL_TIM_SetCompare(&htim8, TIM_CHANNEL_1, - XPOWER_ANGLE);
+			__HAL_TIM_SetCompare(&htim8, TIM_CHANNEL_1, 500+(XPOWER_CLOSE/180)*2000);
 		break;
 	}
 }
