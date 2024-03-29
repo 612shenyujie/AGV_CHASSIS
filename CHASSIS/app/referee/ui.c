@@ -357,7 +357,7 @@ void referee_data_pack_handle(uint8_t sof,uint16_t cmd_id, uint8_t *p_data, uint
   else seq++;
 	
 	/*****数据上传*****/
-		while(HAL_DMA_GetState(&hdma_usart6_tx)!=HAL_DMA_STATE_READY); 
+//		while(HAL_DMA_GetState(&hdma_usart6_tx)!=HAL_DMA_STATE_READY); 
 
 		hdma_usart6_tx.Instance->NDTR = frame_length; 
 

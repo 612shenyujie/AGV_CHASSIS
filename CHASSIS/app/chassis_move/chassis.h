@@ -42,6 +42,7 @@ typedef struct
 	bool follow_switch;
 	int speed_slow;
 	float buffer_limition_k;
+	
 }CHASSIS_PARAMETER_T;
 
 typedef struct
@@ -72,6 +73,7 @@ typedef struct
 	int zero_position;
 	Speed_t target_speed;
 	uint8_t ID;
+	bool active_status;
 }CHASSIS_MOTOR_T;
 
 typedef struct
