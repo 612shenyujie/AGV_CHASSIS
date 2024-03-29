@@ -30,9 +30,9 @@ void Error_State_Judge(void)
 	//如果20ms一次，则计数器加1
 	if(gimbal_time.ms_count%16==0)
 	{
-		RC.rc_receive.last_receive_time++;
+		
 		//如果上一次接收时间小于当前接收时间，则清空键盘，鼠标和rc接收数据
-		if(RC.rc_receive.receive_time<RC.rc_receive.last_receive_time)
+		if(RC.rc_receive.receive_ms_time+RC.rc_receive.receive_s_time*1000-gimbal_time.ms_count-gimbal_time.s_count*1000<-1000)
 		{
 			memset(&RC.rc_receive.key_board,0,sizeof(RC.rc_receive.key_board));
 			memset(&RC.rc_receive.rc,0,sizeof(RC.rc_receive.rc));

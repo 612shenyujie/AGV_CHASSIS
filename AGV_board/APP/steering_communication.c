@@ -339,8 +339,10 @@ steering_communication_pack_t steering_communication_SET_VELOCITY_VECTOR_handler
 {
 	// 修改为SET_VELOCITY_VECTOR的CMDID
 	rx_pack.cmd_id = SET_VELOCITY_VECTOR;
+
 	int16_t rx_data1_byte[4];
 	memcpy(rx_data1_byte, rx_pack.data1, sizeof(rx_data1_byte));
+	steering->parameter.buffer_limition_k=rx_pack.data2/100.0f;
 	memcpy(&chassis_power_control.power_limit_max, rx_data1_byte+2, 4);
 	Steering_Wheel_SetProtocolPosition(steering, rx_data1_byte[0]);
 	Steering_Wheel_SetProtocolSpeed(steering,rx_data1_byte[1]);
@@ -423,6 +425,7 @@ STEERING_COMMUNICATION_RETURN_T steering_communication_rx_handler(uint32_t extid
 	temp_handle=Steering_FindSteeringHandle_via_CANID(pack.steering_id);
 	steering_wheel.parameter.receive_ms_count=ms_count;
 	steering_wheel.parameter.receive_s_count=s_count;
+	steering_wheel.parameter.connection_state=1;
 	if (temp_handle==NULL)
 	{
 		return STEERING_COMMUNICATION_WRONG_PARAM;

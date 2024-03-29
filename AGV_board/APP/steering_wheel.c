@@ -359,10 +359,10 @@ STEERING_WHEEL_RETURN_T Steering_Wheel_MotorCommandUpdate(steering_wheel_t *stee
 //		expert_power_calculate();
 //		scaled_power_calculate();
 		#if defined(MOTION_MOTOR_M3508)
-		steering_wheel->motion_part.motor.M3508_kit.command.torque = steering_wheel->motion_part.motor.command.torque;
+		steering_wheel->motion_part.motor.M3508_kit.command.torque = steering_wheel->motion_part.motor.command.torque*steering_wheel->parameter.buffer_limition_k;
 #endif
 		#if defined(DIRECTIVE_MOTOR_M3508)
-			steering_wheel->directive_part.motor.M3508_kit.command.torque = steering_wheel->directive_part.motor.command.torque;
+			steering_wheel->directive_part.motor.M3508_kit.command.torque = steering_wheel->directive_part.motor.command.torque*steering_wheel->parameter.buffer_limition_k;
 		#endif
 
 		return STEERING_WHEEL_OK;

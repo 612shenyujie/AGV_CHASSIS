@@ -41,13 +41,16 @@ typedef struct
 	bool break_mode;
 	bool follow_switch;
 	int speed_slow;
+	float buffer_limition_k;
 }CHASSIS_PARAMETER_T;
 
 typedef struct
 {
 	float vx;
+
 	float set_vx;
 	float vy;
+
 	float set_vy;
 	float vw;
 	float set_vw;
@@ -85,6 +88,7 @@ typedef struct
 typedef struct
 {
 	float number_ratio;
+	float yaw_offset;
 }YAW_PARAMETER_T;
 
 typedef struct
@@ -114,6 +118,7 @@ extern CHASSIS_T chassis;
 extern YAW_T   yaw;
 extern PID_T   yaw_pid;
 
+void Buffer_Limition_Kf_Update(void);
 void Chassis_Move(void);
 void Yaw_Angle_Process(YAW_T  *yaw);
 void Yaw_Init(void);

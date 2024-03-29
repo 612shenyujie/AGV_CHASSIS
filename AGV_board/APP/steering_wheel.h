@@ -14,9 +14,9 @@ extern "C" {
 /*************************************烧录必选项****************************************************/	
 //舵小板选择
 //#define AGV_BOARD_A //不同舵轮对应宏定义
-//#define AGV_BOARD_B
+#define AGV_BOARD_B
 //#define AGV_BOARD_C
-#define AGV_BOARD_D
+//#define AGV_BOARD_D
 //兵种选择
 #define AGV_HERO
 //#define AGV_STANDARD	
@@ -136,6 +136,7 @@ typedef struct
 	int8_t connection_state;
 	int32_t receive_ms_count;
 	int32_t receive_s_count;
+	float buffer_limition_k;
 }steering_wheel_parameter_t;
 
 typedef struct

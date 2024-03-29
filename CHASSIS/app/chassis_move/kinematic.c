@@ -116,10 +116,10 @@ void AGV_DirectiveMotor_TargetStatus_To_MotorAngle_In_ChassisCoordinate(CHASSIS_
     chassis->D_motor.target_angle = chassis->D_motor.ChassisCoordinate_Angle + chassis->D_motor.zero_position ;
 	if (chassis->parameter.break_mode)
 	{
-		chassis->A_motor.target_angle = 8191*315/360+ chassis->A_motor.zero_position;
-		chassis->B_motor.target_angle = 8191*225/360+ chassis->B_motor.zero_position;
-		chassis->C_motor.target_angle = 8191*135/360+ chassis->C_motor.zero_position;
-		chassis->D_motor.target_angle= 8191*45/360 + chassis->D_motor.zero_position;
+		chassis->A_motor.target_angle = 8191*315/360.0f+ chassis->A_motor.zero_position;
+		chassis->B_motor.target_angle = 8191*225/360.0f+ chassis->B_motor.zero_position;
+		chassis->C_motor.target_angle = 8191*135/360.0f+ chassis->C_motor.zero_position;
+		chassis->D_motor.target_angle= 8191*45/360.0f + chassis->D_motor.zero_position;
 	}
 		if(chassis->A_motor.target_angle>8191)chassis->A_motor.target_angle-=8191;
 		if(chassis->A_motor.target_angle<0)chassis->A_motor.target_angle+=8191;
@@ -177,7 +177,8 @@ float AGV_DirectiveMotor_RobotMotion_To_TargetStatus(float linear_x, float linea
 float chassis_angle;
 void Chassis_Speed_Control(CHASSIS_T *chassis)
 {
-    chassis_angle =AGV_DirectiveMotor_RobotMotion_To_TargetStatus(chassis->command.vx,chassis->command.vx,chassis->parameter.relative_angle);
+//    chassis_angle =AGV_DirectiveMotor_RobotMotion_To_TargetStatus(chassis->command.vx,chassis->command.vx,chassis->parameter.relative_angle);
+
     if(chassis->command.vx == 0 && chassis->command.vy == 0 && chassis->command.vw == 0)    chassis->parameter.break_mode   =   1;
 		else chassis->parameter.break_mode   =   0;
     AGV_Vector_Composition_In_ChassisCoordinate(chassis);

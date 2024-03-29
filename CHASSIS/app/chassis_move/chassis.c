@@ -13,7 +13,7 @@
 #include "gimbal_connection.h"
 #include "kinematic.h"
 #include "math.h"
-
+#include "referee.h"
 
 CHASSIS_T chassis;
 YAW_T   yaw;
@@ -34,7 +34,7 @@ void Chassis_Speed_Slow_Motion(CHASSIS_T *chassis)
 		case Uniform_Acceleration:
 			Delta = Acceleration;
 			
-			if (chassis->command.set_vx != 0)
+			if (chassis->command.set_vx != 0||chassis->command.vx!=0)
 			{
 				if (chassis->command.set_vx > chassis->command.vx)
 				{
@@ -51,7 +51,7 @@ void Chassis_Speed_Slow_Motion(CHASSIS_T *chassis)
 						 chassis->command.vx=chassis->command.set_vx;
 				}
 			}
-						if (chassis->command.set_vy != 0)
+						if (chassis->command.set_vy != 0||chassis->command.vy!=0)
 			{
 				if (chassis->command.set_vy > chassis->command.vy)
 				{
@@ -78,25 +78,32 @@ void Chassis_Speed_Slow_Motion(CHASSIS_T *chassis)
 				
 				float Parameter_C; 
 				
-					Parameter_C = 0.05;
+					Parameter_C = 0.15;
 				
-			
+				
 				Delta = (chassis->command.set_vx - chassis->command.vx)*Parameter_C;
 				
 				 chassis->command.vx+=Delta;
 			}
+			else
+				chassis->command.vx=0;
+			
+				
 			if (chassis->command.set_vy != 0)
 			{
 				
 				float Parameter_C; 
 				
-					Parameter_C = 0.05;
+					Parameter_C = 0.15;
 				
 			
 				Delta = (chassis->command.set_vy - chassis->command.vy)*Parameter_C;
 				
 				 chassis->command.vy+=Delta;
 			}
+			else
+				chassis->command.vy=0;
+			
 
 		break;
 		
@@ -112,6 +119,7 @@ void Chassis_Speed_Slow_Motion(CHASSIS_T *chassis)
 
 void Chassis_Inveter_Judge(void)
 {
+
 		chassis.parameter.invert_flag	=	connection.connection_rx.invert.flag;
 		chassis.parameter.follow_switch	=	connection.connection_rx.follow.flag;
     if(chassis.parameter.invert_flag==INVERT_ON)
@@ -127,6 +135,7 @@ void Chassis_Inveter_Judge(void)
         chassis.command.set_vw = connection.connection_rx.vw/10.0f;
     }
 		Chassis_Speed_Slow_Motion(&chassis);
+		
 }
 
 void Yaw_Angle_Process(YAW_T  *yaw)
@@ -147,6 +156,11 @@ void Gimbal_To_Chassis_Relative_Angle_Update(void)
 				chassis_angle   =   yaw.status.actual_angle;
 				gimbal_angle    =   GIMBAL_HEAD_ANGLE+180.0f*chassis.parameter.invert_flag;
 				chassis.parameter.relative_angle =   chassis_angle-gimbal_angle;
+							if(chassis.parameter.mode	==	CHASSIS_SPIN)
+							{
+							chassis.parameter.relative_angle-=yaw.parameter.yaw_offset;
+							}
+		
 				if(chassis.parameter.relative_angle>180.0f) chassis.parameter.relative_angle-=360.0f;
 				if(chassis.parameter.relative_angle<-180.0f) chassis.parameter.relative_angle+=360.0f;
 				}
@@ -161,9 +175,8 @@ void Gimbal_To_Chassis_Relative_Angle_Update(void)
 static float chassis_fllow(void)
 {
     float gimbal_angle,chassis_angle;
-    chassis_angle   =   yaw.status.actual_angle;
-    gimbal_angle    =   GIMBAL_HEAD_ANGLE+180.0f*chassis.parameter.invert_flag;
-    PID_Calculate(&yaw_pid.angle_loop,chassis_angle,gimbal_angle);
+    
+    PID_Calculate(&yaw_pid.angle_loop,chassis.parameter.relative_angle,0);
     return yaw_pid.angle_loop.Output;
     
 }
@@ -182,7 +195,7 @@ void Chassis_Mode_Command_Update(void)
         case    CHASSIS_NORMAL:
         if(chassis.parameter.follow_switch	==	FOLLOW_ON)
 				{
-				chassis.command.vw =  chassis.command.vw-1.0f*chassis_fllow();
+				chassis.command.vw =  -1.0f*chassis_fllow();
 				}
 				else
 				{
@@ -193,10 +206,33 @@ void Chassis_Mode_Command_Update(void)
         case    CHASSIS_SPIN:
         if(chassis.command.vx==0&&chassis.command.vy==0)
         chassis.command.vw =  3.0f;
-        else chassis.command.vw =  2.0f;
+        else 
+				
+					chassis.command.vw =  2.0f;
+				
+				
         break;
 
     }
+}
+
+void Buffer_Limition_Kf_Update(void)
+{
+	if(JudgeReceive.remainEnergy>50)
+		chassis.parameter.buffer_limition_k	=1.0;
+	else if(JudgeReceive.remainEnergy>40)
+		chassis.parameter.buffer_limition_k	=0.8;
+	else if(JudgeReceive.remainEnergy>35)
+		chassis.parameter.buffer_limition_k	=0.6;
+	else if(JudgeReceive.remainEnergy>30)
+		chassis.parameter.buffer_limition_k	=0.4;
+	else if(JudgeReceive.remainEnergy>20)
+		chassis.parameter.buffer_limition_k	=0.2;
+	else if(JudgeReceive.remainEnergy>10)
+		chassis.parameter.buffer_limition_k	=0.1;
+	else
+		chassis.parameter.buffer_limition_k	=0.0;
+	
 }
 
 void Chassis_Init(void)
@@ -204,8 +240,9 @@ void Chassis_Init(void)
     chassis.parameter.mode =   CHASSIS_NORMAL;
     chassis.parameter.invert_flag =  1;//1:正向，0：反向
     chassis.parameter.break_mode    =   1;
-		chassis.parameter.speed_slow	=	0;
+		chassis.parameter.speed_slow	=	Ease_Out;
     chassis.parameter.relative_angle    =   0.f;
+		chassis.parameter.buffer_limition_k	=1;
 		chassis.A_motor.zero_position = 0x1202;
 		chassis.B_motor.zero_position = 0x174c;
 		chassis.C_motor.zero_position = 0x0ACE;
@@ -219,7 +256,8 @@ void Chassis_Init(void)
 
 void Yaw_Init(void)
 {
-    yaw.motor.parameter.calibrate_state	=	1;
+		 yaw.motor.parameter.calibrate_state	=	1;
+		yaw.parameter.yaw_offset=16.544f;
 		yaw.parameter.number_ratio = 2.0f;
     PID_Init(&yaw_pid.angle_loop,yaw_position_loop_data,NONE);
 }

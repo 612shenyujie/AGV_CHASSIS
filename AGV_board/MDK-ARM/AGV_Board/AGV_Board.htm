@@ -3,7 +3,7 @@
 <title>Static Call Graph - [AGV_Board\AGV_Board.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image AGV_Board\AGV_Board.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Fri Mar 29 00:34:43 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Fri Mar 29 17:15:21 2024
 <BR><P>
 <H3>Maximum Stack Usage =        256 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1438,7 +1438,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Steering_Wheel_StatusUpdate
 </UL>
 
-<P><STRONG><a name="[ef]"></a>Steering_Wheel_MotorCommandUpdate</STRONG> (Thumb, 308 bytes, Stack size 32 bytes, steering_wheel.o(i.Steering_Wheel_MotorCommandUpdate))
+<P><STRONG><a name="[ef]"></a>Steering_Wheel_MotorCommandUpdate</STRONG> (Thumb, 324 bytes, Stack size 32 bytes, steering_wheel.o(i.Steering_Wheel_MotorCommandUpdate))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = Steering_Wheel_MotorCommandUpdate &rArr; PID_Controller &rArr; PI_Controller
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Steering_CheckHandleLegitimacy
@@ -1736,11 +1736,13 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;steering_communication_SET_PID_PARAMETER_handler
 </UL>
 
-<P><STRONG><a name="[117]"></a>steering_communication_SET_VELOCITY_VECTOR_handler</STRONG> (Thumb, 80 bytes, Stack size 40 bytes, steering_communication.o(i.steering_communication_SET_VELOCITY_VECTOR_handler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = steering_communication_SET_VELOCITY_VECTOR_handler
+<P><STRONG><a name="[117]"></a>steering_communication_SET_VELOCITY_VECTOR_handler</STRONG> (Thumb, 96 bytes, Stack size 40 bytes, steering_communication.o(i.steering_communication_SET_VELOCITY_VECTOR_handler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = steering_communication_SET_VELOCITY_VECTOR_handler &rArr; __aeabi_fdiv
 </UL>
 <BR>[Calls]<UL><LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Steering_Wheel_SetProtocolSpeed
 <LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Steering_Wheel_SetProtocolPosition
+<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2f
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fdiv
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
 <BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;steering_communication_rx_handler
@@ -1800,7 +1802,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;steering_communication_rx_handler
 </UL>
 
-<P><STRONG><a name="[83]"></a>steering_communication_rx_handler</STRONG> (Thumb, 486 bytes, Stack size 48 bytes, steering_communication.o(i.steering_communication_rx_handler))
+<P><STRONG><a name="[83]"></a>steering_communication_rx_handler</STRONG> (Thumb, 490 bytes, Stack size 48 bytes, steering_communication.o(i.steering_communication_rx_handler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = steering_communication_rx_handler &rArr; steering_communication_GET_PID_PARAMETER_handler &rArr; steering_communication_GET_PID_PARAMETER_term_handler
 </UL>
 <BR>[Calls]<UL><LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Steering_FindSteeringHandle_via_CANID
@@ -1921,6 +1923,7 @@ Global Symbols
 <LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;M3508_gear_feedback_process
 <LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;M3508_from_lsb_to_position_rad
 <LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;M3508_from_lsb_to_position_deg
+<LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;steering_communication_SET_VELOCITY_VECTOR_handler
 </UL>
 
 <P><STRONG><a name="[12c]"></a>_fdiv</STRONG> (Thumb, 384 bytes, Stack size 16 bytes, fdiv.o(x$fpl$fdiv), UNUSED)
@@ -1964,6 +1967,7 @@ Global Symbols
 <P><STRONG><a name="[c4]"></a>__aeabi_ui2f</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, fflt_clz.o(x$fpl$ffltu))
 <BR><BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;M3508_from_lsb_to_position_rad
 <LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;M3508_from_lsb_to_position_deg
+<LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;steering_communication_SET_VELOCITY_VECTOR_handler
 </UL>
 
 <P><STRONG><a name="[16b]"></a>_ffltu</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, fflt_clz.o(x$fpl$ffltu), UNUSED)

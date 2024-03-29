@@ -1,4 +1,5 @@
 #include "remote_control.h"
+#include "task_schedule.h"
 #include "stdarg.h"
 #include "math.h"
 #include "gimbal.h"
@@ -231,7 +232,8 @@ static void sbus_to_rc(volatile const uint8_t *sbus_buf, RC_CONTROL_T *rc_ctrl)
 		rc_ctrl->key_board.key_code = sbus_buf[14] | (sbus_buf[15] << 8); 
 	}	
 	
-		rc_ctrl->receive_time++;
+		rc_ctrl->receive_s_time=gimbal_time.s_count;
+		rc_ctrl->receive_ms_time=gimbal_time.ms_count;
 	
 }
 

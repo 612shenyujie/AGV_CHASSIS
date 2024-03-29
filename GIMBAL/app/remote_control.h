@@ -115,8 +115,8 @@ typedef __packed struct
     } button;
   } key_board;
 		
-	uint32_t receive_time;
-	uint32_t last_receive_time;
+	uint32_t receive_ms_time;
+	uint32_t receive_s_time;
 
 } RC_CONTROL_T;
 
