@@ -36,7 +36,7 @@ void Chassis_Task()
 {
     if(htim->Instance==TIM3)
     {
-    AGV_connoection(time.ms_count);    
+//    AGV_connoection(time.ms_count);    
     if(time.ms_count%5==0)
      {
        Chassis_Move();			

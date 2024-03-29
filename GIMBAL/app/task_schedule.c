@@ -92,8 +92,9 @@ void task_schedule()
 			//执行拨弹轮任务
 			Trigger_Task();
 			//发送数据
-			Vision_Send_Task();
-			__HAL_TIM_SetCompare(&htim8, TIM_CHANNEL_1, pwmVal); 
+				if(gimbal_time.ms_count%5==0)
+		Vision_Send_Task();
+//			__HAL_TIM_SetCompare(&htim8, TIM_CHANNEL_1, pwmVal); 
 			break;
 		//默认状态
 		default :

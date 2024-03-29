@@ -208,7 +208,7 @@ void Chassis_Mode_Command_Update(void)
         chassis.command.vw =  3.0f;
         else 
 				
-					chassis.command.vw =  2.0f;
+					chassis.command.vw =  1.0f;
 				
 				
         break;
@@ -257,7 +257,7 @@ void Chassis_Init(void)
 void Yaw_Init(void)
 {
 		 yaw.motor.parameter.calibrate_state	=	1;
-		yaw.parameter.yaw_offset=16.544f;
+		yaw.parameter.yaw_offset=0.f;
 		yaw.parameter.number_ratio = 2.0f;
     PID_Init(&yaw_pid.angle_loop,yaw_position_loop_data,NONE);
 }
