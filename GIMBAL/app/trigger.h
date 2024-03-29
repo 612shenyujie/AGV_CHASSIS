@@ -29,6 +29,7 @@ typedef struct
 	TRIGGER_STATAE_E state;
 	uint16_t shoot_num;
 	uint16_t last_shoot_num;
+	bool online_state;
 }TRIGGER_PAPAMETER_T;
 
 typedef struct

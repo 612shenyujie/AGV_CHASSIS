@@ -56,6 +56,8 @@ typedef struct
    uint16_t ID;
    float   reduction_rate;
    float   torque_coefficient;
+	 uint32_t receive_ms_time;
+	 uint32_t receive_s_time;
 }M3508_PARAMETER_T;
 
 
@@ -123,6 +125,8 @@ typedef struct
     uint16_t ID;
     float torque_coefficient;
     GM6020_CALIBRATE_E  calibrate_state;
+	  uint32_t receive_ms_time;
+	  uint32_t receive_s_time;
 
 }GM_6020_PARAMETER_T;
 

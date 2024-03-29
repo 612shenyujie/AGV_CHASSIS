@@ -363,12 +363,15 @@ void Gimbal_Task(void)
         gimbal.parameter.mode =GIMBAL_MODE_CALI;
         Gimbal_Motor_Mode_Update();
         gimbal.parameter.calibration_state =    CALIBRATING;
+				buzzer_setTask(&buzzer, BUZZER_CALIBRATING_PRIORITY);
+		
         break;
     case CALIBRATING :
         delay_time.gimbal_cali_cnt--;
         Gimbal_Cali_Task();
 				if(delay_time.gimbal_cali_cnt==100)
         chassis.send.mode	=	CHASSIS_MODE_ABSOLUTE;
+				
         break;
     case CALIBRATED :
         
@@ -378,6 +381,7 @@ void Gimbal_Task(void)
 				
         gimbal.pitch.motor.parameter.calibrate_state    =   MOTOR_CALIBRATED;
         gimbal.yaw.motor.parameter.calibrate_state    =   MOTOR_CALIBRATED;
+				buzzer_setTask(&buzzer, BUZZER_CALIBRATED_PRIORITY);
         break;
     case NORMAL :
 		if(gimbal.parameter.mode != GIMBAL_MODE_NO_FORCE)

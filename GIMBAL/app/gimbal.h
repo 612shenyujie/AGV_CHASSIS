@@ -45,7 +45,7 @@ typedef  struct
 {
 	GIMBAL_MOTOR_MODE_T mode;
 	float number_ratio;
-
+  bool online_state;
 }YAW_PARAMETER_T,PITCH_PARAMETER_T;
 
 typedef  struct 

@@ -13,6 +13,7 @@
 #include "remote_control.h"
 #include "gimbal.h"
 #include "trigger.h"
+#include "task_schedule.h"
 CHASSIS_T chassis;
 
 //底盘通信数据初始化
@@ -108,15 +109,21 @@ void CAN1_Call_Back(struct Struct_CAN_Rx_Buffer *rx)
     {
         case 0x202:
         M3508_Feedback_Update(&fric.left_motor.motor,rx->Data);
+				fric.left_motor.motor.parameter.receive_ms_time=gimbal_time.ms_count;
+				fric.left_motor.motor.parameter.receive_s_time=gimbal_time.s_count;
         break;
 
         case 0x201:
         M3508_Feedback_Update(&fric.right_motor.motor,rx->Data);
+				fric.right_motor.motor.parameter.receive_ms_time=gimbal_time.ms_count;
+				fric.right_motor.motor.parameter.receive_s_time=gimbal_time.s_count;
         break;
 
         case 0x205:
        
         GM6020_Feedback_Update(&gimbal.pitch.motor,rx->Data);
+				gimbal.pitch.motor.parameter.receive_ms_time=gimbal_time.ms_count;
+				gimbal.pitch.motor.parameter.receive_s_time=gimbal_time.s_count;
         break;
     }
      switch(rx->Header.ExtId)
@@ -131,11 +138,15 @@ void CAN2_Call_Back(struct Struct_CAN_Rx_Buffer *rx)
     {
         case 0x206:
         GM6020_Feedback_Update(&gimbal.yaw.motor,rx->Data);
+				gimbal.yaw.motor.parameter.receive_ms_time=gimbal_time.ms_count;
+				gimbal.yaw.motor.parameter.receive_s_time=gimbal_time.s_count;
 				
         break;
 
         case 0x201:
         M3508_Feedback_Update(&trigger.motor,rx->Data);
+				trigger.motor.parameter.receive_ms_time=gimbal_time.ms_count;
+				trigger.motor.parameter.receive_s_time=gimbal_time.s_count;
         break;
 
         case 0x151:
