@@ -13,6 +13,9 @@ agv_board\steering_communication.o: ..\APP\briter_encoder.h
 agv_board\steering_communication.o: ../BSP/briter_encoder_bsp.h
 agv_board\steering_communication.o: ..\APP\chassis_power_control.h
 agv_board\steering_communication.o: ../task/SW_control_task.h
+agv_board\steering_communication.o: ../APP/buzzer.h
+agv_board\steering_communication.o: ../BSP/buzzer_bsp.h
+agv_board\steering_communication.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 agv_board\steering_communication.o: ../Core/Inc/can.h
 agv_board\steering_communication.o: ../Core/Inc/main.h
 agv_board\steering_communication.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h

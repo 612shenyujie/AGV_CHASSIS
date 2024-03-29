@@ -51,6 +51,8 @@ void TASK_SCHEDULER(void)
 //	uint32_t tick = HAL_GetTick();
 	SW_control_task();
 	//SW_subscribe_task();
+	buzzer_taskScheduler(&buzzer);
+	
 }
 
 

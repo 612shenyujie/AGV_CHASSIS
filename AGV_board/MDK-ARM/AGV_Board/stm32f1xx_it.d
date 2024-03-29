@@ -43,3 +43,6 @@ agv_board\stm32f1xx_it.o: ../APP/briter_encoder.h
 agv_board\stm32f1xx_it.o: ../BSP/briter_encoder_bsp.h
 agv_board\stm32f1xx_it.o: ../APP/steering_communication.h
 agv_board\stm32f1xx_it.o: ../BSP/steering_communication_bsp.h
+agv_board\stm32f1xx_it.o: ../APP/buzzer.h
+agv_board\stm32f1xx_it.o: ../BSP/buzzer_bsp.h
+agv_board\stm32f1xx_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

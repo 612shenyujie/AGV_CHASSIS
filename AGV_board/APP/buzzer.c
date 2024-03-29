@@ -1,10 +1,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include "buzzer.h"
 
-#if defined(STM32F105)
+#if defined(ROBOMASTER_DEVELOPMENT_BOARD_TYPE_C) | defined(MOSASAURUS_ELITE_BOARD) | defined(MOSASAURUS_STEERING_CONTROL_BOARD)
 	#include "tim.h"
-#elif defined(STM32F407)
-	#include "tim.h"
+#elif blablabla
+	
 #endif
 
 buzzer_t buzzer;
@@ -97,12 +97,26 @@ BUZZER_RETURN_T buzzer_taskScheduler(buzzer_t *buzzer)
 BUZZER_RETURN_T buzzer_init_example(void)
 {
 	buzzer_parameter_t buzzer_init_param;
-	#if defined(STM32F407)
+	#if defined(ROBOMASTER_DEVELOPMENT_BOARD_TYPE_C)
 		buzzer_init_param.ctx.peripheral_handle	= &htim4;
 		buzzer_init_param.ctx.channel			= TIM_CHANNEL_3;
 		buzzer_init_param.clkFreq	= 84000000;
 		buzzer_init_param.psc		= htim4.Instance->PSC;
 		buzzer_init_param.arr		= htim4.Instance->ARR;
+		buzzer_handleInit(&buzzer, buzzer_init_param);
+	#elif defined (MOSASAURUS_ELITE_BOARD)
+		buzzer_init_param.ctx.peripheral_handle	= &htim3;
+		buzzer_init_param.ctx.channel			= TIM_CHANNEL_4;
+		buzzer_init_param.clkFreq	= 36000000;
+		buzzer_init_param.psc		= htim3.Instance->PSC;
+		buzzer_init_param.arr		= htim3.Instance->ARR;
+		buzzer_handleInit(&buzzer, buzzer_init_param);
+	#elif defined(MOSASAURUS_STEERING_CONTROL_BOARD)
+		buzzer_init_param.ctx.peripheral_handle	= &htim1;
+		buzzer_init_param.ctx.channel			= TIM_CHANNEL_3;
+		buzzer_init_param.clkFreq	= 36000000;
+		buzzer_init_param.psc		= htim1.Instance->PSC;
+		buzzer_init_param.arr		= htim1.Instance->ARR;
 		buzzer_handleInit(&buzzer, buzzer_init_param);
 	#endif
 }
@@ -196,7 +210,7 @@ BUZZER_RETURN_T buzzer_playTone(buzzer_t *buzzer, BUZZER_BSP_TONE_TO_POW_LUT_H t
 	// 计算频率
 	freq = TONE_A4_FREQUENCY*pow(SEMITONE_COEFFICIENT, tone);
 	// 设置arr
-	buzzer->parameter.arr	= buzzer->parameter.clkFreq / buzzer->parameter.psc / freq;
+	buzzer->parameter.arr = buzzer->parameter.clkFreq / buzzer->parameter.psc / freq;
 	return ret = buzzerBsp_setTimer(&buzzer->parameter.ctx, buzzer->parameter.arr);
 }
 
@@ -219,11 +233,12 @@ BUZZER_RETURN_T buzzer_getTick(buzzer_t *buzzer, uint32_t* tick)
 static uint8_t platform_setFreq(void* peripheral_handle,uint32_t channel, uint16_t value)
 {
 	uint32_t ret;
-	#if defined(STM32F407)
+	#if defined(MOSASAURUS_ELITE_BOARD) | defined(ROBOMASTER_DEVELOPMENT_BOARD_TYPE_C) | defined(MOSASAURUS_STEERING_CONTROL_BOARD)
 		// 为了符合 HAL 库的函数，要给外设句柄和 Channel 号套一层壳再赋值
 		TIM_HandleTypeDef* peripheral_handleShell = peripheral_handle;
+		if (value<0 || value>65535) return BUZZER_WRONG_PARAM; // 适用于 16 bit ARR 寄存器的保护机制
 		peripheral_handleShell->Instance->ARR = value;
-		__HAL_TIM_SetCompare(peripheral_handleShell, channel, value/3*2);
+		ret = __HAL_TIM_SetCompare(peripheral_handleShell, channel, value/3*2);
 	#endif
 	return ret;
 }
@@ -231,7 +246,7 @@ static uint8_t platform_setFreq(void* peripheral_handle,uint32_t channel, uint16
 static uint8_t platform_setSwitch(void* peripheral_handle, uint32_t channel, BUZZER_BSP_SWITCH_T state)
 {
 	uint32_t ret;
-	#if defined(STM32F407)
+	#if defined(MOSASAURUS_ELITE_BOARD) | defined(ROBOMASTER_DEVELOPMENT_BOARD_TYPE_C) | defined (MOSASAURUS_STEERING_CONTROL_BOARD)
 		// 为了符合 HAL 库的函数，要给外设句柄和 Channel 号套一层壳再赋值
 		TIM_HandleTypeDef* peripheral_handleShell = peripheral_handle;
 		switch(state)
@@ -258,11 +273,9 @@ static uint8_t platform_setSwitch(void* peripheral_handle, uint32_t channel, BUZ
  */
 static uint8_t platform_getMsTick(uint32_t* tick)
 {
-	#if defined(STM32F105) | defined(STM32F407)
+	#if defined(MOSASAURUS_ELITE_BOARD) | defined(ROBOMASTER_DEVELOPMENT_BOARD_TYPE_C) | defined (MOSASAURUS_STEERING_CONTROL_BOARD)
 		*tick = HAL_GetTick();
-	#endif
-
-	#if defined (GD32F303)
+	#elif blablabla
 
 	#endif
 }
