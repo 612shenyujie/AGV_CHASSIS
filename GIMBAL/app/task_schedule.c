@@ -21,6 +21,9 @@ void Init_Task(void)
 		Trigger_Init();
 		//初始化底盘通信
 		Chassis_Connection_Init();
+	  buzzer_init_example();
+		buzzer_setTask(&buzzer, BUZZER_DJI_STARTUP_PRIORITY);
+	 
 }
 
 void Error_State_Judge(void)
@@ -39,10 +42,54 @@ void Error_State_Judge(void)
 			memset(&RC.rc_receive.mouse,0,sizeof(RC.rc_receive.mouse));
 			gimbal.parameter.mode=GIMBAL_MODE_NO_FORCE;
 			chassis.send.mode	=	CHASSIS_MODE_NOFORCE;
+			buzzer_setTask(&buzzer, BUZZER_DEVICE_OFFLINE_PRIORITY);
 		}
 	}
-	
-
+	if(gimbal_time.ms_count%16==1)
+	{
+		
+		//如果上一次接收时间小于当前接收时间，则蜂鸣器离线音响起
+		if(fric.left_motor.motor.parameter.receive_ms_time+fric.left_motor.motor.parameter.receive_s_time*1000-gimbal_time.ms_count-gimbal_time.s_count*1000<-1000)
+		{
+			buzzer_setTask(&buzzer, BUZZER_DEVICE_OFFLINE_PRIORITY);
+		}
+	}
+	if(gimbal_time.ms_count%16==2)
+	{
+		
+		//如果上一次接收时间小于当前接收时间，则蜂鸣器离线音响起
+		if(fric.right_motor.motor.parameter.receive_ms_time+fric.right_motor.motor.parameter.receive_s_time*1000-gimbal_time.ms_count-gimbal_time.s_count*1000<-1000)
+		{
+			buzzer_setTask(&buzzer, BUZZER_DEVICE_OFFLINE_PRIORITY);
+		}
+	}
+	if(gimbal_time.ms_count%16==3)
+	{
+		
+		//如果上一次接收时间小于当前接收时间，则蜂鸣器离线音响起
+		if(trigger.motor.parameter.receive_ms_time+trigger.motor.parameter.receive_s_time*1000-gimbal_time.ms_count-gimbal_time.s_count*1000<-1000)
+		{
+			buzzer_setTask(&buzzer, BUZZER_DEVICE_OFFLINE_PRIORITY);
+		}
+	}
+  if(gimbal_time.ms_count%16==4)
+	{
+		
+		//如果上一次接收时间小于当前接收时间，则蜂鸣器离线音响起
+		if(gimbal.pitch.motor.parameter.receive_ms_time+gimbal.pitch.motor.parameter.receive_s_time*1000-gimbal_time.ms_count-gimbal_time.s_count*1000<-1000)
+		{
+			buzzer_setTask(&buzzer, BUZZER_DEVICE_OFFLINE_PRIORITY);
+		}
+	}
+	if(gimbal_time.ms_count%16==5)
+	{
+		
+		//如果上一次接收时间小于当前接收时间，则蜂鸣器离线音响起
+		if(gimbal.yaw.motor.parameter.receive_ms_time+gimbal.yaw.motor.parameter.receive_s_time*1000-gimbal_time.ms_count-gimbal_time.s_count*1000<-1000)
+		{
+			buzzer_setTask(&buzzer, BUZZER_DEVICE_OFFLINE_PRIORITY);
+		}
+	}
 }
 
 void Time_Count_Task(void)
@@ -93,14 +140,18 @@ void task_schedule()
 			Trigger_Task();
 			//发送数据
 				if(gimbal_time.ms_count%5==0)
-		Vision_Send_Task();
-//			__HAL_TIM_SetCompare(&htim8, TIM_CHANNEL_1, pwmVal); 
+				Vision_Send_Task();
+			
+			
 			break;
 		//默认状态
 		default :
 			
 			break;
+		 
+				
 	}
+	buzzer_taskScheduler(&buzzer);
 	//执行时间计数任务
 	Time_Count_Task();
 	//执行延迟计数任务

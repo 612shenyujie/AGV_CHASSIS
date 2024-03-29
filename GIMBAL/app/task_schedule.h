@@ -19,6 +19,7 @@
 #include "can_connection.h"
 #include "trigger.h"
 #include "usbd_cdc_if.h"
+#include "buzzer.h"
 
 
 #define task_schedule()    HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)

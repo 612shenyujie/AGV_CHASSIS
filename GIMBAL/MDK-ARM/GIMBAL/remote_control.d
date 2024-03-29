@@ -64,6 +64,8 @@ gimbal\remote_control.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 gimbal\remote_control.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h
 gimbal\remote_control.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
 gimbal\remote_control.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h
-gimbal\remote_control.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+gimbal\remote_control.o: ..\app\buzzer.h
+gimbal\remote_control.o: ../bsp/buzzer_bsp.h
 gimbal\remote_control.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+gimbal\remote_control.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
 gimbal\remote_control.o: ..\app\vision.h

@@ -64,5 +64,7 @@ gimbal\gimbal.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 gimbal\gimbal.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h
 gimbal\gimbal.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
 gimbal\gimbal.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h
-gimbal\gimbal.o: ..\app\vision.h
+gimbal\gimbal.o: ..\app\buzzer.h
+gimbal\gimbal.o: ../bsp/buzzer_bsp.h
 gimbal\gimbal.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+gimbal\gimbal.o: ..\app\vision.h

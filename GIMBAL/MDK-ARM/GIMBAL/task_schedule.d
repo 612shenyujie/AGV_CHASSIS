@@ -64,3 +64,6 @@ gimbal\task_schedule.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 gimbal\task_schedule.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h
 gimbal\task_schedule.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
 gimbal\task_schedule.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h
+gimbal\task_schedule.o: ..\app\buzzer.h
+gimbal\task_schedule.o: ../bsp/buzzer_bsp.h
+gimbal\task_schedule.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
