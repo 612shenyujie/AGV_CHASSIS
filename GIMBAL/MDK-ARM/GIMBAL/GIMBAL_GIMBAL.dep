@@ -368,7 +368,7 @@ I (../bsp/drv_can.h)(0x6606BBCC)
 I (../app/remote_control.h)(0x6606BBCC)
 I (../app/gimbal.h)(0x6606D8AB)
 I (../app/can_connection.h)(0x6606BBCC)
-I (../app/trigger.h)(0x6606D8AB)
+I (../app/trigger.h)(0x66072C11)
 I (../USB_DEVICE/App/usbd_cdc_if.h)(0x6606BBCC)
 I (../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h)(0x65E2F25F)
 I (../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h)(0x65E2F25F)
@@ -1702,7 +1702,7 @@ I (../Core/Inc/dma.h)(0x6606BBCB)
 I (../Core/Inc/main.h)(0x6606BBCB)
 I (../Core/Inc/usart.h)(0x6606BBCB)
 I (..\app\gimbal.h)(0x6606D8AB)
-I (..\app\trigger.h)(0x6606D8AB)
+I (..\app\trigger.h)(0x66072C11)
 I (..\app\task_schedule.h)(0x6606CA44)
 I (../Core/Inc/tim.h)(0x6606BBCB)
 I (../IMU/bsp_imu.h)(0x6606BBCC)
@@ -1821,7 +1821,7 @@ I (../bsp/drv_can.h)(0x6606BBCC)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x57F606B8)
 I (..\app\can_connection.h)(0x6606BBCC)
-I (..\app\trigger.h)(0x6606D8AB)
+I (..\app\trigger.h)(0x66072C11)
 I (../USB_DEVICE/App/usbd_cdc_if.h)(0x6606BBCC)
 I (../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h)(0x65E2F25F)
 I (../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h)(0x65E2F25F)
@@ -1889,7 +1889,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x57F606B8)
 I (..\app\gimbal.h)(0x6606D8AB)
 I (..\app\can_connection.h)(0x6606BBCC)
-I (..\app\trigger.h)(0x6606D8AB)
+I (..\app\trigger.h)(0x66072C11)
 I (../USB_DEVICE/App/usbd_cdc_if.h)(0x6606BBCC)
 I (../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h)(0x65E2F25F)
 I (../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h)(0x65E2F25F)
@@ -1958,7 +1958,7 @@ I (../Core/Inc/dma.h)(0x6606BBCB)
 I (../Core/Inc/usart.h)(0x6606BBCB)
 I (..\app\gimbal.h)(0x6606D8AB)
 I (..\app\can_connection.h)(0x6606BBCC)
-I (..\app\trigger.h)(0x6606D8AB)
+I (..\app\trigger.h)(0x66072C11)
 I (../USB_DEVICE/App/usbd_cdc_if.h)(0x6606BBCC)
 I (../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h)(0x65E2F25F)
 I (../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h)(0x65E2F25F)
@@ -1973,8 +1973,8 @@ I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x57F606B6)
 F (..\app\vision.c)(0x6606BBCC)(--c99 -c --cpu Cortex-M4.fp.sp -g -W -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../IMU -I ../PID -I ../app -I ../bsp -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc-I.\RTE\_GIMBAL-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o gimbal\vision.o --omf_browse gimbal\vision.crf --depend gimbal\vision.d)
 I (..\app\vision.h)(0x6606BBCC)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
-F (..\app\trigger.c)(0x6606BBCC)(--c99 -c --cpu Cortex-M4.fp.sp -g -W -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../IMU -I ../PID -I ../app -I ../bsp -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc-I.\RTE\_GIMBAL-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o gimbal\trigger.o --omf_browse gimbal\trigger.crf --depend gimbal\trigger.d)
-I (..\app\trigger.h)(0x6606D8AB)
+F (..\app\trigger.c)(0x66072E4B)(--c99 -c --cpu Cortex-M4.fp.sp -g -W -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../IMU -I ../PID -I ../app -I ../bsp -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc-I.\RTE\_GIMBAL-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx-o gimbal\trigger.o --omf_browse gimbal\trigger.crf --depend gimbal\trigger.d)
+I (..\app\trigger.h)(0x66072C11)
 I (../bsp/motor.h)(0x6606D60B)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)

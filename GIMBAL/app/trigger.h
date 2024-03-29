@@ -20,6 +20,7 @@ typedef struct
 {
 	float target_position;
 	float target_total_position;
+	float actual_target_position;
 	int16_t rounds;
 	float target_speed;
 }TRIGGER_COMMAND_T;
