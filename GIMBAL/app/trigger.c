@@ -3,7 +3,7 @@
 TRIGGER_T trigger;
 
 float Trigger_Angle_Loop_Data[PID_DATA_LEN]
-={10.0f,0.01f,250.0f,15.0f,5.0f,0.1f,1.0f,0.1f,0.6f,0.0f};
+={10.0f,0.01f,250.0f,30.0f,5.0f,0.1f,1.0f,0.1f,0.6f,0.0f};
 
 float Trigger_Speed_Loop_Data[PID_DATA_LEN]
 ={0.65f,0.03f,0.0f,20.0f,1.0f,0.0f,1.0f,0.5f,0.0f,0.0f};
@@ -32,11 +32,16 @@ void Trigger_Status_Update(void)
 //拨弹轮指令更新
 void Trigger_Command_Update(void)
 {
+	int Delta;
 	trigger.command.target_total_position	=	trigger.parameter.shoot_num*(60.0f);
 	while(trigger.command.target_position	-	trigger.command.rounds*360.0f>360.0f)	trigger.command.rounds++;
 	while(trigger.command.target_position	-	trigger.command.rounds*360.0f<-360.0f)	trigger.command.rounds--;
 	trigger.command.target_position	=	trigger.command.target_total_position	-	trigger.command.rounds*360.0f	;
-	PID_Calculate(&trigger.pid.angle_loop,trigger.status.total_angle,-trigger.command.target_total_position);
+	if(trigger.command.actual_target_position-trigger.command.target_total_position!=0)
+	  {
+	    trigger.command.actual_target_position +=1;
+	  }
+	PID_Calculate(&trigger.pid.angle_loop,trigger.status.total_angle,-trigger.command.actual_target_position);
 	trigger.command.target_speed	=	trigger.pid.angle_loop.Output;
 //		trigger.command.target_speed	=	-10;
 	PID_Calculate(&trigger.pid.speed_loop,trigger.status.actual_speed,trigger.command.target_speed);

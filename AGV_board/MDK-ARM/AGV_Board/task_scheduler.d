@@ -42,4 +42,6 @@ agv_board\task_scheduler.o: ../APP/briter_encoder.h
 agv_board\task_scheduler.o: ../BSP/briter_encoder_bsp.h
 agv_board\task_scheduler.o: ../APP/steering_communication.h
 agv_board\task_scheduler.o: ../BSP/steering_communication_bsp.h
+agv_board\task_scheduler.o: ../APP/buzzer.h
+agv_board\task_scheduler.o: ../BSP/buzzer_bsp.h
 agv_board\task_scheduler.o: ../APP/chassis_power_control.h

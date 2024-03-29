@@ -13,6 +13,9 @@ agv_board\can_bsp.o: ../APP/pid_regulator.h
 agv_board\can_bsp.o: ../BSP/steering_wheel_bsp.h
 agv_board\can_bsp.o: ../APP/steering_communication.h
 agv_board\can_bsp.o: ../BSP/steering_communication_bsp.h
+agv_board\can_bsp.o: ../APP/buzzer.h
+agv_board\can_bsp.o: ../BSP/buzzer_bsp.h
+agv_board\can_bsp.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 agv_board\can_bsp.o: ../Core/Inc/can.h
 agv_board\can_bsp.o: ../Core/Inc/main.h
 agv_board\can_bsp.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h

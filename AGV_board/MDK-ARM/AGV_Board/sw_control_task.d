@@ -12,4 +12,7 @@ agv_board\sw_control_task.o: ../APP/briter_encoder.h
 agv_board\sw_control_task.o: ../BSP/briter_encoder_bsp.h
 agv_board\sw_control_task.o: ../APP/steering_communication.h
 agv_board\sw_control_task.o: ../BSP/steering_communication_bsp.h
+agv_board\sw_control_task.o: ../APP/buzzer.h
+agv_board\sw_control_task.o: ../BSP/buzzer_bsp.h
+agv_board\sw_control_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 agv_board\sw_control_task.o: ../APP/chassis_power_control.h

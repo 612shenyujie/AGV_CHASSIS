@@ -46,3 +46,6 @@ agv_board\main.o: ../APP/pid_regulator.h
 agv_board\main.o: ../BSP/steering_wheel_bsp.h
 agv_board\main.o: ../APP/steering_communication.h
 agv_board\main.o: ../BSP/steering_communication_bsp.h
+agv_board\main.o: ../APP/buzzer.h
+agv_board\main.o: ../BSP/buzzer_bsp.h
+agv_board\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

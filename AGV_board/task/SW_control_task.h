@@ -11,6 +11,7 @@ extern "C" {
 
 #include "steering_wheel.h"
 #include "steering_communication.h"
+#include "buzzer.h"
 typedef struct
 	{
 		float target_current;

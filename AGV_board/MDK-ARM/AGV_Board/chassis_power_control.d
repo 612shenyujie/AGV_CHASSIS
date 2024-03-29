@@ -13,3 +13,6 @@ agv_board\chassis_power_control.o: ../APP/briter_encoder.h
 agv_board\chassis_power_control.o: ../BSP/briter_encoder_bsp.h
 agv_board\chassis_power_control.o: ../APP/steering_communication.h
 agv_board\chassis_power_control.o: ../BSP/steering_communication_bsp.h
+agv_board\chassis_power_control.o: ../APP/buzzer.h
+agv_board\chassis_power_control.o: ../BSP/buzzer_bsp.h
+agv_board\chassis_power_control.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
