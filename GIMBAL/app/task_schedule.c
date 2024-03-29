@@ -141,7 +141,7 @@ void task_schedule()
 			//发送数据
 				if(gimbal_time.ms_count%5==0)
 				Vision_Send_Task();
-			
+				
 			
 			break;
 		//默认状态
@@ -157,7 +157,8 @@ void task_schedule()
 	//执行延迟计数任务
 	Delay_Cnt_Task();	
 	//判断错误状态
-	Error_State_Judge();
+	if(gimbal.parameter.calibration_state==NORMAL)
+			Error_State_Judge();
 	//发送数据
 	Can_Send_Task(gimbal_time.ms_count);
 	//计数器加1

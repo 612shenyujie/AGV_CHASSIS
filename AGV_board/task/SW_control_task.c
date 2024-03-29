@@ -25,7 +25,7 @@ void SW_control_task(void)
 		else
 		{
 		steering_wheel.motion_part.motor.M3508_kit.command.torque=0;
-			steering_wheel.directive_part.motor.M3508_kit.command.torque=0;
+		steering_wheel.directive_part.motor.M3508_kit.command.torque=0;
 		Steering_Wheel_CommandTransmit(&steering_wheel);
 		}
         

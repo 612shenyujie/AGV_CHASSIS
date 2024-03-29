@@ -247,6 +247,10 @@ void Chassis_Init(void)
 		chassis.B_motor.zero_position = 0x174c;
 		chassis.C_motor.zero_position = 0x0ACE;
 		chassis.D_motor.zero_position = 0x19CB;
+		chassis.A_motor.active_status=1;
+		chassis.B_motor.active_status=1;
+		chassis.C_motor.active_status=1;
+		chassis.D_motor.active_status=1;
 		chassis.A_motor.ID	=	0x1a;
 		chassis.B_motor.ID	=	0x1b;
 		chassis.C_motor.ID	=	0x1c;

@@ -91,6 +91,7 @@ STEERING_WHEEL_RETURN_T Steering_Wheel_HandleInit(steering_wheel_t *steering_whe
 	
 	// 初始化PID结构体
 	Steering_Wheel_PID_HandleInit(steering_wheel);
+	steering_wheel->parameter.buffer_limition_k=1.0f;
 	#if defined(DIRECTIVE_MOTOR_M3508) | defined(MOTION_MOTOR_M3508)
 		// 转向电机及其齿轮初始化
 		M3508_gear_parameter_t direction_motor_gear_init;

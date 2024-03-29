@@ -451,6 +451,8 @@ void Fric_Wheel_Mode_Update(void)
 	switch (RC.mode)
 	{
 	case HANDLE_CONTROL :
+		if(gimbal.parameter.mode!= GIMBAL_MODE_NO_FORCE)
+		{
 		        if(switch_is_mid(SW_L)&&switch_is_up(SW_R))
 				{
 					if(delay_time.fric_mode_cnt==0&&fric.parameter.mode!=FRIC_STOP)
@@ -466,6 +468,7 @@ void Fric_Wheel_Mode_Update(void)
 						delay_time.fric_mode_cnt=400;
 					}
 				}
+			}
 				
 		break;
 	case KEYBOARD_CONTROL :

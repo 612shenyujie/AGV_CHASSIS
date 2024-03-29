@@ -289,8 +289,10 @@ void Gimbal_Motor_Mode_Update(void)
 
 void Gimbal_Cali_Task(void)
 {
-         gimbal.pitch.command.target_angle = 0.0f;
-		gimbal.pitch.motor.command.grivity_voltage_lsb=Pitch_Gravity_Compensation();
+        if(fabs(gimbal.pitch.status.actual_angle -gimbal.pitch.command.target_angle)>0.5)
+					delay_time.gimbal_cali_cnt++;
+				gimbal.pitch.command.target_angle = 0.0f;
+				gimbal.pitch.motor.command.grivity_voltage_lsb=Pitch_Gravity_Compensation();
         //计算出输出角度
         PID_Calculate(&gimbal.pitch.pid.imu_angle_loop,gimbal.pitch.status.actual_angle,gimbal.pitch.command.target_angle);
         //设置目标速度
