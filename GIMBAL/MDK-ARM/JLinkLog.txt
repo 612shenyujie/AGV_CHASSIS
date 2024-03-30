@@ -5201,3 +5201,14 @@ T19F4 068:071.322 JLINK_ReadMem(0x0000000A, 0x2 Bytes, ...)
 T19F4 068:071.326   CPU_ReadMem(2 bytes @ 0x0800000A)
 T19F4 068:072.046   failed
 T19F4 068:072.051 - 0.729ms returns 1
+T019C 7990:607.606   
+  ***** Error: Connection to emulator lost!
+T019C 8020:883.949   
+  ***** Error: Connection to emulator lost!
+T019C 8226:728.869   
+  ***** Error: Connection to emulator lost!
+T19F4 26116:976.370 JLINK_HasError()
+T19F4 26116:986.685 JLINK_Close()
+T19F4 26117:002.961 - 16.275ms
+T19F4 26117:002.972   
+T19F4 26117:002.975   Closed
