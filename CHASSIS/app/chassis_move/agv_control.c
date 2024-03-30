@@ -17,51 +17,89 @@ void AGV_connoection(int ms_cnt)
 {
 	 if( ms_cnt%12==0)
     {
-        if (chassis.parameter.mode != CHASSIS_REMOTE_CLOSE)
-        {          
-							  Set_AGV_Velocity_Vector_Data_Update(AGV_A_Tx_Data, chassis.A_motor.target_angle, chassis.A_motor.target_speed.output, chassis_power_control.scaled_power_32[0]);            
-        }
-        else
+        
+        if(chassis.parameter.mode != CHASSIS_REMOTE_CLOSE&&!chassis.A_motor.active_status)
         {
-								Set_AGV_Velocity_Vector_Data_Update(AGV_A_Tx_Data, chassis.A_motor.target_angle, 0, chassis_power_control.scaled_power_32[0]);   
+								memset(AGV_A_Tx_Data,0,8);
+								chassis.A_motor.active_status=1;
+								CAN_Send_EXT_Data(&hcan2,EXT_ID_Set(chassis.A_motor.ID,0,0x01),AGV_A_Tx_Data,8);
         }
-				CAN_Send_EXT_Data(&hcan2,EXT_ID_Set(chassis.A_motor.ID,(int16_t)(chassis.parameter.buffer_limition_k*100),0x03),AGV_A_Tx_Data,8);        
+				else if(chassis.parameter.mode == CHASSIS_REMOTE_CLOSE&&chassis.A_motor.active_status)
+				{
+								memset(AGV_A_Tx_Data,0,8);
+								chassis.A_motor.active_status=0;
+								CAN_Send_EXT_Data(&hcan2,EXT_ID_Set(chassis.A_motor.ID,0,0x00),AGV_A_Tx_Data,8);
+				}
+				else  
+        {          
+							  Set_AGV_Velocity_Vector_Data_Update(AGV_A_Tx_Data, chassis.A_motor.target_angle, chassis.A_motor.target_speed.output, chassis_power_control.scaled_power_32[0]);
+								CAN_Send_EXT_Data(&hcan2,EXT_ID_Set(chassis.A_motor.ID,(int16_t)(chassis.parameter.buffer_limition_k*100),0x03),AGV_A_Tx_Data,8);     
+        
+				}
+				   
     }
 		if( ms_cnt%12==3)
     {
-        if (chassis.parameter.mode != CHASSIS_REMOTE_CLOSE)
-        {          
-							  Set_AGV_Velocity_Vector_Data_Update(AGV_B_Tx_Data, chassis.B_motor.target_angle, chassis.B_motor.target_speed.output, chassis_power_control.scaled_power_32[1]);            
-        }
-        else
+        if(chassis.parameter.mode != CHASSIS_REMOTE_CLOSE&&!chassis.B_motor.active_status)
         {
-								Set_AGV_Velocity_Vector_Data_Update(AGV_B_Tx_Data, chassis.B_motor.target_angle, 0, chassis_power_control.scaled_power_32[1]);   
+								memset(AGV_B_Tx_Data,0,8);
+								chassis.B_motor.active_status=1;
+								CAN_Send_EXT_Data(&hcan2,EXT_ID_Set(chassis.B_motor.ID,0,0x01),AGV_B_Tx_Data,8);
         }
-				CAN_Send_EXT_Data(&hcan2,EXT_ID_Set(chassis.B_motor.ID,(int16_t)(chassis.parameter.buffer_limition_k*100),0x03),AGV_B_Tx_Data,8);        
+				else if(chassis.parameter.mode == CHASSIS_REMOTE_CLOSE&&chassis.B_motor.active_status)
+				{
+								memset(AGV_B_Tx_Data,0,8);
+								chassis.B_motor.active_status=0;
+								CAN_Send_EXT_Data(&hcan2,EXT_ID_Set(chassis.B_motor.ID,0,0x00),AGV_B_Tx_Data,8);
+				}
+				else  
+        {          
+							  Set_AGV_Velocity_Vector_Data_Update(AGV_B_Tx_Data, chassis.B_motor.target_angle, chassis.B_motor.target_speed.output, chassis_power_control.scaled_power_32[1]);
+								CAN_Send_EXT_Data(&hcan2,EXT_ID_Set(chassis.B_motor.ID,(int16_t)(chassis.parameter.buffer_limition_k*100),0x03),AGV_B_Tx_Data,8);     
+        
+				}
     }
 		if( ms_cnt%12==6)
     {
-        if (chassis.parameter.mode != CHASSIS_REMOTE_CLOSE)
-        {          
-							  Set_AGV_Velocity_Vector_Data_Update(AGV_C_Tx_Data, chassis.C_motor.target_angle, chassis.C_motor.target_speed.output, chassis_power_control.scaled_power_32[2]);            
-        }
-        else
+        if(chassis.parameter.mode != CHASSIS_REMOTE_CLOSE&&!chassis.C_motor.active_status)
         {
-								Set_AGV_Velocity_Vector_Data_Update(AGV_C_Tx_Data, chassis.C_motor.target_angle, 0, chassis_power_control.scaled_power_32[2]);   
+								memset(AGV_C_Tx_Data,0,8);
+								chassis.C_motor.active_status=1;
+								CAN_Send_EXT_Data(&hcan2,EXT_ID_Set(chassis.C_motor.ID,0,0x01),AGV_C_Tx_Data,8);
         }
-				CAN_Send_EXT_Data(&hcan2,EXT_ID_Set(chassis.C_motor.ID,(int16_t)(chassis.parameter.buffer_limition_k*100),0x03),AGV_C_Tx_Data,8);        
+				else if(chassis.parameter.mode == CHASSIS_REMOTE_CLOSE&&chassis.C_motor.active_status)
+				{
+								memset(AGV_C_Tx_Data,0,8);
+								chassis.C_motor.active_status=0;
+								CAN_Send_EXT_Data(&hcan2,EXT_ID_Set(chassis.C_motor.ID,0,0x00),AGV_C_Tx_Data,8);
+				}
+				else  
+        {          
+							  Set_AGV_Velocity_Vector_Data_Update(AGV_C_Tx_Data, chassis.C_motor.target_angle, chassis.C_motor.target_speed.output, chassis_power_control.scaled_power_32[2]);
+								CAN_Send_EXT_Data(&hcan2,EXT_ID_Set(chassis.C_motor.ID,(int16_t)(chassis.parameter.buffer_limition_k*100),0x03),AGV_C_Tx_Data,8);     
+        
+				}  
     }
 		if( ms_cnt%12==9)
     {
-        if (chassis.parameter.mode != CHASSIS_REMOTE_CLOSE)
-        {          
-							  Set_AGV_Velocity_Vector_Data_Update(AGV_D_Tx_Data, chassis.D_motor.target_angle, chassis.D_motor.target_speed.output, chassis_power_control.scaled_power_32[0]);            
-        }
-        else
+        if(chassis.parameter.mode != CHASSIS_REMOTE_CLOSE&&!chassis.D_motor.active_status)
         {
-								Set_AGV_Velocity_Vector_Data_Update(AGV_D_Tx_Data, chassis.D_motor.target_angle, 0, chassis_power_control.scaled_power_32[0]);   
+								memset(AGV_D_Tx_Data,0,8);
+								chassis.D_motor.active_status=1;
+								CAN_Send_EXT_Data(&hcan2,EXT_ID_Set(chassis.D_motor.ID,0,0x01),AGV_D_Tx_Data,8);
         }
-				CAN_Send_EXT_Data(&hcan2,EXT_ID_Set(chassis.D_motor.ID,(int16_t)(chassis.parameter.buffer_limition_k*100),0x03),AGV_D_Tx_Data,8);        
+				else if(chassis.parameter.mode == CHASSIS_REMOTE_CLOSE&&chassis.D_motor.active_status)
+				{
+								memset(AGV_D_Tx_Data,0,8);
+								chassis.D_motor.active_status=0;
+								CAN_Send_EXT_Data(&hcan2,EXT_ID_Set(chassis.D_motor.ID,0,0x00),AGV_D_Tx_Data,8);
+				}
+				else  
+        {          
+							  Set_AGV_Velocity_Vector_Data_Update(AGV_D_Tx_Data, chassis.D_motor.target_angle, chassis.D_motor.target_speed.output, chassis_power_control.scaled_power_32[3]);
+								CAN_Send_EXT_Data(&hcan2,EXT_ID_Set(chassis.D_motor.ID,(int16_t)(chassis.parameter.buffer_limition_k*100),0x03),AGV_D_Tx_Data,8);     
+        
+				}
     }
 		
 	

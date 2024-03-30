@@ -9,11 +9,9 @@ void SW_control_task(void)
     if(steering_wheel.parameter.enable)
 	{
         
-        if(steering_wheel.parameter.receive_ms_count+steering_wheel.parameter.receive_s_count*1000-ms_count-s_count*1000<-1000)
-				{
-					steering_wheel.parameter.connection_state=0;
-				  buzzer_setTask(&buzzer, BUZZER_DEVICE_OFFLINE_PRIORITY);
-				}	
+       
+				if(steering_wheel.parameter.receive_ms_count+steering_wheel.parameter.receive_s_count*1000-ms_count-s_count*1000<-1000)
+				steering_wheel.parameter.connection_state=0;
 				Steering_Wheel_CommandUpdate(&steering_wheel);
         Steering_Wheel_StatusUpdate(&steering_wheel);
 				Steering_Wheel_CommandTransmit(&steering_wheel);
@@ -23,9 +21,15 @@ void SW_control_task(void)
 		//probe = steering_wheel.directive_part.motor.M3508_kit.parameter.bus->motor[1].feedback.LSB_rotor_rpm;
 
 
-      }
+   }
+		else
+		{
+		steering_wheel.motion_part.motor.M3508_kit.command.torque=0;
+		steering_wheel.directive_part.motor.M3508_kit.command.torque=0;
+		Steering_Wheel_CommandTransmit(&steering_wheel);
+		}
         
-    
+     
     
 
 }
