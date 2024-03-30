@@ -336,7 +336,7 @@ static int8_t CDC_Control_FS(uint8_t cmd, uint8_t* pbuf, uint16_t length)
 static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
 {
   /* USER CODE BEGIN 6 */
-	if(Verify_CRC16_Check_Sum(Buf,*Len))
+ 	if(Verify_CRC16_Check_Sum(Buf,*Len))
 	{
 		cdc_vcp_data_rx(Buf,*Len);
 	}
