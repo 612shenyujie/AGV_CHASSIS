@@ -27,7 +27,7 @@ double sShapedRamp(double t, double t0, double k) {
 
 void Chassis_Speed_Slow_Motion(CHASSIS_T *chassis)
 {
-	int Delta;
+	int Delta; 
 	switch (chassis->parameter.speed_slow)
 	{
 	
