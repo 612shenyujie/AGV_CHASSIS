@@ -3,7 +3,7 @@
 <title>Static Call Graph - [CHASSIS\CHASSIS.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image CHASSIS\CHASSIS.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Sat Mar 30 18:57:47 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Sun Mar 31 06:30:44 2024
 <BR><P>
 <H3>Maximum Stack Usage =        336 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -499,7 +499,6 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = strcpy
 </UL>
 <BR>[Called By]<UL><LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;referee_data_load_String
-<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;referee_data_load_Graphic
 </UL>
 
 <P><STRONG><a name="[106]"></a>__aeabi_memcpy</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, rt_memcpy_v6.o(.text))
@@ -516,7 +515,6 @@ Global Symbols
 
 <P><STRONG><a name="[147]"></a>__aeabi_memclr</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, rt_memclr.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;referee_data_load_String
-<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;referee_data_load_Graphic
 </UL>
 
 <P><STRONG><a name="[7f]"></a>__rt_memclr</STRONG> (Thumb, 68 bytes, Stack size 0 bytes, rt_memclr.o(.text), UNUSED)
@@ -916,7 +914,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Chassis_Move
 </UL>
 
-<P><STRONG><a name="[12e]"></a>Graphic_Change_Check</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, ui.o(i.Graphic_Change_Check))
+<P><STRONG><a name="[12e]"></a>Graphic_Change_Check</STRONG> (Thumb, 68 bytes, Stack size 0 bytes, ui.o(i.Graphic_Change_Check))
 <BR><BR>[Called By]<UL><LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UI_Send_Graphic_Task
 </UL>
 
@@ -1410,7 +1408,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[109]"></a>JudgementCustomizeGraphics</STRONG> (Thumb, 152 bytes, Stack size 8 bytes, ui.o(i.JudgementCustomizeGraphics))
-<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = JudgementCustomizeGraphics &rArr; referee_data_load_Graphic &rArr; strcpy
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = JudgementCustomizeGraphics &rArr; referee_data_load_Graphic
 </UL>
 <BR>[Calls]<UL><LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;referee_data_load_Graphic
 </UL>
@@ -1867,7 +1865,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2
 </UL>
 
-<P><STRONG><a name="[f9]"></a>calculate_true_power</STRONG> (Thumb, 204 bytes, Stack size 0 bytes, agv_control.o(i.calculate_true_power))
+<P><STRONG><a name="[f9]"></a>calculate_true_power</STRONG> (Thumb, 250 bytes, Stack size 0 bytes, agv_control.o(i.calculate_true_power))
 <BR><BR>[Called By]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_PeriodElapsedCallback
 </UL>
 
@@ -1933,16 +1931,13 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
 
-<P><STRONG><a name="[10a]"></a>referee_data_load_Graphic</STRONG> (Thumb, 464 bytes, Stack size 16 bytes, ui.o(i.referee_data_load_Graphic))
-<BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = referee_data_load_Graphic &rArr; strcpy
-</UL>
-<BR>[Calls]<UL><LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
-<LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
+<P><STRONG><a name="[10a]"></a>referee_data_load_Graphic</STRONG> (Thumb, 524 bytes, Stack size 8 bytes, ui.o(i.referee_data_load_Graphic))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = referee_data_load_Graphic
 </UL>
 <BR>[Called By]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;JudgementCustomizeGraphics
 </UL>
 
-<P><STRONG><a name="[108]"></a>referee_data_load_String</STRONG> (Thumb, 506 bytes, Stack size 8 bytes, ui.o(i.referee_data_load_String))
+<P><STRONG><a name="[108]"></a>referee_data_load_String</STRONG> (Thumb, 674 bytes, Stack size 8 bytes, ui.o(i.referee_data_load_String))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = referee_data_load_String &rArr; strcpy
 </UL>
 <BR>[Calls]<UL><LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr

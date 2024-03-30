@@ -4,3 +4,14 @@ agv_board\m3508_gear.o: ../BSP/M3508_gear_bsp.h
 agv_board\m3508_gear.o: ../APP/M3508.h
 agv_board\m3508_gear.o: ../BSP/M3508_bsp.h
 agv_board\m3508_gear.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+agv_board\m3508_gear.o: ../task/SW_control_task.h
+agv_board\m3508_gear.o: ../APP/steering_wheel.h
+agv_board\m3508_gear.o: ../APP/pid_regulator.h
+agv_board\m3508_gear.o: ../BSP/steering_wheel_bsp.h
+agv_board\m3508_gear.o: ../APP/briter_encoder.h
+agv_board\m3508_gear.o: ../BSP/briter_encoder_bsp.h
+agv_board\m3508_gear.o: ../APP/steering_communication.h
+agv_board\m3508_gear.o: ../BSP/steering_communication_bsp.h
+agv_board\m3508_gear.o: ../APP/buzzer.h
+agv_board\m3508_gear.o: ../BSP/buzzer_bsp.h
+agv_board\m3508_gear.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

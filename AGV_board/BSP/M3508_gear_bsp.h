@@ -19,7 +19,8 @@ typedef struct
 	M3508_motor_bus_t	*bus;
 	uint8_t 			ESC_ID;
 	float				reduction_rate; // Output / Input
-	
+	uint32_t		ms_count;
+		uint32_t		s_count;
 } M3508_gear_parameter_t;
 
 typedef struct

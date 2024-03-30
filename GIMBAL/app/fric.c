@@ -57,8 +57,8 @@ void Fric_Init(void)
     M3508_Init(&fric.left_motor.motor,0x201,1,0.3);
     
 
-    PID_Init(&fric.left_motor.pid.speed_loop,left_fric_data,Integral_Limit|ChangingIntegralRate|OutputFilter|ChangingKp);
-	PID_Init(&fric.right_motor.pid.speed_loop,right_fric_data,Integral_Limit|ChangingIntegralRate|OutputFilter|ChangingKp);
+    PID_Init(&fric.left_motor.pid.speed_loop,left_fric_data,Integral_Limit|ChangingIntegralRate|OutputFilter);
+	PID_Init(&fric.right_motor.pid.speed_loop,right_fric_data,Integral_Limit|ChangingIntegralRate|OutputFilter);
 
 }
 //摩擦轮状态更新
@@ -69,6 +69,8 @@ void Fric_Status_Update(void)
 	  Fric_Filter_Data_Update();
     fric.left_motor.status.actual_speed =   meanFilter(fric.left_motor.status.feedback_speed,5);
     fric.right_motor.status.actual_speed =   meanFilter(fric.right_motor.status.feedback_speed,5);
+//    fric.left_motor.status.actual_speed =  fric.left_motor.motor.feedback.velocity_lsb;
+//    fric.right_motor.status.actual_speed =   fric.right_motor.motor.feedback.velocity_lsb;
     fric.left_motor.status.given_current =   fric.left_motor.motor.status.given_current;
     fric.right_motor.status.given_current =   fric.right_motor.motor.status.given_current;
     fric.left_motor.status.temperature =   fric.left_motor.motor.status.temperature;

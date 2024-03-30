@@ -1,5 +1,5 @@
 #include "M3508_gear.h"
-
+#include "SW_control_task.h"
 #if defined(EXAMPLE_M3508_GEAR)
 	M3508_gear_t example_M3508_gear;
 #endif
@@ -8,6 +8,8 @@
 void M3508_gear_feedback_handler(M3508_gear_t *kit)
 {
 	M3508_gear_feedback_process(kit);	
+	kit->parameter.ms_count=ms_count;
+	kit->parameter.s_count=s_count;
 	kit->status.output_speed_rpm = kit->feedback.current_rotor_rpm / kit->parameter.reduction_rate;
 }
 

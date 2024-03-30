@@ -9,12 +9,13 @@ agv_board\steering_wheel.o: ../APP/M3508.h
 agv_board\steering_wheel.o: ../BSP/M3508_bsp.h
 agv_board\steering_wheel.o: ..\APP\briter_encoder.h
 agv_board\steering_wheel.o: ../BSP/briter_encoder_bsp.h
-agv_board\steering_wheel.o: ..\APP\steering_communication.h
+agv_board\steering_wheel.o: ../task/SW_control_task.h
+agv_board\steering_wheel.o: ../APP/steering_communication.h
 agv_board\steering_wheel.o: ../BSP/steering_communication_bsp.h
-agv_board\steering_wheel.o: ..\APP\chassis_power_control.h
-agv_board\steering_wheel.o: ..\APP\buzzer.h
+agv_board\steering_wheel.o: ../APP/buzzer.h
 agv_board\steering_wheel.o: ../BSP/buzzer_bsp.h
 agv_board\steering_wheel.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+agv_board\steering_wheel.o: ..\APP\chassis_power_control.h
 agv_board\steering_wheel.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\cmath
 agv_board\steering_wheel.o: ../Core/Inc/can.h
 agv_board\steering_wheel.o: ../Core/Inc/main.h

@@ -1,4 +1,5 @@
 #include "steering_wheel.h"
+#include "SW_control_task.h"
 #include "steering_communication.h"
 #include "chassis_power_control.h"
 #include "buzzer.h"
@@ -292,7 +293,12 @@ STEERING_WHEEL_RETURN_T Steering_Wheel_StatusUpdate(steering_wheel_t *steering_w
 		Steering_Wheel_MotorAndEncoderFeedbackUpdate(steering_wheel);
 		Steering_Wheel_MotorAndEncoderStatusUpdate(steering_wheel);
 		Steering_Wheel_PartStatusUpdate(steering_wheel);
-
+		if(ms_count+s_count*1000-steering_wheel->directive_part.motor.M3508_kit.parameter.ms_count-steering_wheel->directive_part.motor.M3508_kit.parameter.s_count*1000>1000)
+			buzzer_setTask(&buzzer,BUZZER_DEVICE_OFFLINE_PRIORITY);
+		if(ms_count+s_count*1000-steering_wheel->motion_part.motor.M3508_kit.parameter.ms_count-steering_wheel->motion_part.motor.M3508_kit.parameter.s_count*1000>1000)
+			buzzer_setTask(&buzzer,BUZZER_DEVICE_OFFLINE_PRIORITY);
+		if(ms_count+s_count*1000-steering_wheel->directive_part.encoder.parameter.ms_count-steering_wheel->directive_part.encoder.parameter.s_count*1000>1000)
+			buzzer_setTask(&buzzer,BUZZER_DEVICE_OFFLINE_PRIORITY);
 		return STEERING_WHEEL_OK;
 	}
 	else return STEERING_WHEEL_ILLEGAL_HANDLE;
@@ -358,8 +364,8 @@ STEERING_WHEEL_RETURN_T Steering_Wheel_MotorCommandUpdate(steering_wheel_t *stee
 		// 由于齿轮传动使得编码器转动方向为CW时，舵转动方向为CCW，反之亦然。所以要对称处理
 		if (steering_wheel->directive_part.encoder.parameter.encoder_directive_part_direction == DIRECTION_INVERSE)
 		steering_wheel->directive_part.motor.command.torque = steering_wheel->directive_part.motor.command.torque;
-//		expert_power_calculate();
-//		scaled_power_calculate();
+		expert_power_calculate();
+		scaled_power_calculate();
 		#if defined(MOTION_MOTOR_M3508)
 		steering_wheel->motion_part.motor.M3508_kit.command.torque = steering_wheel->motion_part.motor.command.torque*steering_wheel->parameter.buffer_limition_k;
 #endif

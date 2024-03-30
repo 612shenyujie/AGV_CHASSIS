@@ -27,6 +27,8 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 		if (CAN_RxHeaderStruct.StdId == steering_wheel.directive_part.encoder.briter_encoder.parameter.CAN_ID)
 		{
 			briter_encoder_feedback_handler(&steering_wheel.directive_part.encoder.briter_encoder, rxdata);
+			steering_wheel.directive_part.encoder.parameter.ms_count=ms_count;
+			steering_wheel.directive_part.encoder.parameter.s_count=s_count;
 		}
 
 	}
@@ -63,6 +65,8 @@ void HAL_CAN_RxFifo1MsgPendingCallback(CAN_HandleTypeDef *hcan)
 		if (CAN_RxHeaderStruct.StdId == steering_wheel.directive_part.encoder.briter_encoder.parameter.CAN_ID)
 		{
 			briter_encoder_feedback_handler(&steering_wheel.directive_part.encoder.briter_encoder, rxdata);
+			steering_wheel.directive_part.encoder.parameter.ms_count=ms_count;
+			steering_wheel.directive_part.encoder.parameter.s_count=s_count;
 		}
 
 	}

@@ -5,6 +5,7 @@
 
 unsigned char JudgeSend[SEND_MAX_SIZE];
 int Char_Change_Array[7];					//0表示没变化，非0表示有变化
+int Graphic_Change_Array[7];
 char LowHP_Flag,lastLowHP_Flag;									//低血量警报
 char Chassis_State,Chassis_lastState;
 ext_student_interactive_char_header_data_t custom_char_draw;
@@ -21,55 +22,30 @@ int placece_x[14]={0  , 50, 30,  30, 30,  10,  7,  7,  7,  10,  7,  7,  7 ,10 };
 int placece_y[15]={-80,-320,-80,-100,-120,-140,-160,-180,-200,-220,-240,-260,-280,10, 10 };
 int Graphic_Change_Check(void)
 {
-	int int_AD_actual_value; 	//取整			
-	char vol_num; 
-	int pitch_100;
-	static char last_vol_num;
-	static int last_pitch_100;
-	static char last_color_array[CAP_GRAPHIC_NUM];
-	static int last_Buff_Flag;
-	/*电容数字百分比*/
-	float cap_vol;
+	int i;
 	/*用于初始化基本图形，如车道线，框线，和辅助瞄准线等*/
 	if(connection.connection_rx.Graphic_Init.flag == 0)		
 	{
 		return Op_Init;	//返回Init,会一直发送Add，添加所有图层
 	}
 	
-	/***********************Pitch角度变化检测部分************************/
-
+	if(connection.connection_rx.fric.flag!=connection.connection_rx.fric.last_flag)
+	{
+		Graphic_Change_Array[0]=Op_Change;
 	
-//		/***********************停车线档位变化检测部分************************/
-//	if(pitch_100<-500) park_line = 0;
-//	else if(pitch_100 >-500 && pitch_100 < 0) park_line =1;
-//	else if(pitch_100 > 0   && pitch_100 < 500) park_line =2;
-//	else if(pitch_100 >500  && pitch_100 <1000) park_line =3;
-//	else if(pitch_100 >1000 && pitch_100 <1500) park_line =4;
-//	else if(pitch_100 >1500 && pitch_100 <2000) park_line =5;
-//	else if(pitch_100 >2000 && pitch_100 <3000) park_line =6;
-//	
-//	if(park_line != last_park_line) park_change_flag = Op_Change;
-//	last_park_line = park_line;
+	}
 	
-//	/***********************Buff状态变化检测部分************************/
-//	if(F405.Gimbal_Flag == Gimbal_Buff_Mode)
-//		Buff_flag = 1;
-//	else
-//		Buff_flag = 0;
-//	if(Buff_flag != last_Buff_Flag)
-//	{
-//			buff_change_flag = Op_Change;
-//	}
-//	last_Buff_Flag = Buff_flag;
+		if(connection.connection_rx.vision.flag!=connection.connection_rx.vision.last_flag)
+	{
+		Graphic_Change_Array[1]=Op_Change;
 	
-	/*电容电压检测部分*/
-
+	}
 	
-	/*检索有没有发生变化，如果有变化则返回修改图层*/
-
-
-
-	/*都没有变化*/
+	for(i = 0;i<7;i++)
+	{
+		if(Graphic_Change_Array[i] == Op_Change)
+			return Op_Change;
+	}
 	return Op_None;	//返回空操作
 }
 
@@ -164,7 +140,7 @@ void referee_data_load_String(int Op_type)
 		{
 			/*静态字符*/
 			
-			case 1:
+			case 0:
 			/*******************************Fric Mode 字符*********************************/
 			custom_char_draw.char_custom.grapic_data_struct.graphic_name[0] = 0;
 			custom_char_draw.char_custom.grapic_data_struct.graphic_name[1] = 2;
@@ -176,12 +152,12 @@ void referee_data_load_String(int Op_type)
 			custom_char_draw.char_custom.grapic_data_struct.start_angle=25;
 			custom_char_draw.char_custom.grapic_data_struct.end_angle=strlen("Fric Mode:");
 			custom_char_draw.char_custom.grapic_data_struct.width=2;
-			custom_char_draw.char_custom.grapic_data_struct.start_x=c_pos_x[1]*SCREEN_LENGTH;
-			custom_char_draw.char_custom.grapic_data_struct.start_y=c_pos_y[1]*SCREEN_WIDTH;
+			custom_char_draw.char_custom.grapic_data_struct.start_x=c_pos_x[0]*SCREEN_LENGTH;
+			custom_char_draw.char_custom.grapic_data_struct.start_y=c_pos_y[0]*SCREEN_WIDTH;
 			memset(custom_char_draw.char_custom.data,'\0',sizeof(custom_char_draw.char_custom.data));
 			strcpy(custom_char_draw.char_custom.data,"Fric Mode:");
 			break;
-			case 2:
+			case 1:
 			/*******************************Auto Aim Mode 字符*********************************/
 			custom_char_draw.char_custom.grapic_data_struct.graphic_name[0] = 0;
 			custom_char_draw.char_custom.grapic_data_struct.graphic_name[1] = 2;
@@ -193,8 +169,8 @@ void referee_data_load_String(int Op_type)
 			custom_char_draw.char_custom.grapic_data_struct.start_angle=25;
 			custom_char_draw.char_custom.grapic_data_struct.end_angle=strlen("Auto Aim:");
 			custom_char_draw.char_custom.grapic_data_struct.width=2;
-			custom_char_draw.char_custom.grapic_data_struct.start_x=c_pos_x[2]*SCREEN_LENGTH;
-			custom_char_draw.char_custom.grapic_data_struct.start_y=c_pos_y[2]*SCREEN_WIDTH;
+			custom_char_draw.char_custom.grapic_data_struct.start_x=c_pos_x[1]*SCREEN_LENGTH;
+			custom_char_draw.char_custom.grapic_data_struct.start_y=c_pos_y[1]*SCREEN_WIDTH;
 			memset(custom_char_draw.char_custom.data,'\0',sizeof(custom_char_draw.char_custom.data));
 			strcpy(custom_char_draw.char_custom.data,"Auto Aim:");
 			break;
@@ -209,8 +185,61 @@ void referee_data_load_String(int Op_type)
 	}else if(Op_type == Op_Change)		//如果是标志为修改
 	{
 		/*寻找是哪个发生了变化*/
-	
-		
+	if(Char_Change_Array[0] == Op_Change)  
+		{
+			if(change_cnt[0]>0)
+			{
+			 change_cnt[0] -- ;
+			}
+			else
+			{
+			Char_Change_Array[0] = Op_None;
+			}
+		}
+			if(Char_Change_Array[1] == Op_Change)  
+		{
+			if(change_cnt[1]>0)
+			{
+			 change_cnt[1] -- ;
+			}
+			else
+			{
+			Char_Change_Array[1] = Op_None;
+			}
+		}
+			if(Char_Change_Array[2] == Op_Change)  
+		{
+			if(change_cnt[2]>0)
+			{
+			 change_cnt[2] -- ;
+			}
+			else
+			{
+			Char_Change_Array[2] = Op_None;
+			}
+		}
+			if(Char_Change_Array[3] == Op_Change)  
+		{
+			if(change_cnt[3]>0)
+			{
+			 change_cnt[3] -- ;
+			}
+			else
+			{
+			Char_Change_Array[3] = Op_None;
+			}
+		}
+		if(Char_Change_Array[4] == Op_Change)  
+		{
+			if(change_cnt[4]>0)
+			{
+			 change_cnt[4] -- ;
+			}
+			else
+			{
+			Char_Change_Array[4] = Op_None;
+			}
+		}
 		if(Char_Change_Array[5] == Op_Change)  
 		{
 			if(change_cnt[5]>0)
@@ -244,38 +273,42 @@ void referee_data_load_Graphic(int Op_type)
 		switch(pack_tick % PACK_NUM)
 		{
 		case 0:
-			/*******************************Fric Mode 字符*********************************/
-			custom_char_draw.char_custom.grapic_data_struct.graphic_name[0] = 1;
+			/*******************************Fric Mode 图案*********************************/
+		FRIC_MODE:		custom_char_draw.char_custom.grapic_data_struct.graphic_name[0] = 1;
 			custom_char_draw.char_custom.grapic_data_struct.graphic_name[1] = 0;
 			custom_char_draw.char_custom.grapic_data_struct.graphic_name[2] = 0;
 			custom_char_draw.char_custom.grapic_data_struct.operate_tpye=Op_type;
 			custom_char_draw.char_custom.grapic_data_struct.graphic_tpye=4;
 			custom_char_draw.char_custom.grapic_data_struct.layer=8;
-			custom_char_draw.char_custom.grapic_data_struct.color=Orange;
-			custom_char_draw.char_custom.grapic_data_struct.start_angle=25;
-			custom_char_draw.char_custom.grapic_data_struct.end_angle=strlen("Fric Mode:");
+		if(connection.connection_rx.fric.flag)
+			custom_char_draw.char_custom.grapic_data_struct.color=Green;
+			else
+				custom_char_draw.char_custom.grapic_data_struct.color=Orange;
+			custom_char_draw.char_custom.grapic_data_struct.start_angle=0;
+			custom_char_draw.char_custom.grapic_data_struct.end_angle=360;
+			custom_char_draw.char_custom.grapic_data_struct.width=2;
+			custom_char_draw.char_custom.grapic_data_struct.start_x=c_pos_x[0]*SCREEN_LENGTH;
+			custom_char_draw.char_custom.grapic_data_struct.start_y=c_pos_y[0]*SCREEN_WIDTH;
+			if(Op_type == Op_Change) goto CONT_0;
+			break;
+			case 1:
+			/*******************************Auto Aim Mode 图案*********************************/
+			AUTO_AIM:		custom_char_draw.char_custom.grapic_data_struct.graphic_name[0] = 2;
+			custom_char_draw.char_custom.grapic_data_struct.graphic_name[1] = 0;
+			custom_char_draw.char_custom.grapic_data_struct.graphic_name[2] = 0;
+			custom_char_draw.char_custom.grapic_data_struct.operate_tpye=Op_type;
+			custom_char_draw.char_custom.grapic_data_struct.graphic_tpye=4;
+			custom_char_draw.char_custom.grapic_data_struct.layer=8;
+			if(connection.connection_rx.vision.flag)
+			custom_char_draw.char_custom.grapic_data_struct.color=Green;
+			else
+				custom_char_draw.char_custom.grapic_data_struct.color=Orange;
+			custom_char_draw.char_custom.grapic_data_struct.start_angle=0;
+			custom_char_draw.char_custom.grapic_data_struct.end_angle=360;
 			custom_char_draw.char_custom.grapic_data_struct.width=2;
 			custom_char_draw.char_custom.grapic_data_struct.start_x=c_pos_x[1]*SCREEN_LENGTH;
 			custom_char_draw.char_custom.grapic_data_struct.start_y=c_pos_y[1]*SCREEN_WIDTH;
-			memset(custom_char_draw.char_custom.data,'\0',sizeof(custom_char_draw.char_custom.data));
-			strcpy(custom_char_draw.char_custom.data,"Fric Mode:");
-			break;
-			case 1:
-			/*******************************Auto Aim Mode 字符*********************************/
-			custom_char_draw.char_custom.grapic_data_struct.graphic_name[0] = 2;
-			custom_char_draw.char_custom.grapic_data_struct.graphic_name[1] = 0;
-			custom_char_draw.char_custom.grapic_data_struct.graphic_name[2] = 0;
-			custom_char_draw.char_custom.grapic_data_struct.operate_tpye=Op_type;
-			custom_char_draw.char_custom.grapic_data_struct.graphic_tpye=4;
-			custom_char_draw.char_custom.grapic_data_struct.layer=8;
-			custom_char_draw.char_custom.grapic_data_struct.color=Orange;
-			custom_char_draw.char_custom.grapic_data_struct.start_angle=25;
-			custom_char_draw.char_custom.grapic_data_struct.end_angle=strlen("Auto Aim:");
-			custom_char_draw.char_custom.grapic_data_struct.width=2;
-			custom_char_draw.char_custom.grapic_data_struct.start_x=c_pos_x[2]*SCREEN_LENGTH;
-			custom_char_draw.char_custom.grapic_data_struct.start_y=c_pos_y[2]*SCREEN_WIDTH;
-			memset(custom_char_draw.char_custom.data,'\0',sizeof(custom_char_draw.char_custom.data));
-			strcpy(custom_char_draw.char_custom.data,"Auto Aim:");
+			if(Op_type == Op_Change) goto CONT_1;
 			break;
 			default:
 				break;
@@ -284,7 +317,16 @@ void referee_data_load_Graphic(int Op_type)
 	}
 	else if(Op_type == Op_Change)
 	{
-
+			if(Graphic_Change_Array[0] == Op_Change)  
+		{
+			goto FRIC_MODE;
+	CONT_0:Graphic_Change_Array[0]=Op_None;
+		}
+			if(Graphic_Change_Array[1] == Op_Change)  
+		{
+			goto AUTO_AIM;
+			CONT_1:Graphic_Change_Array[1]=Op_None;
+		}
 	}
 }
 
