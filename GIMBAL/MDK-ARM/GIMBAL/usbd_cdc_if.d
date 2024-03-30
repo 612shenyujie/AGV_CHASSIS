@@ -55,3 +55,4 @@ gimbal\usbd_cdc_if.o: ../app/gimbal.h
 gimbal\usbd_cdc_if.o: ../PID/pid.h
 gimbal\usbd_cdc_if.o: ../bsp/motor.h
 gimbal\usbd_cdc_if.o: ../app/vision.h
+gimbal\usbd_cdc_if.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

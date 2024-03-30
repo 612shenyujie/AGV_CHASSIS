@@ -15,11 +15,12 @@ TEST_POWER_T test_power;
 // Function Call
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	if(htim->Instance==TIM1)
+	if(htim->Instance==TIM3)
 	{
 		#ifndef motor_power_test
 		SW_control_task();
 		SW_subscribe_task();
+		buzzer_taskScheduler(&buzzer);
 		#endif
 		#ifdef motor_power_test
 		if(test_power.test_mode==1)
@@ -51,7 +52,7 @@ void TASK_SCHEDULER(void)
 //	uint32_t tick = HAL_GetTick();
 	SW_control_task();
 	//SW_subscribe_task();
-	buzzer_taskScheduler(&buzzer);
+	
 	
 }
 

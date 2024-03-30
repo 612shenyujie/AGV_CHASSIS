@@ -169,6 +169,7 @@ void Gimbal_Command_Update(void)
 						gimbal.pitch.command.target_angle+=gimbal.pitch.command.add_angle;
         break;
         case VISION_ON  :
+					Self_aim(vision_control.command.x,vision_control.command.y,vision_control.command.z,&vision_control.command.yaw_angle,&vision_control.command.pitch_angle,&vision_control.command.distance);
             switch (gimbal.parameter.mode)
             {
             case GIMBAL_MODE_PRECISION :
@@ -275,9 +276,11 @@ void Gimbal_Motor_Mode_Update(void)
                 //校准模式
                 gimbal.yaw.parameter.mode = IMU_MODE;
                 gimbal.pitch.parameter.mode = IMU_MODE;
+								
         break;
     case GIMBAL_MODE_PRECISION :
         //精度模式
+				gimbal.yaw.motor.parameter.calibrate_state    =   MOTOR_CALIBRATED;
         gimbal.yaw.parameter.mode = ENCODER_MODE;
         gimbal.pitch.parameter.mode = ENCODER_MODE;
 
@@ -285,6 +288,7 @@ void Gimbal_Motor_Mode_Update(void)
         break;
 
     }
+		gimbal.parameter.last_mode=gimbal.parameter.mode;
 };
 
 void Gimbal_Cali_Task(void)
@@ -326,6 +330,26 @@ void Gimbal_Send_command_Update(void)
 			memset(&CAN2_0x1ff_Tx_Data,0,8);
 		}
 		
+}
+
+void Gimbal_Mode_Change_Judge(void)
+{
+	if(gimbal.parameter.mode	== GIMBAL_MODE_ABSOLUTE)
+			gimbal.yaw.motor.parameter.calibrate_state    =   MOTOR_NO_CALIBRATE;
+	
+	if(gimbal.parameter.last_mode==GIMBAL_MODE_ABSOLUTE&&gimbal.parameter.mode==GIMBAL_MODE_PRECISION)
+	{
+		gimbal.yaw.motor.parameter.calibrate_state    =   MOTOR_CALIBRATED;
+		gimbal.yaw.command.target_angle=0;
+		gimbal.pitch.command.target_angle=-28;
+	}
+	if(gimbal.parameter.last_mode==GIMBAL_MODE_PRECISION&&gimbal.parameter.mode==GIMBAL_MODE_ABSOLUTE)
+	{
+
+		gimbal.yaw.command.target_angle=gimbal.yaw.imu.status.total_angle;
+		gimbal.pitch.command.target_angle=0;
+	}
+	gimbal.parameter.last_mode=gimbal.parameter.mode;
 }
 
 //云台初始化
@@ -380,9 +404,8 @@ void Gimbal_Task(void)
         gimbal.parameter.calibration_state =    NORMAL;
 				delay_time.gimbal_cali_cnt=0;
 				gimbal.parameter.mode = GIMBAL_MODE_ABSOLUTE;
-				
+				gimbal.yaw.motor.parameter.calibrate_state    =   MOTOR_CALIBRATED;
         gimbal.pitch.motor.parameter.calibrate_state    =   MOTOR_CALIBRATED;
-        gimbal.yaw.motor.parameter.calibrate_state    =   MOTOR_CALIBRATED;
 				buzzer_setTask(&buzzer, BUZZER_CALIBRATED_PRIORITY);
         break;
     case NORMAL :
@@ -390,6 +413,7 @@ void Gimbal_Task(void)
 			{
 			if(gimbal_time.ms_count%5==1)
 			{
+				Gimbal_Mode_Change_Judge();
 				Gimbal_Motor_Mode_Update();
 				Gimbal_Command_Update();
 			}

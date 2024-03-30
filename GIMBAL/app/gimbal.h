@@ -109,6 +109,7 @@ typedef  struct
 typedef  struct 
 {
 	GIMBAL_MODE_T mode;
+	GIMBAL_MODE_T last_mode;
 	CALIBRATION_STATE_T calibration_state;
 }GIMBAL_PARAMETER_T;
 

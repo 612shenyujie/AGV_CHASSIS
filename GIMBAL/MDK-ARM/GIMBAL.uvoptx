@@ -118,7 +118,6 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGUARM</Key>
-          <Name>h骦</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -237,6 +236,11 @@
           <count>16</count>
           <WinNumber>1</WinNumber>
           <ItemText>vision_control,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>17</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>vision_control</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>

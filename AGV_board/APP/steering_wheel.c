@@ -1,6 +1,7 @@
 #include "steering_wheel.h"
 #include "steering_communication.h"
 #include "chassis_power_control.h"
+#include "buzzer.h"
 #include <cmath>
 #if defined(STM32F105) | defined(STM32F407)
 	#include "can.h"
@@ -398,6 +399,7 @@ STEERING_WHEEL_RETURN_T Steering_Wheel_CommandUpdate(steering_wheel_t *steering_
 		steering_wheel->command.protocol_position = D_ENCODER_ZERO_POSION;
 		#endif
 		steering_wheel->command.protocol_speed=0;
+		buzzer_setTask(&buzzer,BUZZER_DEVICE_OFFLINE_PRIORITY);
 		
 	}
 	Steering_Wheel_PartCommandUpdate(steering_wheel);

@@ -163,22 +163,40 @@ void referee_data_load_String(int Op_type)
 		switch(tick%11)
 		{
 			/*¾²Ì¬×Ö·û*/
-			case 0:
-			/*******************************pitch ×Ö·û*********************************/
+			
+			case 1:
+			/*******************************Fric Mode ×Ö·û*********************************/
 			custom_char_draw.char_custom.grapic_data_struct.graphic_name[0] = 0;
-			custom_char_draw.char_custom.grapic_data_struct.graphic_name[1] = 41;
+			custom_char_draw.char_custom.grapic_data_struct.graphic_name[1] = 2;
 			custom_char_draw.char_custom.grapic_data_struct.graphic_name[2] = 0;
 			custom_char_draw.char_custom.grapic_data_struct.operate_tpye=Op_type;
 			custom_char_draw.char_custom.grapic_data_struct.graphic_tpye=7;
 			custom_char_draw.char_custom.grapic_data_struct.layer=9;
 			custom_char_draw.char_custom.grapic_data_struct.color=Orange;
 			custom_char_draw.char_custom.grapic_data_struct.start_angle=25;
-			custom_char_draw.char_custom.grapic_data_struct.end_angle=strlen("PITCH:");
+			custom_char_draw.char_custom.grapic_data_struct.end_angle=strlen("Fric Mode:");
 			custom_char_draw.char_custom.grapic_data_struct.width=2;
-			custom_char_draw.char_custom.grapic_data_struct.start_x=c_pos_x[0]*SCREEN_LENGTH;
-			custom_char_draw.char_custom.grapic_data_struct.start_y=c_pos_y[0]*SCREEN_WIDTH;
+			custom_char_draw.char_custom.grapic_data_struct.start_x=c_pos_x[1]*SCREEN_LENGTH;
+			custom_char_draw.char_custom.grapic_data_struct.start_y=c_pos_y[1]*SCREEN_WIDTH;
 			memset(custom_char_draw.char_custom.data,'\0',sizeof(custom_char_draw.char_custom.data));
-			strcpy(custom_char_draw.char_custom.data,"PITCH:");
+			strcpy(custom_char_draw.char_custom.data,"Fric Mode:");
+			break;
+			case 2:
+			/*******************************Auto Aim Mode ×Ö·û*********************************/
+			custom_char_draw.char_custom.grapic_data_struct.graphic_name[0] = 0;
+			custom_char_draw.char_custom.grapic_data_struct.graphic_name[1] = 2;
+			custom_char_draw.char_custom.grapic_data_struct.graphic_name[2] = 0;
+			custom_char_draw.char_custom.grapic_data_struct.operate_tpye=Op_type;
+			custom_char_draw.char_custom.grapic_data_struct.graphic_tpye=7;
+			custom_char_draw.char_custom.grapic_data_struct.layer=9;
+			custom_char_draw.char_custom.grapic_data_struct.color=Orange;
+			custom_char_draw.char_custom.grapic_data_struct.start_angle=25;
+			custom_char_draw.char_custom.grapic_data_struct.end_angle=strlen("Auto Aim:");
+			custom_char_draw.char_custom.grapic_data_struct.width=2;
+			custom_char_draw.char_custom.grapic_data_struct.start_x=c_pos_x[2]*SCREEN_LENGTH;
+			custom_char_draw.char_custom.grapic_data_struct.start_y=c_pos_y[2]*SCREEN_WIDTH;
+			memset(custom_char_draw.char_custom.data,'\0',sizeof(custom_char_draw.char_custom.data));
+			strcpy(custom_char_draw.char_custom.data,"Auto Aim:");
 			break;
 
 		
@@ -203,21 +221,7 @@ void referee_data_load_String(int Op_type)
 			{
 			Char_Change_Array[5] = Op_None;
 			}
-			/*******************************»æÖÆÉ¾³ý RUN ×Ö·û*********************************/
-			custom_char_draw.char_custom.grapic_data_struct.graphic_name[0] = 0;
-			custom_char_draw.char_custom.grapic_data_struct.graphic_name[1] = 41;
-			custom_char_draw.char_custom.grapic_data_struct.graphic_name[2] = 10;
-			custom_char_draw.char_custom.grapic_data_struct.operate_tpye= (LowHP_Flag == 1 ?Op_Add : Op_Delete);
-			custom_char_draw.char_custom.grapic_data_struct.graphic_tpye=7;
-			custom_char_draw.char_custom.grapic_data_struct.layer=8;
-			custom_char_draw.char_custom.grapic_data_struct.color= Orange;
-			custom_char_draw.char_custom.grapic_data_struct.start_angle=50;    //×ÖÌå´óÐ¡  
-			custom_char_draw.char_custom.grapic_data_struct.end_angle=strlen("RUN !!");
-			custom_char_draw.char_custom.grapic_data_struct.width=6;           //¿í¶È
-			custom_char_draw.char_custom.grapic_data_struct.start_x=c_pos_x[10]*SCREEN_LENGTH;
-			custom_char_draw.char_custom.grapic_data_struct.start_y=c_pos_y[10]*SCREEN_WIDTH;
-			memset(custom_char_draw.char_custom.data,'\0',sizeof(custom_char_draw.char_custom.data));
-			strcpy(custom_char_draw.char_custom.data,"RUN !!");
+			
 		}
 		
 	
@@ -240,29 +244,39 @@ void referee_data_load_Graphic(int Op_type)
 		switch(pack_tick % PACK_NUM)
 		{
 		case 0:
-
-
-
-						/*******************************pitch½Ç¶È¸üÐÂ*********************************/
-PITCH_:	
-				/*******************************Pitch ¸¡µãÊý*********************************/
-				custom_grapic_draw.graphic_custom.grapic_data_struct[Op_type==Op_Init?1:0].graphic_name[0] = 0;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[Op_type==Op_Init?1:0].graphic_name[1] = 3;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[Op_type==Op_Init?1:0].graphic_name[2] = 1;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[Op_type==Op_Init?1:0].operate_tpye=Op_type;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[Op_type==Op_Init?1:0].graphic_tpye=5;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[Op_type==Op_Init?1:0].layer=3;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[Op_type==Op_Init?1:0].color=Pink;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[Op_type==Op_Init?1:0].start_angle=20;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[Op_type==Op_Init?1:0].end_angle=2;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[Op_type==Op_Init?1:0].width=4;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[Op_type==Op_Init?1:0].start_x=0.65 * SCREEN_LENGTH;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[Op_type==Op_Init?1:0].start_y=0.65 * SCREEN_WIDTH;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[Op_type==Op_Init?1:0].radius = pitch & 0x03ff;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[Op_type==Op_Init?1:0].end_x  = (pitch >> 10) & 0x07ff;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[Op_type==Op_Init?1:0].end_y  = (pitch >> 21) & 0x07ff;
-//				if(Op_type == Op_Change) goto CONT_2;
-				break;
+			/*******************************Fric Mode ×Ö·û*********************************/
+			custom_char_draw.char_custom.grapic_data_struct.graphic_name[0] = 1;
+			custom_char_draw.char_custom.grapic_data_struct.graphic_name[1] = 0;
+			custom_char_draw.char_custom.grapic_data_struct.graphic_name[2] = 0;
+			custom_char_draw.char_custom.grapic_data_struct.operate_tpye=Op_type;
+			custom_char_draw.char_custom.grapic_data_struct.graphic_tpye=4;
+			custom_char_draw.char_custom.grapic_data_struct.layer=8;
+			custom_char_draw.char_custom.grapic_data_struct.color=Orange;
+			custom_char_draw.char_custom.grapic_data_struct.start_angle=25;
+			custom_char_draw.char_custom.grapic_data_struct.end_angle=strlen("Fric Mode:");
+			custom_char_draw.char_custom.grapic_data_struct.width=2;
+			custom_char_draw.char_custom.grapic_data_struct.start_x=c_pos_x[1]*SCREEN_LENGTH;
+			custom_char_draw.char_custom.grapic_data_struct.start_y=c_pos_y[1]*SCREEN_WIDTH;
+			memset(custom_char_draw.char_custom.data,'\0',sizeof(custom_char_draw.char_custom.data));
+			strcpy(custom_char_draw.char_custom.data,"Fric Mode:");
+			break;
+			case 1:
+			/*******************************Auto Aim Mode ×Ö·û*********************************/
+			custom_char_draw.char_custom.grapic_data_struct.graphic_name[0] = 2;
+			custom_char_draw.char_custom.grapic_data_struct.graphic_name[1] = 0;
+			custom_char_draw.char_custom.grapic_data_struct.graphic_name[2] = 0;
+			custom_char_draw.char_custom.grapic_data_struct.operate_tpye=Op_type;
+			custom_char_draw.char_custom.grapic_data_struct.graphic_tpye=4;
+			custom_char_draw.char_custom.grapic_data_struct.layer=8;
+			custom_char_draw.char_custom.grapic_data_struct.color=Orange;
+			custom_char_draw.char_custom.grapic_data_struct.start_angle=25;
+			custom_char_draw.char_custom.grapic_data_struct.end_angle=strlen("Auto Aim:");
+			custom_char_draw.char_custom.grapic_data_struct.width=2;
+			custom_char_draw.char_custom.grapic_data_struct.start_x=c_pos_x[2]*SCREEN_LENGTH;
+			custom_char_draw.char_custom.grapic_data_struct.start_y=c_pos_y[2]*SCREEN_WIDTH;
+			memset(custom_char_draw.char_custom.data,'\0',sizeof(custom_char_draw.char_custom.data));
+			strcpy(custom_char_draw.char_custom.data,"Auto Aim:");
+			break;
 			default:
 				break;
 		}
@@ -270,12 +284,6 @@ PITCH_:
 	}
 	else if(Op_type == Op_Change)
 	{
-
-//		if(pitch_change_flag == Op_Change )
-//		{
-//			 goto PITCH_;
-//			 CONT_2:pitch_change_flag = Op_None;
-//		}
 
 	}
 }
@@ -357,11 +365,14 @@ void referee_data_pack_handle(uint8_t sof,uint16_t cmd_id, uint8_t *p_data, uint
   else seq++;
 	
 	/*****Êý¾ÝÉÏ´«*****/
-//		while(HAL_DMA_GetState(&hdma_usart6_tx)!=HAL_DMA_STATE_READY); 
+		
 
-		hdma_usart6_tx.Instance->NDTR = frame_length; 
 
-		HAL_DMA_Start(&hdma_usart6_tx, (uint32_t)JudgeSend, (uint32_t)&huart6.Instance->DR, frame_length); // ??DMA??
+
+
+    HAL_UART_Transmit_DMA(&huart6, JudgeSend, frame_length);
+
+
 	
 }
 

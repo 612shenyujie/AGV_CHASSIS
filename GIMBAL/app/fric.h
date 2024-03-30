@@ -17,7 +17,7 @@
 
 //#define FRIC_HIGH_SPEED 5200.f//13.2
 //#define FRIC_HIGH_SPEED 6200.f//16.2
-#define FRIC_HIGH_SPEED 5800.f//13.2
+#define FRIC_HIGH_SPEED 5700.f//13.2
 #define FRIC_NONE_SPEED 0.f
 
 #define XPOWER_OPEN 167.f

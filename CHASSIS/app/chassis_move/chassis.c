@@ -208,7 +208,7 @@ void Chassis_Mode_Command_Update(void)
         chassis.command.vw =  3.0f;
         else 
 				
-					chassis.command.vw =  1.0f;
+					chassis.command.vw =  2.0f;
 				
 				
         break;
