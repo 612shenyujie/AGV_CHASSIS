@@ -14,7 +14,7 @@
 #define _PID_H
 
 #include "stdint.h"
-#define PID_DATA_LEN 10
+#define PID_DATA_LEN 14
 #define ABS(x) ((x > 0) ? x : -x)
 
 typedef __packed enum pid_Improvement_e
@@ -28,6 +28,7 @@ typedef __packed enum pid_Improvement_e
     ChangingIntegralRate = 0x20,        //0010 0000
     DerivativeFilter = 0x40,            //0100 0000
     ErrorHandle = 0x80,                 //1000 0000
+		ChangingKp	=	0x100,
 } PID_Improvement_e;
 
 typedef __packed enum errorType_e
@@ -46,7 +47,9 @@ typedef __packed struct _PID_TypeDef
 {
     float Target;
     float LastNoneZeroTarget;
-    float Kp;
+    float Kp1;
+		float Kp2;
+		float Kp3;
     float Ki;
     float Kd;
 
@@ -71,6 +74,8 @@ typedef __packed struct _PID_TypeDef
     float MaxErr;
     float ScalarA; //For Changing Integral
     float ScalarB; //ITerm = Err*((A-abs(err)+B)/A)  when B<|err|<A+B
+		float ScalarC;
+    float ScalarD; 
     float Output_Filtering_Coefficient;
     float Derivative_Filtering_Coefficient;
 
@@ -78,7 +83,7 @@ typedef __packed struct _PID_TypeDef
     uint32_t lasttime;
     uint8_t dtime;
 
-    uint8_t Improve;
+    uint16_t Improve;
 
     PID_ErrorHandler_t ERRORHandler;
 
@@ -103,11 +108,11 @@ static void f_Derivative_Filter(PID_TypeDef *pid);
 static void f_Output_Limit(PID_TypeDef *pid);
 static void f_Proportion_Limit(PID_TypeDef *pid);
 static void f_PID_ErrorHandle(PID_TypeDef *pid);
-
+static void f_Change_Pout(PID_TypeDef *pid);
 void PID_Init(
     PID_TypeDef *pid,
     float parameter[],
-    uint8_t improve);
+    uint16_t improve);
 float PID_Calculate(PID_TypeDef *pid, float measure, float target);
 		
 #endif

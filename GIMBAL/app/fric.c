@@ -17,12 +17,12 @@ XPOWER_COMMAND_T xpower;
 
 //left-fric-PID
 float left_fric_data[PID_DATA_LEN]
-	={0.042f,0.0007f,0.0f,20.0f,0.01f,0.0f,500.0f,100.0f,0.5f,0.0f};
+	={0.042f,0.0007f,0.0f,5.0f,0.01f,0.0f,500.0f,100.0f,0.5f,0.01f,0.0f,0.0f,900.0f,1800.0f};
 //right-fric-PID
-//float right_fric_data[PID_DATA_LEN]
-//	={0.044f,0.0003f,0.0f,20.0f,0.01f,0.0f,220.0f,100.0f,0.5f,0.0f};
 float right_fric_data[PID_DATA_LEN]
-	={0.042f,0.0007f,0.0f,20.0f,0.01f,0.0f,500.0f,100.0f,0.5f,0.0f};
+	={0.044f,0.0003f,0.0f,5.0f,0.01f,0.0f,220.0f,100.0f,0.5f,0.01f,0.0f,0.0f,900.0f,1800.0f};
+//float right_fric_data[PID_DATA_LEN]
+//	={0.042f,0.0007f,0.0f,20.0f,0.01f,0.0f,500.0f,100.0f,0.5f,0.0f};
 
 	
 		float meanFilter(float* data, int size)
@@ -57,8 +57,8 @@ void Fric_Init(void)
     M3508_Init(&fric.left_motor.motor,0x201,1,0.3);
     
 
-    PID_Init(&fric.left_motor.pid.speed_loop,left_fric_data,Integral_Limit|ChangingIntegralRate|OutputFilter);
-	PID_Init(&fric.right_motor.pid.speed_loop,right_fric_data,Integral_Limit|ChangingIntegralRate|OutputFilter);
+    PID_Init(&fric.left_motor.pid.speed_loop,left_fric_data,Integral_Limit|ChangingIntegralRate|OutputFilter|ChangingKp);
+	PID_Init(&fric.right_motor.pid.speed_loop,right_fric_data,Integral_Limit|ChangingIntegralRate|OutputFilter|ChangingKp);
 
 }
 //摩擦轮状态更新

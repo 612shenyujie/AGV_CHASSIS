@@ -13,18 +13,21 @@ static void f_PID_param_init(
     pid->MaxErr = parameter[3] * 2;
     pid->Target = 0;
 
-    pid->Kp = parameter[0];
+    pid->Kp1 = parameter[0];
     pid->Ki = parameter[1];
     pid->Kd = parameter[2];
     pid->ITerm = 0;
-
+		
     pid->ScalarA = parameter[6];
     pid->ScalarB = parameter[7];
 
     pid->Output_Filtering_Coefficient = parameter[8];
 
     pid->Derivative_Filtering_Coefficient = parameter[9];
-
+		pid->Kp2 = parameter[10];
+		pid->Kp3 = parameter[11];
+		pid->ScalarA = parameter[12];
+    pid->ScalarB = parameter[13];
     pid->Improve = improve;
 
     pid->ERRORHandler.ERRORCount = 0;
@@ -36,7 +39,7 @@ static void f_PID_param_init(
 /**************************PID param reset*********************************/
 static void f_PID_reset(PID_TypeDef *pid, float Kp, float Ki, float Kd)
 {
-    pid->Kp = Kp;
+    pid->Kp1 = Kp;
     pid->Ki = Ki;
     pid->Kd = Kd;
 
@@ -63,10 +66,11 @@ float PID_Calculate(PID_TypeDef *pid, float measure, float target)
 
     if (ABS(pid->Err) > pid->DeadBand)
     {
-        pid->Pout = pid->Kp * pid->Err;
+        pid->Pout = pid->Kp1 * pid->Err;
         pid->ITerm = pid->Ki * pid->Err;
         pid->Dout = pid->Kd * (pid->Err - pid->Last_Err);
-
+				if(pid->Improve	&ChangingKp)
+					f_Change_Pout(pid);
         //Trapezoid Intergral
         if (pid->Improve & Trapezoid_Intergral)
             f_Trapezoid_Intergral(pid);
@@ -180,6 +184,16 @@ static void f_Output_Limit(PID_TypeDef *pid)
     }
 }
 
+static void f_Change_Pout(PID_TypeDef *pid)
+{
+		if(fabs(pid->Err)<pid->ScalarC)
+			pid->Pout=pid->Err*pid->Kp1;
+		else if (fabs(pid->Err)<pid->ScalarC+pid->ScalarD)
+			pid->Pout=pid->Err*pid->Kp2;
+		else
+			pid->Pout=pid->Err*pid->Kp3;
+}
+
 static void f_Proportion_Limit(PID_TypeDef *pid)
 {
     //Proportion limit is insignificant in control process
@@ -222,7 +236,7 @@ static void f_PID_ErrorHandle(PID_TypeDef *pid)
 void PID_Init(
     PID_TypeDef *pid,
     float parameter[],
-    uint8_t improve)
+    uint16_t improve)
 {
     pid->PID_param_init = f_PID_param_init;
     pid->PID_reset = f_PID_reset;
