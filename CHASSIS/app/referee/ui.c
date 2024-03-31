@@ -11,10 +11,10 @@ char Chassis_State,Chassis_lastState;
 ext_student_interactive_char_header_data_t custom_char_draw;
 ext_student_interactive_header_data_t custom_grapic_draw;
 char change_cnt[7];
-float c_pos_x[12] = {0.57,0.34,0.4,0.54,0.3, 0.41,0.64, 0.54,0.40,0.53,0.3,0.4};
-float c_pos_y[12] = {0.65,0.15,0.05,0.1 ,0.1, 0.15,0.1, 0.05,0.1 ,0.15,0.5,0.7};
-float g_pos_x[CAP_GRAPHIC_NUM] = {0.57,0.34,0.4,0.52,0.34,0.42,0.62,0.5,0.42};
-float g_pos_y[CAP_GRAPHIC_NUM] = {0.65,0.15,0.8,0.1,0.1,0.15,0.1,0.8,0.1};
+float c_pos_x[12] = {0.01,0.01,0.4,0.54,0.3, 0.41,0.64, 0.54,0.40,0.53,0.3,0.4};
+float c_pos_y[12] = {0.8,0.7,0.05,0.1 ,0.1, 0.15,0.1, 0.05,0.1 ,0.15,0.5,0.7};
+float g_pos_x[CAP_GRAPHIC_NUM] = {0.05,0.05,0.4,0.52,0.34,0.42,0.62,0.5,0.42};
+float g_pos_y[CAP_GRAPHIC_NUM] = {0.74,0.64,0.8,0.1,0.1,0.15,0.1,0.8,0.1};
 /*瞄准线偏移量*/
 int AIM_bias_x = 0;
 int AIM_bias_y = 0;
@@ -56,11 +56,11 @@ int Char_Change_Check(void)
 
 
 	/*用于图形界面初始化*/
-	if(connection.connection_rx.Graphic_Init.flag == 0)		
-	{
+//	if(connection.connection_rx.Graphic_Init.flag == 0)		
+//	{
 
 		return Op_Init;	//返回Init,会使一直发送Add，添加所有图层
-	}
+//	}
 
 	
 		
@@ -143,7 +143,7 @@ void referee_data_load_String(int Op_type)
 			case 0:
 			/*******************************Fric Mode 字符*********************************/
 			custom_char_draw.char_custom.grapic_data_struct.graphic_name[0] = 0;
-			custom_char_draw.char_custom.grapic_data_struct.graphic_name[1] = 2;
+			custom_char_draw.char_custom.grapic_data_struct.graphic_name[1] = 1;
 			custom_char_draw.char_custom.grapic_data_struct.graphic_name[2] = 0;
 			custom_char_draw.char_custom.grapic_data_struct.operate_tpye=Op_type;
 			custom_char_draw.char_custom.grapic_data_struct.graphic_tpye=7;
@@ -151,7 +151,7 @@ void referee_data_load_String(int Op_type)
 			custom_char_draw.char_custom.grapic_data_struct.color=Orange;
 			custom_char_draw.char_custom.grapic_data_struct.start_angle=25;
 			custom_char_draw.char_custom.grapic_data_struct.end_angle=strlen("Fric Mode:");
-			custom_char_draw.char_custom.grapic_data_struct.width=2;
+			custom_char_draw.char_custom.grapic_data_struct.width=1;
 			custom_char_draw.char_custom.grapic_data_struct.start_x=c_pos_x[0]*SCREEN_LENGTH;
 			custom_char_draw.char_custom.grapic_data_struct.start_y=c_pos_y[0]*SCREEN_WIDTH;
 			memset(custom_char_draw.char_custom.data,'\0',sizeof(custom_char_draw.char_custom.data));
@@ -165,14 +165,14 @@ void referee_data_load_String(int Op_type)
 			custom_char_draw.char_custom.grapic_data_struct.operate_tpye=Op_type;
 			custom_char_draw.char_custom.grapic_data_struct.graphic_tpye=7;
 			custom_char_draw.char_custom.grapic_data_struct.layer=9;
-			custom_char_draw.char_custom.grapic_data_struct.color=Orange;
+			custom_char_draw.char_custom.grapic_data_struct.color=Orange; 
 			custom_char_draw.char_custom.grapic_data_struct.start_angle=25;
-			custom_char_draw.char_custom.grapic_data_struct.end_angle=strlen("Auto Aim:");
-			custom_char_draw.char_custom.grapic_data_struct.width=2;
+			custom_char_draw.char_custom.grapic_data_struct.end_angle=strlen(" Auto Aim:");
+			custom_char_draw.char_custom.grapic_data_struct.width=1;
 			custom_char_draw.char_custom.grapic_data_struct.start_x=c_pos_x[1]*SCREEN_LENGTH;
 			custom_char_draw.char_custom.grapic_data_struct.start_y=c_pos_y[1]*SCREEN_WIDTH;
 			memset(custom_char_draw.char_custom.data,'\0',sizeof(custom_char_draw.char_custom.data));
-			strcpy(custom_char_draw.char_custom.data,"Auto Aim:");
+			strcpy(custom_char_draw.char_custom.data," Auto Aim:");
 			break;
 
 		
@@ -260,11 +260,6 @@ void referee_data_load_String(int Op_type)
 void referee_data_load_Graphic(int Op_type)
 {
 	static int pack_tick = 0;			//数据包计数器
-	static unsigned int pitch = 0;
-	static float Start_Place_x[CAP_GRAPHIC_NUM] = {0.388,0.41,0.432,0.454,0.476,0.498,0.52,0.542,0.564};
-  static float Start_Place_y = 0.02;
-	static float End_Place_x[CAP_GRAPHIC_NUM] = {0.398,0.42,0.442,0.464,0.486,0.508,0.53,0.552,0.574};
-	static float End_Place_y = 0.04;
 	static int i;
 	int packed_tick = 0;							//装包计数器
 	/*初始化操作，轮流生成图层*/
@@ -274,40 +269,37 @@ void referee_data_load_Graphic(int Op_type)
 		{
 		case 0:
 			/*******************************Fric Mode 图案*********************************/
-		FRIC_MODE:		custom_char_draw.char_custom.grapic_data_struct.graphic_name[0] = 1;
-			custom_char_draw.char_custom.grapic_data_struct.graphic_name[1] = 0;
-			custom_char_draw.char_custom.grapic_data_struct.graphic_name[2] = 0;
-			custom_char_draw.char_custom.grapic_data_struct.operate_tpye=Op_type;
-			custom_char_draw.char_custom.grapic_data_struct.graphic_tpye=4;
-			custom_char_draw.char_custom.grapic_data_struct.layer=8;
-		if(connection.connection_rx.fric.flag)
-			custom_char_draw.char_custom.grapic_data_struct.color=Green;
+		FRIC_MODE:		custom_grapic_draw.graphic_custom.grapic_data_struct[0].graphic_name[0] = 1;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[0].graphic_name[1] = 0;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[0].graphic_name[2] = 0;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[0].operate_tpye=Op_type;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[0].graphic_tpye=2;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[0].layer=3;
+				if(connection.connection_rx.fric.flag)
+			custom_grapic_draw.graphic_custom.grapic_data_struct[0].color=Green;
 			else
-				custom_char_draw.char_custom.grapic_data_struct.color=Orange;
-			custom_char_draw.char_custom.grapic_data_struct.start_angle=0;
-			custom_char_draw.char_custom.grapic_data_struct.end_angle=360;
-			custom_char_draw.char_custom.grapic_data_struct.width=2;
-			custom_char_draw.char_custom.grapic_data_struct.start_x=c_pos_x[0]*SCREEN_LENGTH;
-			custom_char_draw.char_custom.grapic_data_struct.start_y=c_pos_y[0]*SCREEN_WIDTH;
-			if(Op_type == Op_Change) goto CONT_0;
-			break;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[0].color=Orange;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[0].width=10;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[0].start_x=g_pos_x[0] * SCREEN_LENGTH;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[0].start_y=g_pos_y[0] * SCREEN_WIDTH;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[0].radius=20;
+				if(Op_type == Op_Change) goto CONT_0;			
 			case 1:
 			/*******************************Auto Aim Mode 图案*********************************/
-			AUTO_AIM:		custom_char_draw.char_custom.grapic_data_struct.graphic_name[0] = 2;
-			custom_char_draw.char_custom.grapic_data_struct.graphic_name[1] = 0;
-			custom_char_draw.char_custom.grapic_data_struct.graphic_name[2] = 0;
-			custom_char_draw.char_custom.grapic_data_struct.operate_tpye=Op_type;
-			custom_char_draw.char_custom.grapic_data_struct.graphic_tpye=4;
-			custom_char_draw.char_custom.grapic_data_struct.layer=8;
-			if(connection.connection_rx.vision.flag)
-			custom_char_draw.char_custom.grapic_data_struct.color=Green;
+							AUTO_AIM:		custom_grapic_draw.graphic_custom.grapic_data_struct[0].graphic_name[0] = 2;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[0].graphic_name[1] = 0;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[0].graphic_name[2] = 0;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[0].operate_tpye=Op_type;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[0].graphic_tpye=2;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[0].layer=4;
+				if(connection.connection_rx.vision.flag)
+			custom_grapic_draw.graphic_custom.grapic_data_struct[0].color=Green;
 			else
-				custom_char_draw.char_custom.grapic_data_struct.color=Orange;
-			custom_char_draw.char_custom.grapic_data_struct.start_angle=0;
-			custom_char_draw.char_custom.grapic_data_struct.end_angle=360;
-			custom_char_draw.char_custom.grapic_data_struct.width=2;
-			custom_char_draw.char_custom.grapic_data_struct.start_x=c_pos_x[1]*SCREEN_LENGTH;
-			custom_char_draw.char_custom.grapic_data_struct.start_y=c_pos_y[1]*SCREEN_WIDTH;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[0].color=Orange;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[0].width=10;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[0].start_x=g_pos_x[1] * SCREEN_LENGTH;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[0].start_y=g_pos_y[1] * SCREEN_WIDTH;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[0].radius=20;
 			if(Op_type == Op_Change) goto CONT_1;
 			break;
 			default:
@@ -412,7 +404,9 @@ void referee_data_pack_handle(uint8_t sof,uint16_t cmd_id, uint8_t *p_data, uint
 
 
 
-    HAL_UART_Transmit_DMA(&huart6, JudgeSend, frame_length);
+   __HAL_UART_CLEAR_FLAG(&huart6,UART_FLAG_TC);
+	HAL_UART_Transmit(&huart6, JudgeSend,frame_length,100);
+	while (__HAL_UART_GET_FLAG(&huart6,UART_FLAG_TC) == RESET); 
 
 
 	

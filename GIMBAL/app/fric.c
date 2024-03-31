@@ -62,6 +62,8 @@ void Fric_Init(void)
 
 }
 //摩擦轮状态更新
+float watch_left;
+float watch_right;
 void Fric_Status_Update(void)
 {
     M3508_Status_Update(&fric.left_motor.motor);
@@ -69,6 +71,8 @@ void Fric_Status_Update(void)
 	  Fric_Filter_Data_Update();
     fric.left_motor.status.actual_speed =   meanFilter(fric.left_motor.status.feedback_speed,5);
     fric.right_motor.status.actual_speed =   meanFilter(fric.right_motor.status.feedback_speed,5);
+		watch_left=fric.left_motor.status.actual_speed;
+		watch_right=-fric.right_motor.status.actual_speed;
 //    fric.left_motor.status.actual_speed =  fric.left_motor.motor.feedback.velocity_lsb;
 //    fric.right_motor.status.actual_speed =   fric.right_motor.motor.feedback.velocity_lsb;
     fric.left_motor.status.given_current =   fric.left_motor.motor.status.given_current;

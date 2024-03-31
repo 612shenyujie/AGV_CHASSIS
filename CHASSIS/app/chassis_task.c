@@ -56,11 +56,11 @@ void Chassis_Task()
 			Buffer_Limition_Kf_Update();
 		
     }
-		if(time.ms_count%10==6)
+		if(time.ms_count%200==7)
     {
     UI_Send_Char_Task();
     }
-		if(time.ms_count%10==8)
+		if(time.ms_count%200==107)
     {
      UI_Send_Graphic_Task();
 			Chassis_Flag_Update(&connection);
