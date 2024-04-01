@@ -1,4 +1,4 @@
---cpu=Cortex-M4.fp
+--cpu=Cortex-M4.fp.sp
 "gimbal\startup_stm32f407xx.o"
 "gimbal\bmi088driver.o"
 "gimbal\bmi088middleware.o"
@@ -64,6 +64,6 @@
 "gimbal\usbd_ioreq.o"
 "gimbal\usbd_cdc.o"
 --strict --scatter "GIMBAL\GIMBAL.sct"
---summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list "GIMBAL.map" -o GIMBAL\GIMBAL.axf

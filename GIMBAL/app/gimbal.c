@@ -32,7 +32,7 @@ GIMBAL_T gimbal;
 float gimbal_pitch_encoder_speed_data[PID_DATA_LEN]
 	={1200.0f,0.1f,0.0f,20000.0f,15000.0f,0.0f,50.0f,10.0f,0.7f,0.0f};
 float gimbal_pitch_encoder_position_data[PID_DATA_LEN]
-	={9.75f,0.1f,0.35f,150.0f,10.0f,0.00f,0.5f,0.1f,0.5f,0.0f};
+	={9.9f,0.1f,0.35f,150.0f,10.0f,0.00f,0.5f,0.1f,0.5f,0.0f};
 float gimbal_pitch_imu_speed_data[PID_DATA_LEN]
 	={7000.0f,28.0f,0.0f,25000.0f,10000.0f,0.0f,1000.0f,100.0f,0.7f,0.0f};
 float gimbal_pitch_imu_position_data[PID_DATA_LEN]
@@ -202,7 +202,7 @@ void Gimbal_Motor_Command_Update(void)
 
 			case IMU_MODE :
 				
-				gimbal.pitch.motor.command.grivity_voltage_lsb=Pitch_Gravity_Compensation();		
+//				gimbal.pitch.motor.command.grivity_voltage_lsb=Pitch_Gravity_Compensation();		
         PID_Calculate(&gimbal.pitch.pid.imu_angle_loop,gimbal.pitch.status.actual_angle,gimbal.pitch.command.target_angle);
         //设置目标速度
         gimbal.pitch.command.target_speed = -gimbal.pitch.pid.imu_angle_loop.Output;
@@ -217,7 +217,7 @@ void Gimbal_Motor_Command_Update(void)
         break;
     case ENCODER_MODE  :
 			
-				gimbal.pitch.motor.command.grivity_voltage_lsb=Pitch_Gravity_Compensation();
+//				gimbal.pitch.motor.command.grivity_voltage_lsb=Pitch_Gravity_Compensation();
        PID_Calculate(&gimbal.pitch.pid.encoder_angle_loop,gimbal.pitch.status.actual_angle,gimbal.pitch.command.target_angle);
         //设置目标速度
         gimbal.pitch.command.target_speed = gimbal.pitch.pid.encoder_angle_loop.Output;
@@ -341,7 +341,7 @@ void Gimbal_Mode_Change_Judge(void)
 	{
 		gimbal.yaw.motor.parameter.calibrate_state    =   MOTOR_CALIBRATED;
 		gimbal.yaw.command.target_angle=0;
-		gimbal.pitch.command.target_angle=-28;
+		gimbal.pitch.command.target_angle=-13.5;
 	}
 	if(gimbal.parameter.last_mode==GIMBAL_MODE_PRECISION&&gimbal.parameter.mode==GIMBAL_MODE_ABSOLUTE)
 	{

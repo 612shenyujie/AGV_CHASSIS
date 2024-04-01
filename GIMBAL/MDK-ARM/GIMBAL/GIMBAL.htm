@@ -3,7 +3,7 @@
 <title>Static Call Graph - [GIMBAL\GIMBAL.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image GIMBAL\GIMBAL.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Sun Mar 31 19:39:19 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Mon Apr 01 23:11:27 2024
 <BR><P>
 <H3>Maximum Stack Usage =        376 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1129,12 +1129,11 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gimbal_Task
 </UL>
 
-<P><STRONG><a name="[ef]"></a>Gimbal_Motor_Command_Update</STRONG> (Thumb, 500 bytes, Stack size 8 bytes, gimbal.o(i.Gimbal_Motor_Command_Update))
-<BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = Gimbal_Motor_Command_Update &rArr; Pitch_Gravity_Compensation &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul
+<P><STRONG><a name="[ef]"></a>Gimbal_Motor_Command_Update</STRONG> (Thumb, 480 bytes, Stack size 8 bytes, gimbal.o(i.Gimbal_Motor_Command_Update))
+<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = Gimbal_Motor_Command_Update &rArr; PID_Calculate &rArr; f_Change_Pout &rArr; __aeabi_f2d
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_Calculate
 <LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GM6020_Command_Update
-<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pitch_Gravity_Compensation
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gimbal_Task
 </UL>
@@ -2375,8 +2374,7 @@ Global Symbols
 <LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gimbal_Motor_Command_Update
-<LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gimbal_Cali_Task
+<BR>[Called By]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gimbal_Cali_Task
 </UL>
 
 <P><STRONG><a name="[1db]"></a>Precision_Mode_Update</STRONG> (Thumb, 206 bytes, Stack size 0 bytes, remote_control.o(i.Precision_Mode_Update))
