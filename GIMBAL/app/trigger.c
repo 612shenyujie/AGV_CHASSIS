@@ -44,7 +44,7 @@ void Trigger_Command_Update(void)
 		trigger_time=0;
 	if(trigger.command.target_total_position-trigger.command.actual_target_position >= 0.8f)
 	  {
-	    trigger.command.actual_target_position +=(trigger.command.target_total_position-trigger.command.actual_target_position)*0.15f;
+	    trigger.command.actual_target_position +=(trigger.command.target_total_position-trigger.command.actual_target_position)*0.09f;
 	  }
 		else
 			trigger.command.actual_target_position=trigger.command.target_total_position;

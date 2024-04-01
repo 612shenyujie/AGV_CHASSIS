@@ -5,7 +5,7 @@ static void f_PID_param_init(
     PID_TypeDef *pid,
 		float parameter[],
 
-    uint8_t improve)
+    uint16_t improve)
 {
     pid->DeadBand = parameter[5];
     pid->IntegralLimit = parameter[4];
@@ -26,8 +26,8 @@ static void f_PID_param_init(
     pid->Derivative_Filtering_Coefficient = parameter[9];
 		pid->Kp2 = parameter[10];
 		pid->Kp3 = parameter[11];
-		pid->ScalarA = parameter[12];
-    pid->ScalarB = parameter[13];
+		pid->ScalarC = parameter[12];
+    pid->ScalarD = parameter[13];
     pid->Improve = improve;
 
     pid->ERRORHandler.ERRORCount = 0;
@@ -187,11 +187,11 @@ static void f_Output_Limit(PID_TypeDef *pid)
 static void f_Change_Pout(PID_TypeDef *pid)
 {
 		if(fabs(pid->Err)<pid->ScalarC)
-			pid->Pout=pid->Err*pid->Kp1;
+			pid->Pout=pid->Err*pid->Kp3;
 		else if (fabs(pid->Err)<pid->ScalarC+pid->ScalarD)
 			pid->Pout=pid->Err*pid->Kp2;
 		else
-			pid->Pout=pid->Err*pid->Kp3;
+			pid->Pout=pid->Err*pid->Kp1;
 }
 
 static void f_Proportion_Limit(PID_TypeDef *pid)
