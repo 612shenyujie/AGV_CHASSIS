@@ -4,11 +4,11 @@
 VISION_T vision_control;
 
 const float g = 12; 
-const float bullet_v = 15.0; 
+const float bullet_v = 13.0; 
 
 float x_offset;
-float y_offset;
-float z_offset;
+float y_offset=0.15;
+float z_offset=1.55;
 
 void Vision_Angle_Task(float target_yaw_angle,float target_pitch_angle)
 {

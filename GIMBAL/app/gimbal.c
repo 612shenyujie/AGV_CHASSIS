@@ -41,9 +41,9 @@ float gimbal_pitch_imu_position_data[PID_DATA_LEN]
 //Kp,Ki,Kd,MaxOut,Inter_limition,Deadband,Change_I_A,Change_I_B,OUTPUT_FILTER,DOUTPUT_FILTER
 /*****************************************yaw轴PID*****************************************************/
 float gimbal_yaw_encoder_speed_data[PID_DATA_LEN]
-	={430.0f,0.3f,0.0f,25000.0f,7500.0f,0.0f,50.0f,10.0f,0.5f,0.0f};
+	={450.0f,0.3f,0.0f,25000.0f,7500.0f,0.0f,50.0f,10.0f,0.5f,0.0f};
 float gimbal_yaw_encoder_position_data[PID_DATA_LEN]
-	={10.0f,0.2f,1.0f,150.0f,20.0f,0.00f,10.0f,2.0f,0.5f,0.0f};
+	={13.0f,0.2f,1.0f,150.0f,20.0f,0.00f,10.0f,2.0f,0.5f,0.0f};
 float gimbal_yaw_imu_speed_data[PID_DATA_LEN]
 	={18000.0f,20.0f,0.0f,25000.0f,1000.0f,0.01f,0.5f,0.1f,0.5f,0.0f};
 float gimbal_yaw_imu_position_data[PID_DATA_LEN]
@@ -151,6 +151,7 @@ void Gimbal_Command_Update(void)
             switch (gimbal.parameter.mode)
             {
             case GIMBAL_MODE_PRECISION :
+//								gimbal.yaw.parameter.mode=ENCODER_MODE;
                 gimbal.yaw.command.add_angle=RC.rc_sent.yaw.target_angle/6.0f;
                 gimbal.pitch.command.add_angle=RC.rc_sent.pitch.target_angle/4.0f;
                 break;
@@ -169,10 +170,12 @@ void Gimbal_Command_Update(void)
 						gimbal.pitch.command.target_angle+=gimbal.pitch.command.add_angle;
         break;
         case VISION_ON  :
+					
 					Self_aim(vision_control.command.x,vision_control.command.y,vision_control.command.z,&vision_control.command.yaw_angle,&vision_control.command.pitch_angle,&vision_control.command.distance);
             switch (gimbal.parameter.mode)
             {
             case GIMBAL_MODE_PRECISION :
+//								gimbal.yaw.parameter.mode=ENCODER_MODE;
                 gimbal.yaw.command.target_angle=vision_control.command.yaw_angle;
                 gimbal.pitch.command.target_angle=vision_control.command.pitch_angle;
                 break;
@@ -341,7 +344,7 @@ void Gimbal_Mode_Change_Judge(void)
 	{
 		gimbal.yaw.motor.parameter.calibrate_state    =   MOTOR_CALIBRATED;
 		gimbal.yaw.command.target_angle=0;
-		gimbal.pitch.command.target_angle=-13.5;
+		gimbal.pitch.command.target_angle=-13.45;
 	}
 	if(gimbal.parameter.last_mode==GIMBAL_MODE_PRECISION&&gimbal.parameter.mode==GIMBAL_MODE_ABSOLUTE)
 	{

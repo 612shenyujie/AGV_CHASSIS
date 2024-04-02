@@ -17,12 +17,12 @@ XPOWER_COMMAND_T xpower;
 
 //left-fric-PID
 float left_fric_data[PID_DATA_LEN]
-	={0.042f,0.0007f,0.0f,5.0f,0.01f,0.0f,500.0f,100.0f,0.5f,0.01f,0.0f,0.0f,900.0f,1800.0f};
+={0.042f,0.0007f,0.0f,20.0f,0.01f,0.0f,500.0f,100.0f,0.5f,0.0f};
 //right-fric-PID
-float right_fric_data[PID_DATA_LEN]
-	={0.048f,0.0007f,0.0f,6.0f,0.01f,0.0f,500.0f,100.0f,0.5f,0.01f,0.0f,0.0f,900.0f,1800.0f};
 //float right_fric_data[PID_DATA_LEN]
-//	={0.042f,0.0007f,0.0f,20.0f,0.01f,0.0f,500.0f,100.0f,0.5f,0.0f};
+//	={0.062f,0.0007f,0.0f,20.0f,0.01f,0.0f,500.0f,100.0f,0.5f,0.01f,0.0f,0.0f,900.0f,1800.0f};
+float right_fric_data[PID_DATA_LEN]
+	={0.042f,0.0007f,0.0f,20.0f,0.01f,0.0f,500.0f,100.0f,0.5f,0.0f};
 
 	
 		float meanFilter(float* data, int size)
