@@ -88,9 +88,14 @@ void Fric_Command_Update(void)
 {
     switch(fric.parameter.mode)
     {
-        case FRIC_RUNNING  :
+       case FRIC_BRUSTING  :
             fric.left_motor.command.target_speed =   FRIC_HIGH_SPEED;
             fric.right_motor.command.target_speed =  - FRIC_HIGH_SPEED;
+						chassis.send.fric_speed=fric.left_motor.command.target_speed;
+        break;  
+			case FRIC_RUNNING  :
+            fric.left_motor.command.target_speed =   FRIC_NORMAL_SPEED;
+            fric.right_motor.command.target_speed =  - FRIC_NORMAL_SPEED;
 						chassis.send.fric_speed=fric.left_motor.command.target_speed;
         break;
         case FRIC_STOP  :
@@ -119,7 +124,7 @@ void Fric_Current_Update(void)
 		 CAN1_0x200_Tx_Data[3]=fric.left_motor.motor.command.give_current_lsb;
         break;
         case FRIC_RUNNING  :
-            
+				case FRIC_BRUSTING	:
 
      CAN1_0x200_Tx_Data[0]=fric.right_motor.motor.command.give_current_lsb>>8;
 		 CAN1_0x200_Tx_Data[1]=fric.right_motor.motor.command.give_current_lsb;
