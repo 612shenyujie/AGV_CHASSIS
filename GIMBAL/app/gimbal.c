@@ -107,14 +107,14 @@ void Gimbal_Statue_Update(void)
 		chassis.send.pitch_angle=gimbal.pitch.status.actual_angle;
     //yaw轴数据多圈处理
 			GM6020_Status_Update(&gimbal.yaw.motor);
+
 			gimbal.yaw.imu.status.last_actual_angle = gimbal.yaw.imu.status.actual_angle;
             gimbal.yaw.imu.status.actual_angle = -INS_angle[0] / (2 * 3.141590f) * 360.0f;
             if(gimbal.yaw.imu.status.actual_angle-gimbal.yaw.imu.status.last_actual_angle>180.0f) gimbal.yaw.imu.status.rounds--;
             if(gimbal.yaw.imu.status.actual_angle-gimbal.yaw.imu.status.last_actual_angle<-180.0f)gimbal.yaw.imu.status.rounds++;
-
-            gimbal.yaw.imu.status.total_angle = gimbal.yaw.imu.status.rounds*360.0f + gimbal.yaw.imu.status.actual_angle;
+            gimbal.yaw.imu.status.total_angle = gimbal.yaw.imu.status.rounds*360.0f + gimbal.yaw.imu.status.actual_angle+chassis.send.invert_flag*180.0f;
             gimbal.yaw.imu.status.actual_speed = -1.0f * INS_gyro[2]+0.09f;
-			gimbal.yaw.status.total_angle =	gimbal.yaw.motor.status.total_position_degree/gimbal.yaw.parameter.number_ratio;
+			gimbal.yaw.status.total_angle =	gimbal.yaw.motor.status.total_position_degree/gimbal.yaw.parameter.number_ratio+chassis.send.invert_flag*180.0f;
 		    while(gimbal.yaw.status.total_angle-gimbal.yaw.status.rounds*360.0f>180.0f) gimbal.yaw.status.rounds++;
 		    while(gimbal.yaw.status.total_angle-gimbal.yaw.status.rounds*360.0f<-180.0f) gimbal.yaw.status.rounds--;
     //yaw轴数据更新

@@ -32,12 +32,14 @@ int Graphic_Change_Check(void)
 	if(connection.connection_rx.fric.flag!=connection.connection_rx.fric.last_flag)
 	{
 		Graphic_Change_Array[0]=Op_Change;
+		change_cnt[0]=5;
 	
 	}
 	
 		if(connection.connection_rx.vision.flag!=connection.connection_rx.vision.last_flag)
 	{
 		Graphic_Change_Array[1]=Op_Change;
+		change_cnt[0]=5;
 	
 	}
 	
@@ -283,7 +285,8 @@ void referee_data_load_Graphic(int Op_type)
 				custom_grapic_draw.graphic_custom.grapic_data_struct[0].start_x=g_pos_x[0] * SCREEN_LENGTH;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[0].start_y=g_pos_y[0] * SCREEN_WIDTH;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[0].radius=20;
-				if(Op_type == Op_Change) goto CONT_0;			
+				if(Op_type == Op_Change) goto CONT_0;		
+				break;
 			case 1:
 			/*******************************Auto Aim Mode Í¼°¸*********************************/
 							AUTO_AIM:		custom_grapic_draw.graphic_custom.grapic_data_struct[0].graphic_name[0] = 2;
@@ -312,12 +315,20 @@ void referee_data_load_Graphic(int Op_type)
 			if(Graphic_Change_Array[0] == Op_Change)  
 		{
 			goto FRIC_MODE;
-	CONT_0:Graphic_Change_Array[0]=Op_None;
+	CONT_0:
+			if(change_cnt[0])
+				change_cnt[0]--;
+			else
+			Graphic_Change_Array[0]=Op_None;
 		}
 			if(Graphic_Change_Array[1] == Op_Change)  
 		{
 			goto AUTO_AIM;
-			CONT_1:Graphic_Change_Array[1]=Op_None;
+			CONT_1:
+			if(change_cnt[1])
+				change_cnt[1]--;
+			else
+			Graphic_Change_Array[1]=Op_None;
 		}
 	}
 }
@@ -405,7 +416,7 @@ void referee_data_pack_handle(uint8_t sof,uint16_t cmd_id, uint8_t *p_data, uint
 
 
    __HAL_UART_CLEAR_FLAG(&huart6,UART_FLAG_TC);
-	HAL_UART_Transmit(&huart6, JudgeSend,frame_length,100);
+	HAL_UART_Transmit(&huart6, JudgeSend,frame_length,150);
 	while (__HAL_UART_GET_FLAG(&huart6,UART_FLAG_TC) == RESET); 
 
 

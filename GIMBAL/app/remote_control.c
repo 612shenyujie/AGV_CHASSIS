@@ -678,6 +678,7 @@ void Delay_Cnt_Task(void)
 	if(delay_time.follow_switch_cnt)	delay_time.follow_switch_cnt--;
 	if(delay_time.invert_cnt)	delay_time.invert_cnt--;
 	if(delay_time.xpower_mode_cnt) delay_time.xpower_mode_cnt--;
+	if(delay_time.ui_mode_cnt) delay_time.ui_mode_cnt--;
 };
 
 void Remote_Init(void)
@@ -714,6 +715,27 @@ void Xpower_Mode_Update(void)
    }
 }
 
+void UI_mode_Update(void)
+{
+	switch(RC.mode)
+	{
+		case HANDLE_CONTROL :
+		break;
+		case KEYBOARD_CONTROL :
+			
+					if(RC.rc_receive.key_board.button.Q && delay_time.ui_mode_cnt==0&&chassis.send.ui_init_flag==1)
+					{
+						chassis.send.ui_init_flag=0;
+						delay_time.ui_mode_cnt=2000;
+					}
+				
+					
+				
+			
+			break;
+   }
+}
+
 void Remote_Task(void)
 {
 	//吊射模式状态更新
@@ -735,5 +757,6 @@ void Remote_Task(void)
 	//更新遥控器模式
 	Rc_Mode_Update();
 	Xpower_Mode_Update();
+	UI_mode_Update();
 };
 

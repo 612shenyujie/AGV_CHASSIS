@@ -243,7 +243,7 @@ void Chassis_Init(void)
 		chassis.parameter.speed_slow	=	Ease_Out;
     chassis.parameter.relative_angle    =   0.f;
 		chassis.parameter.buffer_limition_k	=1;
-		chassis.A_motor.zero_position = 0x1202;
+		chassis.A_motor.zero_position = 0x1b0c;
 		chassis.B_motor.zero_position = 0x174c;
 		chassis.C_motor.zero_position = 0x0ACE;
 		chassis.D_motor.zero_position = 0x19CB;
