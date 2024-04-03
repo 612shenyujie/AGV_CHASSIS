@@ -65,7 +65,7 @@ void Trigger_Send_Command_Update(void)
 			memset(&CAN2_0x200_Tx_Data,0,8);
 			break;
 		case TRIGGER_RUNNING	:
-
+		case TRIGGER_BRUSTING	:
 			CAN2_0x200_Tx_Data[0]=trigger.motor.command.give_current_lsb>>8;
 			CAN2_0x200_Tx_Data[1]=trigger.motor.command.give_current_lsb;
 			break;

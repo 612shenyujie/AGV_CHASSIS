@@ -7,8 +7,8 @@ const float g = 12;
 const float bullet_v = 13.0; 
 
 float x_offset;
-float y_offset;
-float z_offset;
+float y_offset=0.235;
+float z_offset=0.29;
 
 void Vision_Angle_Task(float target_yaw_angle,float target_pitch_angle)
 {
@@ -107,9 +107,10 @@ float calc_pitch(float x, float y, float z) {
  * @param z ???z??
  * @return ????????(??????)
  */
+float temp_pitch=1.8f;
 void Self_aim(float x,float y,float z,float *yaw,float *pitch,float *distance)
 {
     *yaw = calc_yaw(x, y, z);
-    *pitch = calc_pitch(x, y, z);
+    *pitch = calc_pitch(x, y, z)-temp_pitch;
     *distance = calc_distance(x, y, z);
 }

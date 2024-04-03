@@ -32,7 +32,7 @@ GIMBAL_T gimbal;
 float gimbal_pitch_encoder_speed_data[PID_DATA_LEN]
 	={1200.0f,0.1f,0.0f,20000.0f,15000.0f,0.0f,50.0f,10.0f,0.7f,0.0f};
 float gimbal_pitch_encoder_position_data[PID_DATA_LEN]
-	={9.9f,0.1f,0.35f,150.0f,10.0f,0.00f,0.5f,0.1f,0.5f,0.0f};
+	={9.77f,0.1f,0.35f,150.0f,10.0f,0.00f,0.5f,0.1f,0.5f,0.0f};
 float gimbal_pitch_imu_speed_data[PID_DATA_LEN]
 	={7000.0f,28.0f,0.0f,25000.0f,10000.0f,0.0f,1000.0f,100.0f,0.7f,0.0f};
 float gimbal_pitch_imu_position_data[PID_DATA_LEN]
@@ -41,9 +41,9 @@ float gimbal_pitch_imu_position_data[PID_DATA_LEN]
 //Kp,Ki,Kd,MaxOut,Inter_limition,Deadband,Change_I_A,Change_I_B,OUTPUT_FILTER,DOUTPUT_FILTER
 /*****************************************yaw轴PID*****************************************************/
 float gimbal_yaw_encoder_speed_data[PID_DATA_LEN]
-	={450.0f,0.3f,0.0f,25000.0f,7500.0f,0.0f,50.0f,10.0f,0.5f,0.0f};
+	={430.0f,0.3f,0.0f,25000.0f,7500.0f,0.0f,50.0f,10.0f,0.5f,0.0f};
 float gimbal_yaw_encoder_position_data[PID_DATA_LEN]
-	={13.0f,0.2f,1.0f,150.0f,20.0f,0.00f,10.0f,2.0f,0.5f,0.0f};
+	={10.0f,0.2f,1.0f,150.0f,20.0f,0.00f,10.0f,2.0f,0.5f,0.0f};
 float gimbal_yaw_imu_speed_data[PID_DATA_LEN]
 	={18000.0f,20.0f,0.0f,25000.0f,1000.0f,0.01f,0.5f,0.1f,0.5f,0.0f};
 float gimbal_yaw_imu_position_data[PID_DATA_LEN]
@@ -237,10 +237,12 @@ void Gimbal_Motor_Command_Update(void)
     }
 
     //根据参数模式，计算出目标角度和速度
-    switch(gimbal.yaw.parameter.mode)
-    {
-				while(gimbal.yaw.command.target_angle-gimbal.yaw.status.total_angle>360.0f)	gimbal.yaw.command.target_angle-=360.0f;
+
+		while(gimbal.yaw.command.target_angle-gimbal.yaw.status.total_angle>360.0f)	gimbal.yaw.command.target_angle-=360.0f;
 				while(gimbal.yaw.command.target_angle-gimbal.yaw.status.total_angle<-360.0f)	gimbal.yaw.command.target_angle+=360.0f;
+		switch(gimbal.yaw.parameter.mode)
+    {
+				
 			case IMU_MODE :
        
         PID_Calculate(&gimbal.yaw.pid.imu_angle_loop,gimbal.yaw.status.total_angle,gimbal.yaw.command.target_angle);

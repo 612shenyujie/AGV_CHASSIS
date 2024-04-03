@@ -3,7 +3,7 @@
 <title>Static Call Graph - [GIMBAL\GIMBAL.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image GIMBAL\GIMBAL.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Tue Apr 02 23:38:30 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Wed Apr 03 09:13:08 2024
 <BR><P>
 <H3>Maximum Stack Usage =        376 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1049,7 +1049,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[175]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_PeriodElapsedCallback
 </UL>
 
-<P><STRONG><a name="[1df]"></a>Fric_Wheel_Mode_Update</STRONG> (Thumb, 168 bytes, Stack size 0 bytes, remote_control.o(i.Fric_Wheel_Mode_Update))
+<P><STRONG><a name="[1df]"></a>Fric_Wheel_Mode_Update</STRONG> (Thumb, 248 bytes, Stack size 0 bytes, remote_control.o(i.Fric_Wheel_Mode_Update))
 <BR><BR>[Called By]<UL><LI><a href="#[184]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Remote_Task
 </UL>
 
@@ -1129,7 +1129,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gimbal_Task
 </UL>
 
-<P><STRONG><a name="[ef]"></a>Gimbal_Motor_Command_Update</STRONG> (Thumb, 480 bytes, Stack size 8 bytes, gimbal.o(i.Gimbal_Motor_Command_Update))
+<P><STRONG><a name="[ef]"></a>Gimbal_Motor_Command_Update</STRONG> (Thumb, 574 bytes, Stack size 8 bytes, gimbal.o(i.Gimbal_Motor_Command_Update))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = Gimbal_Motor_Command_Update &rArr; PID_Calculate &rArr; f_Change_Pout &rArr; __aeabi_f2d
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_Calculate
@@ -2443,7 +2443,7 @@ Global Symbols
 <P><STRONG><a name="[1f]"></a>SVC_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f4xx_it.o(i.SVC_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f407xx.o(RESET)
 </UL>
-<P><STRONG><a name="[ec]"></a>Self_aim</STRONG> (Thumb, 90 bytes, Stack size 32 bytes, vision.o(i.Self_aim))
+<P><STRONG><a name="[ec]"></a>Self_aim</STRONG> (Thumb, 100 bytes, Stack size 32 bytes, vision.o(i.Self_aim))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = Self_aim &rArr; calc_pitch &rArr; calc_distance &rArr; __hardfp_sqrtf &rArr; __set_errno
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calc_yaw
@@ -2536,7 +2536,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Init_Task
 </UL>
 
-<P><STRONG><a name="[1ec]"></a>Trigger_Send_Command_Update</STRONG> (Thumb, 48 bytes, Stack size 0 bytes, trigger.o(i.Trigger_Send_Command_Update))
+<P><STRONG><a name="[1ec]"></a>Trigger_Send_Command_Update</STRONG> (Thumb, 54 bytes, Stack size 0 bytes, trigger.o(i.Trigger_Send_Command_Update))
 <BR><BR>[Called By]<UL><LI><a href="#[185]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Trigger_Task
 </UL>
 

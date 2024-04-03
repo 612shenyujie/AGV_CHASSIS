@@ -18,6 +18,7 @@ typedef enum
 
 typedef enum
 {
+	FRIC_HIGH	=	0x02,
 	FRIC_ON	=	0x01,
 	FRIC_OFF=	0x00,
 }FRIC_FLAG_E;
@@ -35,8 +36,8 @@ typedef struct
 
 typedef struct
 {
-	bool flag;
-	bool last_flag;
+	int flag;
+	int last_flag;
 }CHASSIS_MODE_STATE_T;//1为开启，0为关闭
 
 typedef struct 

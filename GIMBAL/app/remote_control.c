@@ -473,7 +473,7 @@ void Fric_Wheel_Mode_Update(void)
 		break;
 	case KEYBOARD_CONTROL :
 				
-		    if(RC.rc_receive.mouse.press_r)
+		    if((!RC.rc_receive.key_board.button.CTRL)	&&RC.rc_receive.mouse.press_r)
 				{
 					if(delay_time.fric_mode_cnt==0&&fric.parameter.mode!=FRIC_STOP)
 					{
@@ -483,6 +483,19 @@ void Fric_Wheel_Mode_Update(void)
 					if(delay_time.fric_mode_cnt==0&&fric.parameter.mode!=FRIC_RUNNING)
 					{
 						fric.parameter.mode=FRIC_RUNNING;
+						delay_time.fric_mode_cnt=400;
+					}
+				}
+				 if((RC.rc_receive.key_board.button.CTRL)	&&RC.rc_receive.mouse.press_r)
+				{
+					if(delay_time.fric_mode_cnt==0&&fric.parameter.mode!=FRIC_STOP)
+					{
+						fric.parameter.mode=FRIC_STOP;
+						delay_time.fric_mode_cnt=400;
+					}
+					if(delay_time.fric_mode_cnt==0&&fric.parameter.mode!=FRIC_BRUSTING)
+					{
+						fric.parameter.mode=FRIC_BRUSTING;
 						delay_time.fric_mode_cnt=400;
 					}
 				}
@@ -572,16 +585,16 @@ void Trigger_Shoot_Number_Update(void)
 			break;
 		
 		case FRIC_RUNNING	:
-			if(!(RC.rc_receive.key_board.button.CTRL)&&RC.rc_receive.mouse.press_l	&&	delay_time.shoot_number_cnt	==	0)
+			if((!RC.rc_receive.key_board.button.CTRL)&&RC.rc_receive.mouse.press_l	&&	delay_time.shoot_number_cnt	==	0)
 			{
 				trigger.parameter.state	=	TRIGGER_RUNNING;
 				delay_time.shoot_number_cnt=400;
 				trigger.parameter.shoot_num++;
 			}
+		case FRIC_BRUSTING	:
 			if(RC.rc_receive.key_board.button.CTRL	&&	RC.rc_receive.mouse.press_l	&&	delay_time.shoot_number_cnt	==	0)
 			{
-				fric.parameter.mode=FRIC_RUNNING;
-				trigger.parameter.state	=	FRIC_BRUSTING;
+				trigger.parameter.state	=	TRIGGER_BRUSTING;
 				delay_time.shoot_number_cnt=400;
 				trigger.parameter.shoot_num+=10;
 			}

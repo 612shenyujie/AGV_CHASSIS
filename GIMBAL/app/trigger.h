@@ -8,6 +8,7 @@ typedef enum
 {
 	TRIGGER_STOP	=	0x00,
 	TRIGGER_RUNNING,
+	TRIGGER_BRUSTING,
 }TRIGGER_STATAE_E;
 
 typedef	struct
