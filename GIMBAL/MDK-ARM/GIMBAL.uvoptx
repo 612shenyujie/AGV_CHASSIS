@@ -118,7 +118,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGUARM</Key>
-          <Name>O</Name>
+          <Name></Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -155,9 +155,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>728</LineNumber>
+          <LineNumber>734</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134270996</Address>
+          <Address>134271032</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -166,7 +166,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>..\app\remote_control.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\GIMBAL\../app/remote_control.c\728</Expression>
+          <Expression>\\GIMBAL\../app/remote_control.c\734</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -252,7 +252,7 @@
       <DebugFlag>
         <trace>0</trace>
         <periodic>1</periodic>
-        <aLwin>1</aLwin>
+        <aLwin>0</aLwin>
         <aCover>0</aCover>
         <aSer1>0</aSer1>
         <aSer2>0</aSer2>

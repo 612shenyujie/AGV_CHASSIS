@@ -17,13 +17,13 @@
 
 //#define FRIC_HIGH_SPEED 5200.f//13.2
 //#define FRIC_HIGH_SPEED 6200.f//16.2
-#define FRIC_HIGH_SPEED 5800.f//13.2
+#define FRIC_HIGH_SPEED 6000.f//13.2
 //#define FRIC_NORMAL_SPEED 4800.f//9.4-10.1
 #define FRIC_NORMAL_SPEED 5800.f//13.2
 #define FRIC_NONE_SPEED 0.f
 
-#define XPOWER_OPEN 137.f
-#define XPOWER_CLOSE 75.f
+#define XPOWER_OPEN 180.f
+#define XPOWER_CLOSE 155.f
 typedef __packed enum
 {
     FRIC_STOP = 0,

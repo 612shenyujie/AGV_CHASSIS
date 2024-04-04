@@ -416,19 +416,24 @@ void Gimbal_Task(void)
     case NORMAL :
 		if(gimbal.parameter.mode != GIMBAL_MODE_NO_FORCE)
 			{
-			if(gimbal_time.ms_count%5==1)
+			if(gimbal_time.ms_count%10==1)
 			{
 				Gimbal_Mode_Change_Judge();
 				Gimbal_Motor_Mode_Update();
 				Gimbal_Command_Update();
 			}
+			
         Gimbal_Motor_Command_Update();
+			
 			}
         
         break;
     }
+					
+					
 		Gimbal_Send_command_Update();
     Gimbal_Statue_Update();
+					
 
 }; 
 

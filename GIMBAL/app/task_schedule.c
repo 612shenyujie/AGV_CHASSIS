@@ -132,6 +132,7 @@ void task_schedule()
 			//执行移动任务
 			Remote_Task();
 			//执行云台任务
+
 			Gimbal_Task();
 			//执行摩擦轮任务
 			Fric_Task();

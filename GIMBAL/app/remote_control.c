@@ -432,11 +432,13 @@ void Vision_Control_Mode_Update(void)
 				if(delay_time.vision_mode_cnt==0&&vision_control.mode==VISION_OFF)
 				{
 					vision_control.mode=VISION_ON;
+					chassis.send.vision_flag	=	VISION_ON;
 					delay_time.vision_mode_cnt=400;
 				}
 				if(delay_time.vision_mode_cnt==0&&vision_control.mode==VISION_ON)
 				{
 					vision_control.mode=VISION_OFF;
+					chassis.send.vision_flag	=	VISION_OFF;
 					delay_time.vision_mode_cnt=400;
 				}
 			}
@@ -478,11 +480,13 @@ void Fric_Wheel_Mode_Update(void)
 					if(delay_time.fric_mode_cnt==0&&fric.parameter.mode!=FRIC_STOP)
 					{
 						fric.parameter.mode=FRIC_STOP;
+						chassis.send.fric_state	=	FRIC_STOP;
 						delay_time.fric_mode_cnt=400;
 					}
 					if(delay_time.fric_mode_cnt==0&&fric.parameter.mode!=FRIC_RUNNING)
 					{
 						fric.parameter.mode=FRIC_RUNNING;
+						chassis.send.fric_state	=	FRIC_RUNNING;
 						delay_time.fric_mode_cnt=400;
 					}
 				}
@@ -491,11 +495,13 @@ void Fric_Wheel_Mode_Update(void)
 					if(delay_time.fric_mode_cnt==0&&fric.parameter.mode!=FRIC_STOP)
 					{
 						fric.parameter.mode=FRIC_STOP;
+							chassis.send.fric_state	=	FRIC_STOP;
 						delay_time.fric_mode_cnt=400;
 					}
 					if(delay_time.fric_mode_cnt==0&&fric.parameter.mode!=FRIC_BRUSTING)
 					{
 						fric.parameter.mode=FRIC_BRUSTING;
+						chassis.send.fric_state	=	FRIC_BRUSTING;
 						delay_time.fric_mode_cnt=400;
 					}
 				}

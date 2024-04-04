@@ -38,7 +38,7 @@ typedef  struct
     CHASSIS_VELOCITY_T velocity;
     bool follow_flag;
     bool invert_flag;
-		bool fric_state;
+		int fric_state;
 		bool vision_flag;
 		bool ui_init_flag;
 		int16_t fric_speed;

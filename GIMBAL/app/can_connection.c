@@ -75,9 +75,11 @@ void Can_Send_Task(int8_t ms_count)
   
 
 		
+			CAN_Send_Data(&hcan1,0x1ff,CAN1_0x1ff_Tx_Data,8);
+			CAN_Send_Data(&hcan2,0x1ff,CAN2_0x1ff_Tx_Data,8);
+		
 
-	CAN_Send_Data(&hcan1,0x1ff,CAN1_0x1ff_Tx_Data,8);
-	CAN_Send_Data(&hcan2,0x1ff,CAN2_0x1ff_Tx_Data,8);
+	
 		
 	CAN_Send_Data(&hcan1,0x200,CAN1_0x200_Tx_Data,8);
 		
