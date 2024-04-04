@@ -31,6 +31,7 @@ typedef  struct {
 typedef  struct VISION_T{
 	
 	VISION_MODE mode;
+	VISION_MODE last_mode;
 	VISION_COMMAND_T command;
 }VISION_T;
 

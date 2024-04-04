@@ -14,6 +14,7 @@
 #include "kinematic.h"
 #include "math.h"
 #include "referee.h"
+#include "ui.h"
 
 CHASSIS_T chassis;
 YAW_T   yaw;
@@ -151,20 +152,17 @@ void Gimbal_To_Chassis_Relative_Angle_Update(void)
 {
     float gimbal_angle,chassis_angle;
     
-		if(chassis.parameter.follow_switch	==	FOLLOW_ON)
-				{
+
+				
 				chassis_angle   =   yaw.status.actual_angle;
 				gimbal_angle    =   GIMBAL_HEAD_ANGLE+180.0f*chassis.parameter.invert_flag;
 				chassis.parameter.relative_angle =   chassis_angle-gimbal_angle;
-							if(chassis.parameter.mode	==	CHASSIS_SPIN)
-							{
-							chassis.parameter.relative_angle-=yaw.parameter.yaw_offset;
-							}
+							
 		
 				if(chassis.parameter.relative_angle>180.0f) chassis.parameter.relative_angle-=360.0f;
 				if(chassis.parameter.relative_angle<-180.0f) chassis.parameter.relative_angle+=360.0f;
-				}
-				else
+				relative_angle = chassis.parameter.relative_angle;
+				if(chassis.parameter.follow_switch	!=	FOLLOW_ON)
 				{
 				chassis.parameter.relative_angle =  0;
 				}

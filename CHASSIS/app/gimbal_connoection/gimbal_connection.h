@@ -49,6 +49,7 @@ typedef struct
 	 CHASSIS_MODE_STATE_T	fric;
 	 CHASSIS_MODE_STATE_T vision;
 	 float pitch_angle;
+	float  last_pitch_angle;
 	 int16_t fric_speed;
    float  vx;
    float vy;

@@ -9,6 +9,7 @@ void Chassis_Flag_Update(GIMBAL_CONNECTION_T *connection)
 	connection->connection_rx.fric.last_flag=connection->connection_rx.fric.flag;
 	connection->connection_rx.vision.last_flag=connection->connection_rx.vision.flag;
 	connection->connection_rx.Graphic_Init.last_flag=connection->connection_rx.Graphic_Init.flag;
+	
 }
 
 void Chassis_Speed_Command_Update(GIMBAL_CONNECTION_T *connection,uint8_t	data[])

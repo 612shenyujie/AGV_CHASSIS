@@ -45,3 +45,4 @@ chassis\chassis.o: ..\app\chassis_move\kinematic.h
 chassis\chassis.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 chassis\chassis.o: ../app/referee/referee.h
 chassis\chassis.o: ../app/referee/algorithmOfCRC.h
+chassis\chassis.o: ../app/referee/ui.h

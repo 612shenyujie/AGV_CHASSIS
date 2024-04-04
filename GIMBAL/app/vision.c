@@ -6,7 +6,7 @@ VISION_T vision_control;
 const float g = 10.2 ; 
 const float bullet_v = 15.0; 
 
-float x_offset=0.29;
+float x_offset;
 float y_offset;
 float z_offset=0.235;
 
@@ -78,7 +78,7 @@ float calc_distance(float x, float y, float z) {
  */
 float calc_pitch(float x, float y, float z) {
     // ?? x?y ????????????? z ?????????,?????????
-    float pitch = atan2f(z, sqrtf(x * x + y * y));
+    float pitch = atan2f(z, sqrtf(x * x ));
 
     // ????????????????
     for (int16_t i = 0; i < 20; i++) {

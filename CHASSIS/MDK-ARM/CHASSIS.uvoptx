@@ -118,7 +118,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGUARM</Key>
-          <Name>栩S</Name>
+          <Name></Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -155,9 +155,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>285</LineNumber>
+          <LineNumber>493</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134246000</Address>
+          <Address>134249096</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -166,14 +166,14 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>..\app\referee\ui.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\CHASSIS\../app/referee/ui.c\285</Expression>
+          <Expression>\\CHASSIS\../app/referee/ui.c\493</Expression>
         </Bp>
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
-          <LineNumber>317</LineNumber>
+          <LineNumber>499</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134246330</Address>
+          <Address>134249154</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -182,23 +182,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>..\app\referee\ui.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\CHASSIS\../app/referee/ui.c\317</Expression>
-        </Bp>
-        <Bp>
-          <Number>2</Number>
-          <Type>0</Type>
-          <LineNumber>34</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134225856</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\app\referee\ui.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\CHASSIS\../app/referee/ui.c\34</Expression>
+          <Expression>\\CHASSIS\../app/referee/ui.c\499</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -286,6 +270,16 @@
           <count>16</count>
           <WinNumber>1</WinNumber>
           <ItemText>custom_char_draw</ItemText>
+        </Ww>
+        <Ww>
+          <count>17</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>start_angle</ItemText>
+        </Ww>
+        <Ww>
+          <count>18</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>end_angle</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>

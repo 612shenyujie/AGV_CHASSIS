@@ -39,6 +39,8 @@ void Trigger_Command_Update(void)
 	while(trigger.command.target_position	-	trigger.command.rounds*360.0f<-360.0f)	trigger.command.rounds--;
 	trigger.command.target_position	=	trigger.command.target_total_position	-	trigger.command.rounds*360.0f	;
 	trigger_time++;
+	if(trigger.parameter.state!=TRIGGER_BRUSTING)
+	{
 	if(trigger_time>50)
 	{
 		trigger_time=0;
@@ -47,6 +49,11 @@ void Trigger_Command_Update(void)
 	    trigger.command.actual_target_position +=(trigger.command.target_total_position-trigger.command.actual_target_position)*0.09f;
 	  }
 		else
+			trigger.command.actual_target_position=trigger.command.target_total_position;
+	}
+}
+	else
+	{
 			trigger.command.actual_target_position=trigger.command.target_total_position;
 	}
 	PID_Calculate(&trigger.pid.angle_loop,trigger.status.total_angle,-trigger.command.actual_target_position);
@@ -69,6 +76,7 @@ void Trigger_Send_Command_Update(void)
 			CAN2_0x200_Tx_Data[0]=trigger.motor.command.give_current_lsb>>8;
 			CAN2_0x200_Tx_Data[1]=trigger.motor.command.give_current_lsb;
 			break;
+		
 	}
 }
 

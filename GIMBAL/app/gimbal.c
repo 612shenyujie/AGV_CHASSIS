@@ -41,7 +41,7 @@ float gimbal_pitch_imu_position_data[PID_DATA_LEN]
 //Kp,Ki,Kd,MaxOut,Inter_limition,Deadband,Change_I_A,Change_I_B,OUTPUT_FILTER,DOUTPUT_FILTER
 /*****************************************yaw轴PID*****************************************************/
 float gimbal_yaw_encoder_speed_data[PID_DATA_LEN]
-	={430.0f,0.3f,0.0f,25000.0f,7500.0f,0.0f,50.0f,10.0f,0.5f,0.0f};
+	={400.0f,0.3f,0.0f,25000.0f,7500.0f,0.0f,50.0f,10.0f,0.5f,0.0f};
 float gimbal_yaw_encoder_position_data[PID_DATA_LEN]
 	={10.0f,0.2f,1.0f,150.0f,20.0f,0.00f,10.0f,2.0f,0.5f,0.0f};
 float gimbal_yaw_imu_speed_data[PID_DATA_LEN]
@@ -145,6 +145,11 @@ void Gimbal_Statue_Update(void)
 void Gimbal_Command_Update(void)
 {
     //判断自瞄状态
+		if(vision_control.mode!=vision_control.last_mode)
+		{
+			memset(&vision_control.command,0,sizeof(vision_control.command));
+		
+		}
     switch(vision_control.mode)
     {
         case VISION_OFF :
@@ -190,6 +195,7 @@ void Gimbal_Command_Update(void)
             }
         break;
     }
+		vision_control.last_mode=vision_control.mode;
 
 }
 

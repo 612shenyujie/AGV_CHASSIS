@@ -105,6 +105,6 @@ typedef __packed struct
 
 
 void UI_Send_Graphic_Task(void);
-
+extern float relative_angle,last_relative_angle;
 void UI_Send_Char_Task(void);
 #endif

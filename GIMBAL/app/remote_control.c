@@ -300,7 +300,7 @@ void Control_Mode_Update(void)
 		case KEYBOARD_CONTROL :
 			//键鼠控制
 			//小陀螺模式切换
-		if(RC.rc_receive.key_board.button.CTRL&&RC.rc_receive.key_board.button.R)
+		if(!RC.rc_receive.key_board.button.CTRL&&RC.rc_receive.key_board.button.R)
 		{
 			if (delay_time.spin_mode_cnt	==	0&&gimbal.parameter.mode != GIMBAL_MODE_TOPANGLE)
 			{
@@ -537,7 +537,7 @@ void Precision_Mode_Update(void)
 		
 			break;
 		case KEYBOARD_CONTROL :
-			if((!RC.rc_receive.key_board.button.CTRL)&&RC.rc_receive.key_board.button.R)
+			if((RC.rc_receive.key_board.button.CTRL)&&RC.rc_receive.key_board.button.R)
 			{
 				if(delay_time.precision_mode_cnt==0&&gimbal.parameter.mode!=GIMBAL_MODE_PRECISION)
 				{
