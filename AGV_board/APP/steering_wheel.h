@@ -13,10 +13,10 @@ extern "C" {
 #define MOTION_MOTOR_M3508
 /*************************************烧录必选项****************************************************/	
 //舵小板选择
-#define AGV_BOARD_A //不同舵轮对应宏定义
+//#define AGV_BOARD_A //不同舵轮对应宏定义
 //#define AGV_BOARD_B
 //#define AGV_BOARD_C
-//#define AGV_BOARD_D
+#define AGV_BOARD_D
 //兵种选择
 #define AGV_HERO
 //#define AGV_STANDARD	
@@ -29,7 +29,7 @@ extern "C" {
 #define A_ENCODER_ZERO_POSION 0x1b0cU
 #define B_ENCODER_ZERO_POSION 0x174CU
 #define C_ENCODER_ZERO_POSION 0x0ACEU
-#define D_ENCODER_ZERO_POSION 0x19CBU	
+#define D_ENCODER_ZERO_POSION 0x1cbcU	
 	
 #define A_STEERING_CAN_ID 0x1AU
 #define B_STEERING_CAN_ID 0x1BU

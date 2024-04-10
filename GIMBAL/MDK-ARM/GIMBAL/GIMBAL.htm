@@ -3,7 +3,7 @@
 <title>Static Call Graph - [GIMBAL\GIMBAL.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image GIMBAL\GIMBAL.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Fri Apr 05 02:54:02 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Fri Apr 05 11:45:43 2024
 <BR><P>
 <H3>Maximum Stack Usage =        376 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -510,8 +510,8 @@ Global Symbols
 <P><STRONG><a name="[90]"></a>__aeabi_memcpy4</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, rt_memcpy_w.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __aeabi_memcpy4
 </UL>
-<BR>[Called By]<UL><LI><a href="#[244]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_handleInit
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_memcpy
+<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_memcpy
+<LI><a href="#[244]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_handleInit
 </UL>
 
 <P><STRONG><a name="[291]"></a>__aeabi_memcpy8</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, rt_memcpy_w.o(.text), UNUSED)
@@ -544,8 +544,8 @@ Global Symbols
 <LI><a href="#[1b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_TIM10_Init
 <LI><a href="#[1b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_GPIO_Init
 <LI><a href="#[1ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
-<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gimbal_Command_Update
 <LI><a href="#[f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CDC_Init
+<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gimbal_Command_Update
 </UL>
 
 <P><STRONG><a name="[295]"></a>__aeabi_memclr8</STRONG> (Thumb, 0 bytes, Stack size 4 bytes, rt_memclr_w.o(.text), UNUSED)
@@ -986,8 +986,8 @@ Global Symbols
 <LI><a href="#[1ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_CAN2_Init
 <LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_CAN1_Init
 <LI><a href="#[1ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
-<LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_PCD_ResetCallback
 <LI><a href="#[209]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_LL_Init
+<LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_PCD_ResetCallback
 </UL>
 
 <P><STRONG><a name="[ce]"></a>Error_State_Judge</STRONG> (Thumb, 490 bytes, Stack size 8 bytes, task_schedule.o(i.Error_State_Judge))
@@ -1100,20 +1100,21 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 264<LI>Call Chain = Gimbal_Cali_Task &rArr; Pitch_Gravity_Compensation &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_Calculate
-<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GM6020_Command_Update
-<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pitch_Gravity_Compensation
 <LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_fabs
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
+<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GM6020_Command_Update
+<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pitch_Gravity_Compensation
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gimbal_Task
 </UL>
 
-<P><STRONG><a name="[eb]"></a>Gimbal_Command_Update</STRONG> (Thumb, 346 bytes, Stack size 8 bytes, gimbal.o(i.Gimbal_Command_Update))
-<BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = Gimbal_Command_Update &rArr; Self_aim &rArr; calc_pitch &rArr; calc_distance &rArr; __hardfp_sqrtf &rArr; __set_errno
+<P><STRONG><a name="[eb]"></a>Gimbal_Command_Update</STRONG> (Thumb, 484 bytes, Stack size 8 bytes, gimbal.o(i.Gimbal_Command_Update))
+<BR><BR>[Stack]<UL><LI>Max Depth = 192<LI>Call Chain = Gimbal_Command_Update &rArr; Self_aim &rArr; calc_pitch &rArr; calc_distance &rArr; __hardfp_sqrtf &rArr; __set_errno
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Self_aim
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_Init
 <LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Self_aim
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gimbal_Task
 </UL>
@@ -1397,6 +1398,7 @@ Global Symbols
 <LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_OscConfig
 <LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_ClockConfig
 <LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_I2C_Mem_Read
+<LI><a href="#[1e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_WaitFlagStateUntilTimeout
 <LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 <LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DMA_Abort
 <LI><a href="#[197]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_WaitOnTXEFlagUntilTimeout
@@ -1406,7 +1408,6 @@ Global Symbols
 <LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_Start
 <LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_Send
 <LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;platform_getMsTick
-<LI><a href="#[1e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_WaitFlagStateUntilTimeout
 </UL>
 
 <P><STRONG><a name="[110]"></a>HAL_I2C_Init</STRONG> (Thumb, 446 bytes, Stack size 16 bytes, stm32f4xx_hal_i2c.o(i.HAL_I2C_Init))
@@ -1622,6 +1623,7 @@ Global Symbols
 <LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PCD_WriteEmptyTxFifo
 <LI><a href="#[13a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PCD_EP_OutXfrComplete_int
 <LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PCD_EP_OutSetupPacket_int
+<LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_PCD_SuspendCallback
 <LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_PCD_SOFCallback
 <LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_PCD_ResumeCallback
 <LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_PCD_ResetCallback
@@ -1630,7 +1632,6 @@ Global Symbols
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_PCD_DisconnectCallback
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_PCD_DataInStageCallback
 <LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_PCD_ConnectCallback
-<LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_PCD_SuspendCallback
 </UL>
 <BR>[Called By]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OTG_FS_IRQHandler
 </UL>
@@ -1803,8 +1804,8 @@ Global Symbols
 <P><STRONG><a name="[b1]"></a>HAL_SPI_TransmitReceive</STRONG> (Thumb, 576 bytes, Stack size 56 bytes, stm32f4xx_hal_spi.o(i.HAL_SPI_TransmitReceive))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = HAL_SPI_TransmitReceive &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
-<LI><a href="#[168]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_EndRxTxTransaction
+<BR>[Calls]<UL><LI><a href="#[168]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_EndRxTxTransaction
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMI088_read_write_byte
 </UL>
@@ -1870,12 +1871,12 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[16c]"></a>HAL_TIM_ConfigClockSource</STRONG> (Thumb, 268 bytes, Stack size 24 bytes, stm32f4xx_hal_tim.o(i.HAL_TIM_ConfigClockSource))
-<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = HAL_TIM_ConfigClockSource &rArr; TIM_ETR_SetConfig
+<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = HAL_TIM_ConfigClockSource &rArr; TIM_TI2_ConfigInputStage
 </UL>
-<BR>[Calls]<UL><LI><a href="#[16d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ETR_SetConfig
-<LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TI2_ConfigInputStage
+<BR>[Calls]<UL><LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TI2_ConfigInputStage
 <LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TI1_ConfigInputStage
 <LI><a href="#[16f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ITRx_SetConfig
+<LI><a href="#[16d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ETR_SetConfig
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_TIM9_Init
 <LI><a href="#[1b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_TIM8_Init
@@ -1918,12 +1919,12 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[17a]"></a>HAL_TIM_PWM_ConfigChannel</STRONG> (Thumb, 260 bytes, Stack size 24 bytes, stm32f4xx_hal_tim.o(i.HAL_TIM_PWM_ConfigChannel))
-<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = HAL_TIM_PWM_ConfigChannel &rArr; TIM_OC2_SetConfig
+<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = HAL_TIM_PWM_ConfigChannel &rArr; TIM_OC4_SetConfig
 </UL>
-<BR>[Calls]<UL><LI><a href="#[17c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC2_SetConfig
-<LI><a href="#[17e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC4_SetConfig
+<BR>[Calls]<UL><LI><a href="#[17e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC4_SetConfig
 <LI><a href="#[17d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC3_SetConfig
 <LI><a href="#[17b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC1_SetConfig
+<LI><a href="#[17c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC2_SetConfig
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_TIM8_Init
 <LI><a href="#[1b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_TIM4_Init
@@ -2360,6 +2361,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[199]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IMU_Init
 <LI><a href="#[1a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Trigger_Init
 <LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gimbal_Init
+<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gimbal_Command_Update
 <LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fric_Init
 </UL>
 
@@ -2386,8 +2388,8 @@ Global Symbols
 <P><STRONG><a name="[1d5]"></a>RC_data_is_error</STRONG> (Thumb, 106 bytes, Stack size 8 bytes, remote_control.o(i.RC_data_is_error))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = RC_data_is_error
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;int16_abs
-<LI><a href="#[1d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
+<BR>[Calls]<UL><LI><a href="#[1d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
+<LI><a href="#[1d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;int16_abs
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
 </UL>
@@ -2407,8 +2409,8 @@ Global Symbols
 <P><STRONG><a name="[1a5]"></a>Remote_Init</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, remote_control.o(i.Remote_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = Remote_Init &rArr; remote_control_init &rArr; RC_init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remote_control_init
-<LI><a href="#[1d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
+<BR>[Calls]<UL><LI><a href="#[1d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
+<LI><a href="#[1da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;remote_control_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Init_Task
 </UL>
@@ -2447,7 +2449,7 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f407xx.o(RESET)
 </UL>
 <P><STRONG><a name="[ed]"></a>Self_aim</STRONG> (Thumb, 90 bytes, Stack size 32 bytes, vision.o(i.Self_aim))
-<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = Self_aim &rArr; calc_pitch &rArr; calc_distance &rArr; __hardfp_sqrtf &rArr; __set_errno
+<BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = Self_aim &rArr; calc_pitch &rArr; calc_distance &rArr; __hardfp_sqrtf &rArr; __set_errno
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calc_yaw
 <LI><a href="#[1e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calc_pitch
@@ -2898,12 +2900,12 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_PCD_EP_Receive
 <LI><a href="#[20b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_Get_USB_Status
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CDC_ReceivePacket
-<LI><a href="#[f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CDC_Init
+<BR>[Called By]<UL><LI><a href="#[f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CDC_Init
 <LI><a href="#[1fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CtlPrepareRx
 <LI><a href="#[202]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CtlReceiveStatus
 <LI><a href="#[1ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CtlContinueRx
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_LL_DataInStage
+<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CDC_ReceivePacket
 </UL>
 
 <P><STRONG><a name="[156]"></a>USBD_LL_Reset</STRONG> (Thumb, 96 bytes, Stack size 24 bytes, usbd_core.o(i.USBD_LL_Reset))
@@ -2980,11 +2982,11 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_PCD_EP_Transmit
 <LI><a href="#[20b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_Get_USB_Status
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CDC_TransmitPacket
-<LI><a href="#[13]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CDC_DataIn
+<BR>[Called By]<UL><LI><a href="#[13]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CDC_DataIn
 <LI><a href="#[1fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CtlSendData
 <LI><a href="#[1fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CtlSendStatus
 <LI><a href="#[200]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CtlContinueSendData
+<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_CDC_TransmitPacket
 </UL>
 
 <P><STRONG><a name="[213]"></a>USBD_ParseSetupRequest</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, usbd_ctlreq.o(i.USBD_ParseSetupRequest))
@@ -3680,11 +3682,11 @@ Global Symbols
 <P><STRONG><a name="[247]"></a>buzzer_playTone</STRONG> (Thumb, 134 bytes, Stack size 48 bytes, buzzer.o(i.buzzer_playTone))
 <BR><BR>[Stack]<UL><LI>Max Depth = 312<LI>Call Chain = buzzer_playTone &rArr; __hardfp_pow &rArr; sqrt &rArr; _dsqrt &rArr; __fpl_dnaninf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[24c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzerBsp_setTimer
-<LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<BR>[Calls]<UL><LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
 <LI><a href="#[1d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[237]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[1c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
+<LI><a href="#[24c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzerBsp_setTimer
 </UL>
 <BR>[Called By]<UL><LI><a href="#[24b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_playDjiStartUp
 <LI><a href="#[24a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_playDeviceOffline
@@ -3729,7 +3731,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[242]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_getTick
 </UL>
 
-<P><STRONG><a name="[1e8]"></a>calc_distance</STRONG> (Thumb, 52 bytes, Stack size 24 bytes, vision.o(i.calc_distance))
+<P><STRONG><a name="[1e8]"></a>calc_distance</STRONG> (Thumb, 90 bytes, Stack size 24 bytes, vision.o(i.calc_distance))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = calc_distance &rArr; __hardfp_sqrtf &rArr; __set_errno
 </UL>
 <BR>[Calls]<UL><LI><a href="#[240]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sqrtf
@@ -3738,11 +3740,10 @@ Global Symbols
 <LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Self_aim
 </UL>
 
-<P><STRONG><a name="[1e7]"></a>calc_pitch</STRONG> (Thumb, 388 bytes, Stack size 96 bytes, vision.o(i.calc_pitch))
-<BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = calc_pitch &rArr; calc_distance &rArr; __hardfp_sqrtf &rArr; __set_errno
+<P><STRONG><a name="[1e7]"></a>calc_pitch</STRONG> (Thumb, 460 bytes, Stack size 104 bytes, vision.o(i.calc_pitch))
+<BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = calc_pitch &rArr; calc_distance &rArr; __hardfp_sqrtf &rArr; __set_errno
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calc_distance
-<LI><a href="#[240]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sqrtf
+<BR>[Calls]<UL><LI><a href="#[240]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sqrtf
 <LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sinf
 <LI><a href="#[22f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cosf
 <LI><a href="#[227]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2f
@@ -3754,11 +3755,12 @@ Global Symbols
 <LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[1c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 <LI><a href="#[22e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dneg
+<LI><a href="#[1e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calc_distance
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Self_aim
 </UL>
 
-<P><STRONG><a name="[1e6]"></a>calc_yaw</STRONG> (Thumb, 98 bytes, Stack size 48 bytes, vision.o(i.calc_yaw))
+<P><STRONG><a name="[1e6]"></a>calc_yaw</STRONG> (Thumb, 150 bytes, Stack size 48 bytes, vision.o(i.calc_yaw))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = calc_yaw &rArr; __aeabi_ddiv
 </UL>
 <BR>[Calls]<UL><LI><a href="#[227]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2f
@@ -3781,8 +3783,8 @@ Global Symbols
 <P><STRONG><a name="[c0]"></a>cdc_vcp_data_rx</STRONG> (Thumb, 108 bytes, Stack size 24 bytes, usbd_cdc_if.o(i.cdc_vcp_data_rx))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = cdc_vcp_data_rx
 </UL>
-<BR>[Calls]<UL><LI><a href="#[24f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vision_Aim_Data_Task
-<LI><a href="#[24e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
+<BR>[Calls]<UL><LI><a href="#[24e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
+<LI><a href="#[24f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vision_Aim_Data_Task
 </UL>
 <BR>[Called By]<UL><LI><a href="#[d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CDC_Receive_FS
 </UL>
@@ -3807,8 +3809,8 @@ Global Symbols
 <P><STRONG><a name="[236]"></a>fabs</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, fabs.o(i.fabs))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = fabs
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_Change_Pout
-<LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<BR>[Called By]<UL><LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<LI><a href="#[1c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;f_Change_Pout
 <LI><a href="#[22b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 </UL>
 
@@ -3911,10 +3913,10 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[22e]"></a>__aeabi_dneg</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, basic.o(x$fpl$basic))
-<BR><BR>[Called By]<UL><LI><a href="#[1e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calc_yaw
-<LI><a href="#[1e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calc_pitch
-<LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<BR><BR>[Called By]<UL><LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
 <LI><a href="#[1d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
+<LI><a href="#[1e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calc_yaw
+<LI><a href="#[1e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calc_pitch
 <LI><a href="#[22b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 </UL>
 
@@ -3972,12 +3974,12 @@ Global Symbols
 <P><STRONG><a name="[1d3]"></a>__aeabi_ddiv</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, ddiv.o(x$fpl$ddiv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_ddiv
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calc_yaw
-<LI><a href="#[1e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calc_pitch
-<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pitch_Gravity_Compensation
-<LI><a href="#[229]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_invalid
+<BR>[Called By]<UL><LI><a href="#[229]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_invalid
 <LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_divzero
 <LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<LI><a href="#[1e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calc_yaw
+<LI><a href="#[1e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calc_pitch
+<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pitch_Gravity_Compensation
 </UL>
 
 <P><STRONG><a name="[25e]"></a>_ddiv</STRONG> (Thumb, 552 bytes, Stack size 32 bytes, ddiv.o(x$fpl$ddiv), UNUSED)
@@ -3988,8 +3990,8 @@ Global Symbols
 <P><STRONG><a name="[1d4]"></a>__aeabi_d2iz</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, dfix.o(x$fpl$dfix))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_d2iz
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pitch_Gravity_Compensation
-<LI><a href="#[22d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_cos
+<BR>[Called By]<UL><LI><a href="#[22d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_cos
+<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pitch_Gravity_Compensation
 <LI><a href="#[22b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 </UL>
 
@@ -3998,8 +4000,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[237]"></a>__aeabi_i2d</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, dflt_clz.o(x$fpl$dflt))
-<BR><BR>[Called By]<UL><LI><a href="#[247]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_playTone
-<LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<BR><BR>[Called By]<UL><LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<LI><a href="#[247]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_playTone
 <LI><a href="#[22b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 </UL>
 
@@ -4030,13 +4032,13 @@ Global Symbols
 <P><STRONG><a name="[1d0]"></a>__aeabi_dmul</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, dmul.o(x$fpl$dmul))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_dmul
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calc_pitch
-<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pitch_Gravity_Compensation
-<LI><a href="#[247]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_playTone
-<LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_underflow
+<BR>[Called By]<UL><LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_underflow
 <LI><a href="#[234]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_overflow
 <LI><a href="#[22d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_cos
 <LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<LI><a href="#[1e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calc_pitch
+<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pitch_Gravity_Compensation
+<LI><a href="#[247]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buzzer_playTone
 <LI><a href="#[22c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
 <LI><a href="#[22b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 <LI><a href="#[23b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
@@ -4070,8 +4072,8 @@ Global Symbols
 <P><STRONG><a name="[e8]"></a>__aeabi_cdrcmple</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, drleqf.o(x$fpl$drleqf))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_cdrcmple
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gimbal_Cali_Task
-<LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<BR>[Called By]<UL><LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gimbal_Cali_Task
 </UL>
 
 <P><STRONG><a name="[263]"></a>_drcmple</STRONG> (Thumb, 108 bytes, Stack size 16 bytes, drleqf.o(x$fpl$drleqf), UNUSED)
@@ -4104,10 +4106,10 @@ Global Symbols
 <P><STRONG><a name="[1d1]"></a>__aeabi_dsub</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, daddsub_clz.o(x$fpl$dsub))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_dsub
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calc_pitch
-<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pitch_Gravity_Compensation
-<LI><a href="#[22d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_cos
+<BR>[Called By]<UL><LI><a href="#[22d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_cos
 <LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_pow
+<LI><a href="#[1e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calc_pitch
+<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Pitch_Gravity_Compensation
 <LI><a href="#[22c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
 <LI><a href="#[22b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 </UL>

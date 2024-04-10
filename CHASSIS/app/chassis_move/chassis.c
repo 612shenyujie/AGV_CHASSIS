@@ -203,10 +203,10 @@ void Chassis_Mode_Command_Update(void)
         break;
         case    CHASSIS_SPIN:
         if(chassis.command.vx==0&&chassis.command.vy==0)
-        chassis.command.vw =  3.0f;
+        chassis.command.vw =  4.0f;
         else 
 				
-					chassis.command.vw =  2.0f;
+					chassis.command.vw =  3.0f;
 				
 				
         break;
@@ -244,7 +244,7 @@ void Chassis_Init(void)
 		chassis.A_motor.zero_position = 0x1b0c;
 		chassis.B_motor.zero_position = 0x174c;
 		chassis.C_motor.zero_position = 0x0ACE;
-		chassis.D_motor.zero_position = 0x19CB;
+		chassis.D_motor.zero_position = 0x1cbc;
 		chassis.A_motor.active_status=1;
 		chassis.B_motor.active_status=1;
 		chassis.C_motor.active_status=1;

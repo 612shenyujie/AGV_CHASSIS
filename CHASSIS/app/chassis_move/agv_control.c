@@ -125,8 +125,7 @@ void calculate_true_power(void)
     }
 		total_power=sum;
     chassis_power_control.scaled_power_coefficient_32 = (chassis_power_control.power_limit_max) / sum;
-		if(chassis_power_control.scaled_power_coefficient_32>1)
-			chassis_power_control.scaled_power_coefficient_32=1;
+
     if (chassis_power_control.scaled_power_coefficient_32<=1)
     {
         for (uint8_t i = 0; i < 4; i++)
@@ -142,6 +141,10 @@ void calculate_true_power(void)
         }
 
     }
+//		for (uint8_t i = 0; i < 4; i++)
+//        {
+//            chassis_power_control.scaled_power_32[i] = chassis_power_control.scaled_power_coefficient_32 * chassis_power_control.expect_power_32[i];
+//        }
     chassis_power_control.all_mscb_ready_flag   =   0;
 	}  
 }
