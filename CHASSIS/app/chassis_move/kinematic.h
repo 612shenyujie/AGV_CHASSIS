@@ -18,7 +18,7 @@
 #define GM6020_ENCODER_ANGLE  8192.0f
 
 
-#define MAX_MOTOR_SPEED   300.0f				//µç»ú×î´ó×ªËÙ£¬ºê¶¨Òå·½±ãÐÞ¸Ä   ·¶Î§0 - 10000   15336   
+#define MAX_MOTOR_SPEED   450.0f				//µç»ú×î´ó×ªËÙ£¬ºê¶¨Òå·½±ãÐÞ¸Ä   ·¶Î§0 - 10000   15336   
 #define MAX_BASE_LINEAR_SPEED    120.817f    //µ×ÅÌ×î´óÆ½ÒÆËÙ¶È£¬µ¥Î»cm/s   
 #define MAX_BASE_ROTATIONAL_SPEED    7.260570f    //µ×ÅÌ×î´óÐý×ªËÙ¶È£¬µ¥Î»rad/s    
 #define NORMAL_LINEAR_SPEED          70.0f

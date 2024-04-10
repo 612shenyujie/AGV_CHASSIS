@@ -33,6 +33,12 @@ typedef enum
 	
 }CHASSIS_MODE_E;
 
+typedef enum
+{
+	SUPERCAP_LOOP	=	0x00u,
+	BUFFER_LOOP	=	0x01u,
+}POWER_LOOP_E;
+
 typedef struct
 {
 	CHASSIS_MODE_E mode;
@@ -41,7 +47,8 @@ typedef struct
 	bool break_mode;
 	bool follow_switch;
 	int speed_slow;
-	float buffer_limition_k;
+	POWER_LOOP_E power_loop;
+	float power_limition_k;
 	
 }CHASSIS_PARAMETER_T;
 
@@ -78,12 +85,20 @@ typedef struct
 
 typedef struct
 {
+	float supercap_voltage;
+	int supercap_mode;
+	float	supercap_per;
+}SUPERCAP_T;
+
+typedef struct
+{
 	CHASSIS_PARAMETER_T parameter;
 	CHASSIS_COMMAND_T	command;
 	CHASSIS_MOTOR_T	 A_motor;
 	CHASSIS_MOTOR_T	 B_motor;
 	CHASSIS_MOTOR_T	 C_motor;
 	CHASSIS_MOTOR_T	 D_motor;
+	SUPERCAP_T	supercap;
 }CHASSIS_T;
 
 

@@ -217,20 +217,46 @@ void Chassis_Mode_Command_Update(void)
 void Buffer_Limition_Kf_Update(void)
 {
 	if(JudgeReceive.remainEnergy>50)
-		chassis.parameter.buffer_limition_k	=1.0;
+		chassis.parameter.power_limition_k	=1.0;
 	else if(JudgeReceive.remainEnergy>40)
-		chassis.parameter.buffer_limition_k	=0.8;
+		chassis.parameter.power_limition_k	=0.8;
 	else if(JudgeReceive.remainEnergy>35)
-		chassis.parameter.buffer_limition_k	=0.6;
+		chassis.parameter.power_limition_k	=0.6;
 	else if(JudgeReceive.remainEnergy>30)
-		chassis.parameter.buffer_limition_k	=0.4;
+		chassis.parameter.power_limition_k	=0.4;
 	else if(JudgeReceive.remainEnergy>20)
-		chassis.parameter.buffer_limition_k	=0.2;
+		chassis.parameter.power_limition_k	=0.2;
 	else if(JudgeReceive.remainEnergy>10)
-		chassis.parameter.buffer_limition_k	=0.1;
+		chassis.parameter.power_limition_k	=0.1;
 	else
-		chassis.parameter.buffer_limition_k	=0.0;
+		chassis.parameter.power_limition_k	=0.0;
 	
+}
+
+void Power_Limition_Kf_Update(void)
+{
+	float Scale1=1, Scale2=1;
+	switch(chassis.parameter.power_loop)
+	{
+		case SUPERCAP_LOOP:
+			if(chassis.supercap.supercap_voltage<180.f)
+			{
+				Scale2=(chassis.supercap.supercap_voltage-130.f)/50.0f;
+				if(Scale2<0.f)
+					Scale2=0;
+			}
+			chassis.parameter.power_limition_k=Scale1*Scale2;
+			break;
+		case BUFFER_LOOP:
+				if(JudgeReceive.remainEnergy<50.f)
+			{
+				Scale2=(JudgeReceive.remainEnergy-5.f)/45.0f;
+				if(Scale2<0.f)
+					Scale2=0;
+			}
+			chassis.parameter.power_limition_k=Scale1*Scale2;
+			break;
+	}
 }
 
 void Chassis_Init(void)
@@ -240,7 +266,7 @@ void Chassis_Init(void)
     chassis.parameter.break_mode    =   1;
 		chassis.parameter.speed_slow	=	Ease_Out;
     chassis.parameter.relative_angle    =   0.f;
-		chassis.parameter.buffer_limition_k	=1;
+		chassis.parameter.power_limition_k	=1;
 		chassis.A_motor.zero_position = 0x1b0c;
 		chassis.B_motor.zero_position = 0x174c;
 		chassis.C_motor.zero_position = 0x0ACE;
