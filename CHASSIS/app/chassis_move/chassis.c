@@ -22,11 +22,11 @@ YAW_T   yaw;
 PID_T   yaw_pid;
 float yaw_position_loop_data[10]= {0.07f,0.0f,0.f,2.5f,0.0f,1.0f,0.f,0.f,0.f,0.f};
 
-uint8_t dma_rx_buff[20];
+uint8_t dma_rx_buff[DMA_REC_LEN];
 uint8_t length;
 int temp_1;
-static int cnt_i = 0;
-uint8_t receive_data[60];
+int cnt_i = 0;
+uint8_t receive_data[DMA_REC_LEN];
 uint8_t start_receive_flag = 0;
 
 void supercap_uart_init(void)
@@ -39,63 +39,61 @@ void supercap_uart_init(void)
 
 void USART1_IRQHandler(void)
 {
-    int j;
-    if(__HAL_UART_GET_FLAG(&huart1, UART_FLAG_IDLE) != RESET) 
+ int j;
+    if (__HAL_UART_GET_FLAG(&huart1, UART_FLAG_IDLE) != RESET)
     {
         __HAL_UART_CLEAR_IDLEFLAG(&huart1);
         HAL_UART_DMAStop(&huart1);
         length = DMA_REC_LEN - __HAL_DMA_GET_COUNTER(&hdma_usart1_rx);
-        for(j = 0; cnt_i < length; j++)
+        for (j = 0; j < length; j++)
         {
-            if(dma_rx_buff[j] == ';')
+
+            if (start_receive_flag == 1)
             {
-				uint8_t Temp[8];
-				for (int i=1; i<=8; i++)
-					Temp[i-1] = receive_data[i];
-				switch(receive_data[0]) 
-				{
-					case Super_Cap_RX_Typecode:
-						chassis.supercap.state   = Temp[0];
-						chassis.supercap.supercap_per  = Temp[1];
-						chassis.supercap.supercap_voltage = Temp[2];
-						break;
-					case SuperCap_Status_RX_Typecode:
-						if (chassis.supercap.KeepAlive_SentData[0] == Temp[0])
-							if (chassis.supercap.KeepAlive_SentData[1] == Temp[1])
-								if (chassis.supercap.KeepAlive_SentData[2] == Temp[2])
-									if (chassis.supercap.KeepAlive_SentData[3] == Temp[3])
-									{
-										
-										chassis.supercap.Keep_Alive_Time_Cnt = 0;
-									}
-						break;
-            	}
+                if (cnt_i < 9)
+                {
+                    receive_data[cnt_i++] = dma_rx_buff[j];
+                }
+								else
+								{	
+									 uint8_t Temp[8];
+                for ( cnt_i = 0; cnt_i < 8; cnt_i++)
+                    Temp[cnt_i] = receive_data[cnt_i+1];
+                switch (receive_data[0])
+                {
+                    case Super_Cap_RX_Typecode:
+                        chassis.supercap.state = Temp[0];
+                        chassis.supercap.supercap_per = Temp[1];
+                        chassis.supercap.supercap_voltage = Temp[2];
+                        break;
+                    case SuperCap_Status_RX_Typecode:
+                        if (chassis.supercap.KeepAlive_SentData[0] == Temp[0] &&
+                            chassis.supercap.KeepAlive_SentData[1] == Temp[1] &&
+                            chassis.supercap.KeepAlive_SentData[2] == Temp[2] &&
+                            chassis.supercap.KeepAlive_SentData[3] == Temp[3])
+                        {
+                            chassis.supercap.Keep_Alive_Time_Cnt = 0;
+                        }
+                        break;
+                }
+
                 memset(receive_data, 0, sizeof(receive_data));
                 start_receive_flag = 0;
                 cnt_i = 0;
                 break;
-            }
-            if(start_receive_flag == 1)   
-            {
-                if(cnt_i < length)
-                {
-                    receive_data[cnt_i] = dma_rx_buff[j];
-                    cnt_i++;
-
-                }
-								else
-								{
-									 memset(receive_data, 0, sizeof(receive_data));
-									cnt_i=0;
-									start_receive_flag=0;
+									break;
 								}
-
             }
-		
-            if(dma_rx_buff[j] == '*')
+
+            if (dma_rx_buff[j] == '*'&&dma_rx_buff[j+10] == ';'&&start_receive_flag==0)
+            {
                 start_receive_flag = 1;
+                cnt_i = 0;
+            }
         }
+
         memset(dma_rx_buff, 0, sizeof(dma_rx_buff));
+        cnt_i = 0;
         HAL_UART_Receive_DMA(&huart1, dma_rx_buff, DMA_REC_LEN);
     }
 }

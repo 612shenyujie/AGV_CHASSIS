@@ -118,7 +118,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGUARM</Key>
-          <Name>(柘</Name>
+          <Name>`硐</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -155,9 +155,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>88</LineNumber>
+          <LineNumber>90</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134241730</Address>
+          <Address>134241772</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -166,39 +166,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>..\app\chassis_move\chassis.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\CHASSIS\../app/chassis_move/chassis.c\88</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>48</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134241502</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\app\chassis_move\chassis.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\CHASSIS\../app/chassis_move/chassis.c\48</Expression>
-        </Bp>
-        <Bp>
-          <Number>2</Number>
-          <Type>0</Type>
-          <LineNumber>48</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134241762</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\app\chassis_move\chassis.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\CHASSIS\../app/chassis_move/chassis.c\48</Expression>
+          <Expression>\\\../app/chassis_move/chassis.c\90</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -331,6 +299,21 @@
           <count>25</count>
           <WinNumber>1</WinNumber>
           <ItemText>start_receive_flag</ItemText>
+        </Ww>
+        <Ww>
+          <count>26</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>cnt_i</ItemText>
+        </Ww>
+        <Ww>
+          <count>27</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>j</ItemText>
+        </Ww>
+        <Ww>
+          <count>28</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>Temp</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>
