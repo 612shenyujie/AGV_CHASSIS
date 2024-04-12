@@ -164,6 +164,10 @@ STEERING_WHEEL_RETURN_T Steering_Wheel_HandleInit(steering_wheel_t *steering_whe
 		#ifdef AGV_BOARD_D
 		birter_encoder_init.CAN_ID					= D_ENCODER_ID;
 		#endif
+		#ifdef motor_power_test
+//		birter_encoder_init.CAN_ID					= NORM_ENCODER_ID;
+		birter_encoder_init.CAN_ID					= D_ENCODER_ID;
+		#endif
 		briter_encoder_parameter_init(&steering_wheel->directive_part.encoder.briter_encoder, &birter_encoder_init);
 		#ifdef AGV_HERO
 		steering_wheel->directive_part.encoder.parameter.lsbs_per_encoder_round			= 1024;

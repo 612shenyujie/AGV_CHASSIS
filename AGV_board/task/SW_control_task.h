@@ -12,6 +12,9 @@ extern "C" {
 #include "steering_wheel.h"
 #include "steering_communication.h"
 #include "buzzer.h"
+	
+//	#define motor_power_test
+	
 typedef struct
 	{
 		float target_current;

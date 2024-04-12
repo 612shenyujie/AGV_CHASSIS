@@ -118,7 +118,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGUARM</Key>
-          <Name></Name>
+          <Name>ㄧO</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -197,6 +197,21 @@
           <count>6</count>
           <WinNumber>1</WinNumber>
           <ItemText>s_count</ItemText>
+        </Ww>
+        <Ww>
+          <count>7</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>rxdata</ItemText>
+        </Ww>
+        <Ww>
+          <count>8</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>briter_encoder</ItemText>
+        </Ww>
+        <Ww>
+          <count>9</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>hcan1</ItemText>
         </Ww>
       </WatchWindow1>
       <MemoryWindow1>
@@ -815,8 +830,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\APP\steering_communication.c</PathWithFileName>
-      <FilenameWithoutPath>steering_communication.c</FilenameWithoutPath>
+      <PathWithFileName>..\APP\chassis_power_control.c</PathWithFileName>
+      <FilenameWithoutPath>chassis_power_control.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -827,8 +842,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\APP\chassis_power_control.c</PathWithFileName>
-      <FilenameWithoutPath>chassis_power_control.c</FilenameWithoutPath>
+      <PathWithFileName>..\APP\steering_communication.c</PathWithFileName>
+      <FilenameWithoutPath>steering_communication.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

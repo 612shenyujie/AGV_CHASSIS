@@ -85,7 +85,7 @@ BRITER_ENCODER_COMMAND_RETURN_t briter_encoder_set_CAN_ID(briter_encoder_t *enco
 		uint8_t trans_data[5];
 		trans_data[0] = CAN_ID;
 		memcpy(&encoder->command.data, &trans_data, 5);
-		encoder->parameter.CAN_ID = CAN_ID;
+//		encoder->parameter.CAN_ID = CAN_ID;
 	}
 	else return BRITER_ENCODER_COMMAND_WRONG_PARAMETER;
     // Call the CAN transmission function to send the encoder command

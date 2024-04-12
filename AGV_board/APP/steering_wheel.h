@@ -15,8 +15,8 @@ extern "C" {
 //舵小板选择
 //#define AGV_BOARD_A //不同舵轮对应宏定义
 //#define AGV_BOARD_B
-#define AGV_BOARD_C
-//#define AGV_BOARD_D
+//#define AGV_BOARD_C
+#define AGV_BOARD_D
 //兵种选择
 #define AGV_HERO
 //#define AGV_STANDARD	
@@ -25,6 +25,7 @@ extern "C" {
 #define B_ENCODER_ID 0x0BU
 #define C_ENCODER_ID 0x0CU
 #define D_ENCODER_ID 0x0DU
+#define NORM_ENCODER_ID 0x01U
 	
 #define A_ENCODER_ZERO_POSION 0x1b0cU
 #define B_ENCODER_ZERO_POSION 0x174CU

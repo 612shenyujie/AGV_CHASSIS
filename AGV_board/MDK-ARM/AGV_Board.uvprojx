@@ -816,14 +816,14 @@
               <FilePath>..\APP\steering_wheel.c</FilePath>
             </File>
             <File>
-              <FileName>steering_communication.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\APP\steering_communication.c</FilePath>
-            </File>
-            <File>
               <FileName>chassis_power_control.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\APP\chassis_power_control.c</FilePath>
+            </File>
+            <File>
+              <FileName>steering_communication.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\steering_communication.c</FilePath>
             </File>
             <File>
               <FileName>buzzer.c</FileName>
