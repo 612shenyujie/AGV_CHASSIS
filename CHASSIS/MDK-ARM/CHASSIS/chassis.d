@@ -46,3 +46,9 @@ chassis\chassis.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 chassis\chassis.o: ../app/referee/referee.h
 chassis\chassis.o: ../app/referee/algorithmOfCRC.h
 chassis\chassis.o: ../app/referee/ui.h
+chassis\chassis.o: ../Core/Inc/usart.h
+chassis\chassis.o: ../Core/Inc/main.h
+chassis\chassis.o: ../app/chassis_task.h
+chassis\chassis.o: ../Core/Inc/tim.h
+chassis\chassis.o: ../app/gimbal_connoection/can_connection.h
+chassis\chassis.o: ../app/chassis_move/agv_control.h

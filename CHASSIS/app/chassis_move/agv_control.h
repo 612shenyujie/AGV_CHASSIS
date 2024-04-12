@@ -19,7 +19,10 @@ typedef struct
   uint8_t all_mscb_ready_flag;
   float expect_power_32[4];
   float scaled_power_32[4];
-    }   chassis_power_control_t;
+}   chassis_power_control_t;
+
+
+
 
 		extern chassis_power_control_t chassis_power_control;
 void calculate_true_power(void);

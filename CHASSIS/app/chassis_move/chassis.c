@@ -15,11 +15,165 @@
 #include "math.h"
 #include "referee.h"
 #include "ui.h"
-
+#include "usart.h"
+#include "chassis_task.h"
 CHASSIS_T chassis;
 YAW_T   yaw;
 PID_T   yaw_pid;
 float yaw_position_loop_data[10]= {0.07f,0.0f,0.f,2.5f,0.0f,1.0f,0.f,0.f,0.f,0.f};
+
+uint8_t dma_rx_buff[20];
+uint8_t length;
+int temp_1;
+static int cnt_i = 0;
+uint8_t receive_data[60];
+uint8_t start_receive_flag = 0;
+
+void supercap_uart_init(void)
+{
+    __HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);
+    HAL_UART_Receive_DMA(&huart1, dma_rx_buff, DMA_REC_LEN);
+
+}
+
+
+void USART1_IRQHandler(void)
+{
+    int j;
+    if(__HAL_UART_GET_FLAG(&huart1, UART_FLAG_IDLE) != RESET) 
+    {
+        __HAL_UART_CLEAR_IDLEFLAG(&huart1);
+        HAL_UART_DMAStop(&huart1);
+        length = DMA_REC_LEN - __HAL_DMA_GET_COUNTER(&hdma_usart1_rx);
+        for(j = 0; cnt_i < length; j++)
+        {
+            if(dma_rx_buff[j] == ';')
+            {
+				uint8_t Temp[8];
+				for (int i=1; i<=8; i++)
+					Temp[i-1] = receive_data[i];
+				switch(receive_data[0]) 
+				{
+					case Super_Cap_RX_Typecode:
+						chassis.supercap.state   = Temp[0];
+						chassis.supercap.supercap_per  = Temp[1];
+						chassis.supercap.supercap_voltage = Temp[2];
+						break;
+					case SuperCap_Status_RX_Typecode:
+						if (chassis.supercap.KeepAlive_SentData[0] == Temp[0])
+							if (chassis.supercap.KeepAlive_SentData[1] == Temp[1])
+								if (chassis.supercap.KeepAlive_SentData[2] == Temp[2])
+									if (chassis.supercap.KeepAlive_SentData[3] == Temp[3])
+									{
+										
+										chassis.supercap.Keep_Alive_Time_Cnt = 0;
+									}
+						break;
+            	}
+                memset(receive_data, 0, sizeof(receive_data));
+                start_receive_flag = 0;
+                cnt_i = 0;
+                break;
+            }
+            if(start_receive_flag == 1)   
+            {
+                if(cnt_i < length)
+                {
+                    receive_data[cnt_i] = dma_rx_buff[j];
+                    cnt_i++;
+
+                }
+								else
+								{
+									 memset(receive_data, 0, sizeof(receive_data));
+									cnt_i=0;
+									start_receive_flag=0;
+								}
+
+            }
+		
+            if(dma_rx_buff[j] == '*')
+                start_receive_flag = 1;
+        }
+        memset(dma_rx_buff, 0, sizeof(dma_rx_buff));
+        HAL_UART_Receive_DMA(&huart1, dma_rx_buff, DMA_REC_LEN);
+    }
+}
+
+void Uart_TX_Supercap(int Typecode, uint8_t Sent_Data[8])
+{
+	uint8_t Data[11];
+
+	Data[0] = '*';
+	Data[10] = ';';
+	Data[1] = Typecode;
+	for (int i=2; i<=9; i++)
+	Data[i] = Sent_Data[i];
+	uint8_t status;
+    status = HAL_UART_Transmit(&huart1, Data, 11, 0xff);
+}
+
+void UartTX_Super_Capacitor(int Power_Limitation, float Power)
+{
+	
+	int IntIze_Power;
+	uint8_t Buffer[11];
+	IntIze_Power = (int) (Power*10);
+    Buffer[0] =  '*';	
+	Buffer[1] =  SuperCap_Power_TX_Typecode;
+  Buffer[2] =  (uint8_t)(Power_Limitation / 100);
+	Power_Limitation = Power_Limitation - Buffer[2]*100;
+  Buffer[3] =  (uint8_t)(Power_Limitation / 10);
+  Buffer[4] =  (uint8_t)(Power_Limitation % 10);
+  Buffer[5] =  (uint8_t)(IntIze_Power/1000);
+	IntIze_Power=IntIze_Power- Buffer[5]*1000;
+	Buffer[6] =  (uint8_t)(IntIze_Power/100);
+	IntIze_Power=IntIze_Power- Buffer[6]*100;
+	Buffer[7] =  (uint8_t)(IntIze_Power/10);
+	Buffer[8] =  (uint8_t)(IntIze_Power%10);
+	Buffer[9] = 0; 
+	Buffer[10] = ';';
+    uint8_t status;
+    status = HAL_UART_Transmit(&huart1, Buffer, 11, 0xff);
+}
+
+void UART_TX_Supercap_Connection_Check(void)
+{
+	uint8_t Sent_Data[8];
+	int Keep_Alive_Typecode = SuperCap_KeepAlive_TX_Typecode;
+	Sent_Data[0] = (uint8_t)(time.total_count>>24);
+	Sent_Data[1] = (uint8_t)((time.total_count>>16)&0xff);
+	Sent_Data[2] = (uint8_t)((time.total_count>>8)&0xff);
+	Sent_Data[3] = (uint8_t)(time.total_count&0xff);
+	for (int i=0; i<=3; i++)
+		chassis.supercap.KeepAlive_SentData[i] = Sent_Data[i];
+	Uart_TX_Supercap(Keep_Alive_Typecode, Sent_Data);
+}
+
+void Supercap_Keep_Alive(void)
+{
+	chassis.supercap.Keep_Alive_Time_Cnt++;	
+	UART_TX_Supercap_Connection_Check();	
+	
+	if (chassis.supercap.Keep_Alive_Time_Cnt > 10)
+		chassis.supercap.online_state = SUPERCAP_OFFLINE;
+	else chassis.supercap.online_state = SUPERCAP_ONLINE;
+}
+
+void supercap_task(void)
+{
+
+	
+	if (time.total_count%200 == 0)
+		Supercap_Keep_Alive();
+	if (time.total_count%100 == 0)
+	{
+		UartTX_Super_Capacitor(JudgeReceive.MaxPower,JudgeReceive.realChassispower);
+		
+	}
+
+}
+	
 
 double sShapedRamp(double t, double t0, double k) {
     double sigmoid = 1.0 / (1.0 + exp(-k * (t - t0)));
@@ -261,7 +415,8 @@ void Power_Limition_Kf_Update(void)
 
 void Chassis_Init(void)
 {
-    chassis.parameter.mode =   CHASSIS_NORMAL;
+    supercap_uart_init();
+		chassis.parameter.mode =   CHASSIS_NORMAL;
     chassis.parameter.invert_flag =  1;//1:正向，0：反向
     chassis.parameter.break_mode    =   1;
 		chassis.parameter.speed_slow	=	Ease_Out;

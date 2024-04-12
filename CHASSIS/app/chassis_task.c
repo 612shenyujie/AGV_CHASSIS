@@ -66,6 +66,7 @@ void Chassis_Task()
 			Chassis_Flag_Update(&connection);
     }
         Time_Count_Task(&time);
+		 supercap_task();
     }
 }
 

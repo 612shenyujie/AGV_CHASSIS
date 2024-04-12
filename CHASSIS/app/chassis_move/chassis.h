@@ -24,6 +24,12 @@
 
 #define CHASSIS_SPEED_X_CHANGE_MAX 20.f
 #define CHASSIS_SPEED_Y_CHANGE_MAX 20.f
+
+#define DMA_REC_LEN    100
+#define Super_Cap_RX_Typecode 12
+#define SuperCap_Power_TX_Typecode		13
+#define SuperCap_KeepAlive_TX_Typecode	14
+#define SuperCap_Status_RX_Typecode		15
 typedef enum	
 {
 	CHASSIS_REMOTE_CLOSE	=	0x00u,
@@ -83,11 +89,26 @@ typedef struct
 	bool active_status;
 }CHASSIS_MOTOR_T;
 
+typedef enum
+{
+	SUPERCAP_OFF	=0x00u,
+	SUPERCAP_ON	=	0x01u,
+}SUPERCAP_STATE_E;
+
+typedef enum
+{
+	SUPERCAP_OFFLINE	=0x00u,
+	SUPERCAP_ONLINE	=	0x01u,
+}SUPERCAP_ONLINE_STATE_E;
+
 typedef struct
 {
+	SUPERCAP_STATE_E state;
+	SUPERCAP_ONLINE_STATE_E online_state;
 	float supercap_voltage;
-	int supercap_mode;
-	float	supercap_per;
+	float supercap_per;
+	int Keep_Alive_Time_Cnt;
+	uint8_t KeepAlive_SentData[4];
 }SUPERCAP_T;
 
 typedef struct
@@ -140,5 +161,5 @@ void Chassis_Move(void);
 void Yaw_Angle_Process(YAW_T  *yaw);
 void Yaw_Init(void);
 void Chassis_Init(void);
-
+void supercap_task(void);
 #endif

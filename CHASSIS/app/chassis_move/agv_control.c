@@ -3,6 +3,8 @@
 #include "referee.h"
  chassis_power_control_t chassis_power_control;
 
+
+
 void Set_AGV_Velocity_Vector_Data_Update(uint8_t tx_data[],int16_t	angle,int16_t speed,float power_limition)
 {
 	
