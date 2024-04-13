@@ -44,9 +44,6 @@ void AGV_Vector_Composition_In_ChassisCoordinate(CHASSIS_T *chassis )
 	Sine   = sin(Radian_Conversion_Angle); 
 	Cosine = cos(Radian_Conversion_Angle); 
 	
-	if (chassis->command.vy>0 && chassis->command.vx==0) Sine   = 1; 
-  if (chassis->command.vy<0 && chassis->command.vx==0) Sine   = -1;
-	
 	if (Radian_Conversion_Angle > 0)
 	Y_Components = Gimbal_V*  Float_Abs(Sine)  + Chassis_Vr;
 	else Y_Components = Gimbal_V*(-Float_Abs(Sine)) + Chassis_Vr;
