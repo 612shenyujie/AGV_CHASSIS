@@ -118,7 +118,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGUARM</Key>
-          <Name>`硐</Name>
+          <Name>愱s</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -155,18 +155,18 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>90</LineNumber>
+          <LineNumber>123</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134241772</Address>
+          <Address>134236536</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\app\chassis_move\chassis.c</Filename>
+          <Filename>..\app\referee\referee.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\\../app/chassis_move/chassis.c\90</Expression>
+          <Expression>\\CHASSIS\../app/referee/referee.c\123</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>

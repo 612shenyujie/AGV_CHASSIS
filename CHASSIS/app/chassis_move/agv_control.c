@@ -114,7 +114,7 @@ void calculate_true_power(void)
     
 	float sum = 0;
 		
-			chassis_power_control.power_limit_max   =   JudgeReceive.MaxPower;
+			chassis_power_control.power_limit_max   =   JudgeReceive.robot_state.MaxPower;
 //chassis_power_control.power_limit_max   =   50;
 
 	if(chassis_power_control.all_mscb_ready_flag&0xf)

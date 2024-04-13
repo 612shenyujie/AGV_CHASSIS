@@ -140,6 +140,7 @@ void CAN_Init(CAN_HandleTypeDef *hcan, CAN_Call_Back Callback_Function)
         can_filter_mask_config(hcan, CAN_FILTER(0) | CAN_FIFO_0 | CAN_STDID | CAN_DATA_TYPE, 0x201, 0x7ff);
         can_filter_mask_config(hcan, CAN_FILTER(1) | CAN_FIFO_0 | CAN_STDID | CAN_DATA_TYPE, 0x202, 0x7ff);
         can_filter_mask_config(hcan, CAN_FILTER(2) | CAN_FIFO_1 | CAN_STDID | CAN_DATA_TYPE, 0x205, 0x7ff);
+				
         
 
        
@@ -153,6 +154,7 @@ void CAN_Init(CAN_HandleTypeDef *hcan, CAN_Call_Back Callback_Function)
         can_filter_mask_config(hcan, CAN_FILTER(16) | CAN_FIFO_0 | CAN_STDID | CAN_DATA_TYPE, 0x201, 0x7ff);
         can_filter_mask_config(hcan, CAN_FILTER(17) | CAN_FIFO_1 | CAN_STDID | CAN_DATA_TYPE, 0x151, 0x7ff);
         can_filter_mask_config(hcan, CAN_FILTER(18) | CAN_FIFO_1 | CAN_STDID | CAN_DATA_TYPE, 0x153, 0x7ff);
+				can_filter_mask_config(hcan, CAN_FILTER(19) | CAN_FIFO_1 | CAN_STDID | CAN_DATA_TYPE, 0xf1, 0x7ff);
     }   
 		
 	/*配置过滤器*/

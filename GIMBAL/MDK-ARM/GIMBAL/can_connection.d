@@ -67,3 +67,4 @@ gimbal\can_connection.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usb
 gimbal\can_connection.o: ..\app\buzzer.h
 gimbal\can_connection.o: ../bsp/buzzer_bsp.h
 gimbal\can_connection.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+gimbal\can_connection.o: ..\app\vision.h

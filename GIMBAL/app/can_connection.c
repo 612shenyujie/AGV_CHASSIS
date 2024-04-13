@@ -14,6 +14,7 @@
 #include "gimbal.h"
 #include "trigger.h"
 #include "task_schedule.h"
+#include "vision.h"
 CHASSIS_T chassis;
 
 //底盘通信数据初始化
@@ -127,13 +128,14 @@ void CAN1_Call_Back(struct Struct_CAN_Rx_Buffer *rx)
 				gimbal.pitch.motor.parameter.receive_ms_time=gimbal_time.ms_count;
 				gimbal.pitch.motor.parameter.receive_s_time=gimbal_time.s_count;
         break;
+				
     }
      switch(rx->Header.ExtId)
     {
         
     }
 }
-//can2中断回调
+//can2中断回调 
 void CAN2_Call_Back(struct Struct_CAN_Rx_Buffer *rx)
 {
     switch(rx->Header.StdId)
@@ -158,6 +160,10 @@ void CAN2_Call_Back(struct Struct_CAN_Rx_Buffer *rx)
         case 0x153:
        
         
+        break;
+				case 0xf1:
+       vision_control.command.game_state	=	rx->Data[0];
+				vision_control.command.shoot_speed	=	((float)(rx->Data[1]<<8|rx->Data[2]))/100.f;
         break;
     }
     switch(rx->Header.ExtId&0xff)

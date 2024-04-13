@@ -67,5 +67,6 @@ void Chassis_Flag_Update(GIMBAL_CONNECTION_T *connection);
 void Fric_Speed_And_Pitch_Angle_Update(GIMBAL_CONNECTION_T *connection,uint8_t	data[]);
 void Chassis_Speed_Command_Update(GIMBAL_CONNECTION_T *connection,uint8_t	data[]);
 void Chassis_Control_Mode_Update(GIMBAL_CONNECTION_T *connection,uint8_t	data[]);
+void Send_Speed_And_State_Task(void);
 extern GIMBAL_CONNECTION_T connection;
 #endif

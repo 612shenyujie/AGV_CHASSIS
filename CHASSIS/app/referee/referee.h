@@ -28,12 +28,12 @@
 #define JudgeBufBiggestSize 45
 #define USART_RX_BUF_LENGHT     512
 #define REFEREE_FIFO_BUF_LENGTH 1024
+#pragma pack(push, 1)
 typedef struct
 {
-  char HeatUpdate_NoUpdate;
-	char SpeedUpdate_NoUpdate;
 	
 	//0x0201
+	struct{
 	uint8_t robot_id;
 	uint8_t RobotLevel;
 	uint16_t remainHP;
@@ -41,33 +41,38 @@ typedef struct
 	uint16_t HeatCool42;		
 	uint16_t HeatMax42;				
 	uint16_t MaxPower;	
-	uint8_t PowerOutPut;	
+	uint8_t PowerOutPut;
+	}robot_state;		
 
 	//0x0202
+	struct{
 	uint16_t realChassisOutV;
 	uint16_t realChassisOutA;
 	float realChassispower;
 	uint16_t remainEnergy;       
 	short shooterHeat42;
+	}power_state;
 	
-	//0x0207
-	uint8_t bulletFreq;		
-	uint8_t ShootCpltFlag; 
+	 struct 
+{ 
+  uint8_t bullet_type;  
+  uint8_t shooter_number; 
+  uint8_t launching_frequency;  
+  float initial_speed;  
+}shoot_data;
 	
-	//flag
-	short HeatUpdateFlag;	
-	
-	//not in use
-	uint8_t cardType;
-	uint8_t CardIdx;
+	//0x0001
+	struct	{
+	 uint8_t game_type : 4; 
+  uint8_t game_progress : 4; 
+  uint16_t stage_remain_time; 
+  uint64_t SyncTimeStamp; 
+ 
+	}game_status;
 
-	float bulletSpeed;		
-	float LastbulletSpeed;
-	
-	bool receive_flag;
 }
 JudgeReceive_t;
-
+#pragma pack(pop)
 typedef enum
 {
     GAME_STATE_CMD_ID                 = 0x0001,

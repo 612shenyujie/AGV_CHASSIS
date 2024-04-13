@@ -39,7 +39,8 @@ void Chassis_Task()
     AGV_connoection(time.ms_count);    
     if(time.ms_count%5==0)
      {
-       Chassis_Move();			
+       Chassis_Move();
+			 Send_Speed_And_State_Task();	 
      }		 
 		if(time.ms_count%20==17)
 		{
@@ -53,7 +54,7 @@ void Chassis_Task()
     if(time.ms_count%10==4)
     {
 		referee_unpack_fifo_data();
-			Buffer_Limition_Kf_Update();
+		Buffer_Limition_Kf_Update();
 		
     }
 		if(time.ms_count%200==7)
@@ -66,7 +67,7 @@ void Chassis_Task()
 			Chassis_Flag_Update(&connection);
     }
         Time_Count_Task(&time);
-		 supercap_task();
+//		 supercap_task();
     }
 }
 

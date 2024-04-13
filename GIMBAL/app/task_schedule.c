@@ -153,7 +153,7 @@ void task_schedule()
 		 
 				
 	}
-//	buzzer_taskScheduler(&buzzer);
+	buzzer_taskScheduler(&buzzer);
 	//执行时间计数任务
 	Time_Count_Task();
 	//执行延迟计数任务

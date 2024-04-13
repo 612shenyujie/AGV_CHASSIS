@@ -82,7 +82,7 @@ int Char_Change_Check(void)
 		
 	/*读取云台发送的各种状态*/
 	
-	LowHP_Flag = JudgeReceive.maxHP * 0.35 > JudgeReceive.remainHP ? 1:0;
+	LowHP_Flag = JudgeReceive.robot_state.maxHP * 0.35 > JudgeReceive.robot_state.remainHP ? 1:0;
 	
 	/*有变化，标志各个位*/
 
@@ -550,22 +550,22 @@ void JudgementCustomizeChar(int Op_type)
 {
 		custom_char_draw.data_cmd_id=0x0110;//绘制字符
 
-		custom_char_draw.sender_ID=JudgeReceive.robot_id;//发送者ID，机器人对应ID
-		if(JudgeReceive.robot_id == 101)
+		custom_char_draw.sender_ID=JudgeReceive.robot_state.robot_id;//发送者ID，机器人对应ID
+		if(JudgeReceive.robot_state.robot_id == 101)
 				custom_char_draw.receiver_ID = 0x0165;
-		if(JudgeReceive.robot_id == 1)
+		if(JudgeReceive.robot_state.robot_id == 1)
 				custom_char_draw.receiver_ID = 0x0101;
-		if(JudgeReceive.robot_id == 103)
+		if(JudgeReceive.robot_state.robot_id == 103)
 				custom_char_draw.receiver_ID = 0x0167;
-		if(JudgeReceive.robot_id == 104)
+		if(JudgeReceive.robot_state.robot_id == 104)
 				custom_char_draw.receiver_ID = 0x0168;
-		if(JudgeReceive.robot_id == 105)
+		if(JudgeReceive.robot_state.robot_id == 105)
 				custom_char_draw.receiver_ID = 0x0169;
-		if(JudgeReceive.robot_id == 3)
+		if(JudgeReceive.robot_state.robot_id == 3)
 				custom_char_draw.receiver_ID = 0x0103;	
-		if(JudgeReceive.robot_id == 4)
+		if(JudgeReceive.robot_state.robot_id == 4)
 				custom_char_draw.receiver_ID = 0x0104;
-		if(JudgeReceive.robot_id == 5)
+		if(JudgeReceive.robot_state.robot_id == 5)
 				custom_char_draw.receiver_ID = 0x0105;
 
 /*********************************自定义字符数据***********************************/
@@ -576,22 +576,22 @@ void JudgementCustomizeGraphics(int Op_type)
 {
 		custom_grapic_draw.data_cmd_id=0x0104;//绘制七个图形（内容ID，查询裁判系统手册）
 
-		custom_grapic_draw.sender_ID=JudgeReceive.robot_id;//发送者ID，机器人对应ID
-		if(JudgeReceive.robot_id == 101)
+		custom_grapic_draw.sender_ID=JudgeReceive.robot_state.robot_id;//发送者ID，机器人对应ID
+		if(JudgeReceive.robot_state.robot_id == 101)
 				custom_grapic_draw.receiver_ID = 0x0165;
-		if(JudgeReceive.robot_id == 1)
+		if(JudgeReceive.robot_state.robot_id == 1)
 				custom_grapic_draw.receiver_ID = 0x0101;
-		if(JudgeReceive.robot_id == 103)
+		if(JudgeReceive.robot_state.robot_id == 103)
 				custom_grapic_draw.receiver_ID = 0x0167;
-		if(JudgeReceive.robot_id == 104)
+		if(JudgeReceive.robot_state.robot_id == 104)
 				custom_grapic_draw.receiver_ID = 0x0168;
-		if(JudgeReceive.robot_id == 105)
+		if(JudgeReceive.robot_state.robot_id == 105)
 				custom_grapic_draw.receiver_ID = 0x0169;
-		if(JudgeReceive.robot_id == 3)
+		if(JudgeReceive.robot_state.robot_id == 3)
 				custom_grapic_draw.receiver_ID = 0x0103;	
-		if(JudgeReceive.robot_id == 4)
+		if(JudgeReceive.robot_state.robot_id == 4)
 				custom_grapic_draw.receiver_ID = 0x0104;
-		if(JudgeReceive.robot_id == 5)
+		if(JudgeReceive.robot_state.robot_id == 5)
 				custom_grapic_draw.receiver_ID = 0x0105;
 			
 

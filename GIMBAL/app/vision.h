@@ -23,6 +23,8 @@ typedef  struct {
 	float x;
 	float y;
 	float z;
+	int8_t game_state;
+	float shoot_speed;
 	uint16_t receive_time;
 	uint16_t last_receive_time;	
     

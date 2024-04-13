@@ -71,7 +71,7 @@ void USART6_IRQHandler(void)
             __HAL_DMA_ENABLE(huart6.hdmarx);
 						fifo_s_puts(&referee_fifo, (char*)usart6_buf[0], this_time_rx_len);
             
-			JudgeReceive.receive_flag	=	1;
+			
         }
         else
         {
@@ -81,7 +81,7 @@ void USART6_IRQHandler(void)
             huart6.hdmarx->Instance->CR &= ~(DMA_SxCR_CT);
             __HAL_DMA_ENABLE(huart6.hdmarx);
            fifo_s_puts(&referee_fifo, (char*)usart6_buf[1], this_time_rx_len);
-			 JudgeReceive.receive_flag	=	1;
+			 
         }
 //				Judge_Buffer_Receive_Task(JudgeReceiveBuffer,0);
 	}
@@ -109,13 +109,18 @@ void Judge_Buffer_Receive_Task(uint8_t *frame)
  switch (cmd_id)
     {
 			case ROBOT_STATE_CMD_ID:
-				memcpy(&JudgeReceive.robot_id,frame + index,13);
+				memcpy(&JudgeReceive.robot_state,frame + index,13);
 			
 			break;
 			case POWER_HEAT_DATA_CMD_ID:
-				memcpy(&JudgeReceive.realChassisOutV,frame + index,16);
+				memcpy(&JudgeReceive.power_state,frame + index,16);
 			
 			break;
+			case GAME_STATE_CMD_ID	:
+					memcpy(&JudgeReceive.game_status,frame + index,11);
+				break;
+			case SHOOT_DATA_CMD_ID	:
+					memcpy(&JudgeReceive.shoot_data,frame + index,7);
         default:
         {
             break;

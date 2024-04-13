@@ -158,19 +158,7 @@ void Supercap_Keep_Alive(void)
 	else chassis.supercap.online_state = SUPERCAP_ONLINE;
 }
 
-void supercap_task(void)
-{
 
-	
-	if (time.total_count%200 == 0)
-		Supercap_Keep_Alive();
-	if (time.total_count%100 == 0)
-	{
-		UartTX_Super_Capacitor(JudgeReceive.MaxPower,JudgeReceive.realChassispower);
-		
-	}
-
-}
 	
 
 double sShapedRamp(double t, double t0, double k) {
@@ -368,21 +356,40 @@ void Chassis_Mode_Command_Update(void)
 
 void Buffer_Limition_Kf_Update(void)
 {
-	if(JudgeReceive.remainEnergy>50)
+	if(JudgeReceive.power_state.remainEnergy>50)
 		chassis.parameter.power_limition_k	=1.0;
-	else if(JudgeReceive.remainEnergy>40)
+	else if(JudgeReceive.power_state.remainEnergy>40)
 		chassis.parameter.power_limition_k	=0.8;
-	else if(JudgeReceive.remainEnergy>35)
+	else if(JudgeReceive.power_state.remainEnergy>35)
 		chassis.parameter.power_limition_k	=0.6;
-	else if(JudgeReceive.remainEnergy>30)
+	else if(JudgeReceive.power_state.remainEnergy>30)
 		chassis.parameter.power_limition_k	=0.4;
-	else if(JudgeReceive.remainEnergy>20)
+	else if(JudgeReceive.power_state.remainEnergy>20)
 		chassis.parameter.power_limition_k	=0.2;
-	else if(JudgeReceive.remainEnergy>10)
+	else if(JudgeReceive.power_state.remainEnergy>10)
 		chassis.parameter.power_limition_k	=0.1;
 	else
 		chassis.parameter.power_limition_k	=0.0;
 	
+}
+
+void Power_Limition_Mode_Update(void)
+{
+	if(chassis.supercap.online_state	==	SUPERCAP_ONLINE)
+	{
+		if(chassis.supercap.supercap_voltage>130.f&&JudgeReceive.power_state.remainEnergy>50.f)
+		{
+			chassis.parameter.power_loop	=SUPERCAP_LOOP;
+		}
+		else
+		{
+			chassis.parameter.power_loop	=BUFFER_LOOP;
+		}
+	}
+	else
+	{
+			chassis.parameter.power_loop	=BUFFER_LOOP;
+	}
 }
 
 void Power_Limition_Kf_Update(void)
@@ -400,15 +407,30 @@ void Power_Limition_Kf_Update(void)
 			chassis.parameter.power_limition_k=Scale1*Scale2;
 			break;
 		case BUFFER_LOOP:
-				if(JudgeReceive.remainEnergy<50.f)
+				if(JudgeReceive.power_state.remainEnergy<50.f)
 			{
-				Scale2=(JudgeReceive.remainEnergy-5.f)/45.0f;
+				Scale2=(JudgeReceive.power_state.remainEnergy-5.f)/45.0f;
 				if(Scale2<0.f)
 					Scale2=0;
 			}
 			chassis.parameter.power_limition_k=Scale1*Scale2;
 			break;
 	}
+}
+
+void supercap_task(void)
+{
+
+	
+	if (time.total_count%200 == 50)
+		Supercap_Keep_Alive();
+	if (time.total_count%100 == 0)
+	{
+		UartTX_Super_Capacitor(JudgeReceive.robot_state.MaxPower,JudgeReceive.power_state.realChassispower);
+		Power_Limition_Mode_Update();
+		Power_Limition_Kf_Update();
+	}
+
 }
 
 void Chassis_Init(void)

@@ -117,6 +117,11 @@
       <TargetDriverDllRegistry>
         <SetRegEntry>
           <Number>0</Number>
+          <Key>DLGUARM</Key>
+          <Name></Name>
+        </SetRegEntry>
+        <SetRegEntry>
+          <Number>0</Number>
           <Key>ARMRTXEVENTFLAGS</Key>
           <Name>-L70 -Z18 -C0 -M0 -T1</Name>
         </SetRegEntry>
@@ -146,29 +151,12 @@
           <Name>-U-O142 -O2254 -S0 -C0 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(0) -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC800 -FN1 -FF0STM32F4xx_1024.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32F407IGHx$CMSIS\Flash\STM32F4xx_1024.FLM)</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint>
-        <Bp>
-          <Number>0</Number>
-          <Type>0</Type>
-          <LineNumber>734</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134271080</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\app\remote_control.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\GIMBAL\../app/remote_control.c\734</Expression>
-        </Bp>
-      </Breakpoint>
+      <Breakpoint/>
       <WatchWindow1>
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
-          <ItemText>RC</ItemText>
+          <ItemText>RC,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
@@ -239,6 +227,11 @@
           <count>14</count>
           <WinNumber>1</WinNumber>
           <ItemText>y_offset</ItemText>
+        </Ww>
+        <Ww>
+          <count>15</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>sbus_rx_buf[0]</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>

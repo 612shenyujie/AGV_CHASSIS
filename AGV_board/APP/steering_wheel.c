@@ -361,7 +361,7 @@ STEERING_WHEEL_RETURN_T Steering_Wheel_MotorCommandUpdate(steering_wheel_t *stee
 			//if ()
 		}
 		//更改
-		if(abs(temp_err)<50)
+		if(abs(temp_err)<200)
 			steering_wheel->parameter.turn_flag=1;
 		else
 			steering_wheel->parameter.turn_flag=0;
