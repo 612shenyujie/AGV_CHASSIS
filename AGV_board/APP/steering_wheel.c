@@ -361,6 +361,10 @@ STEERING_WHEEL_RETURN_T Steering_Wheel_MotorCommandUpdate(steering_wheel_t *stee
 			//if ()
 		}
 		//更改
+		if(abs(temp_err)<50)
+			steering_wheel->parameter.turn_flag=1;
+		else
+			steering_wheel->parameter.turn_flag=0;
 		steering_wheel->directive_part.command.protocol_speed	= PID_Controller(&steering_wheel->directive_part.motor.PID_Handles.position_loop_handle, temp_err);
 //		steering_wheel->directive_part.command.protocol_speed	= testt;
 		temp_err = steering_wheel->directive_part.command.protocol_speed - steering_wheel->directive_part.status.protocol_speed;
@@ -374,7 +378,7 @@ STEERING_WHEEL_RETURN_T Steering_Wheel_MotorCommandUpdate(steering_wheel_t *stee
 		steering_wheel->motion_part.motor.M3508_kit.command.torque = steering_wheel->motion_part.motor.command.torque*steering_wheel->parameter.buffer_limition_k;
 #endif
 		#if defined(DIRECTIVE_MOTOR_M3508)
-			steering_wheel->directive_part.motor.M3508_kit.command.torque = steering_wheel->directive_part.motor.command.torque*steering_wheel->parameter.buffer_limition_k;
+			steering_wheel->directive_part.motor.M3508_kit.command.torque = steering_wheel->directive_part.motor.command.torque;
 		#endif
 
 		return STEERING_WHEEL_OK;
@@ -425,7 +429,7 @@ STEERING_WHEEL_RETURN_T Steering_Wheel_CommandTransmit(steering_wheel_t *steerin
 			M3508_gear_set_torque_current_lsb(&steering_wheel->directive_part.motor.M3508_kit, steering_wheel->directive_part.motor.M3508_kit.command.torque, SEND_COMMAND_NOW);
 		#endif
 		#if defined(MOTION_MOTOR_M3508)
-		
+				if(steering_wheel->parameter.turn_flag)
 				M3508_gear_set_torque_current_lsb(&steering_wheel->motion_part.motor.M3508_kit, steering_wheel->motion_part.motor.M3508_kit.command.torque, SEND_COMMAND_NOW);
 			
 		#endif

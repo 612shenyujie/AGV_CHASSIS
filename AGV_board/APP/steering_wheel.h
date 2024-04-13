@@ -15,8 +15,8 @@ extern "C" {
 //舵小板选择
 //#define AGV_BOARD_A //不同舵轮对应宏定义
 //#define AGV_BOARD_B
-//#define AGV_BOARD_C
-#define AGV_BOARD_D
+#define AGV_BOARD_C
+//#define AGV_BOARD_D
 //兵种选择
 #define AGV_HERO
 //#define AGV_STANDARD	
@@ -27,10 +27,10 @@ extern "C" {
 #define D_ENCODER_ID 0x0DU
 #define NORM_ENCODER_ID 0x01U
 	
-#define A_ENCODER_ZERO_POSION 0x1b0cU
+#define A_ENCODER_ZERO_POSION 0x1e80U
 #define B_ENCODER_ZERO_POSION 0x174CU
-#define C_ENCODER_ZERO_POSION 0x0ACEU
-#define D_ENCODER_ZERO_POSION 0x1cbcU	
+#define C_ENCODER_ZERO_POSION 0x0ADEU
+#define D_ENCODER_ZERO_POSION 0x01acU	
 	
 #define A_STEERING_CAN_ID 0x1AU
 #define B_STEERING_CAN_ID 0x1BU
@@ -133,6 +133,7 @@ typedef struct
 {
 	uint8_t CANID;
 	int8_t invert_flag;
+	int8_t turn_flag;
 	STEERING_WHEEL_ENABLE_T				enable;
 	STEERING_WHEEL_ARC_OPTIMIZATION_T	arc_optimization;
 	STEERING_WHEEL_DEG_POTIMIZATION_T   deg_optimization;

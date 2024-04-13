@@ -20,7 +20,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		
 		SW_control_task();
 //		SW_subscribe_task();
-//		buzzer_taskScheduler(&buzzer);
+		buzzer_taskScheduler(&buzzer);
 
 
 	total_count=s_count*1000+ms_count;
