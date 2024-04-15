@@ -98,18 +98,6 @@ void USART1_IRQHandler(void)
     }
 }
 
-void Uart_TX_Supercap(int Typecode, uint8_t Sent_Data[8])
-{
-	uint8_t Data[11];
-
-	Data[0] = '*';
-	Data[10] = ';';
-	Data[1] = Typecode;
-	for (int i=2; i<=9; i++)
-	Data[i] = Sent_Data[i];
-	uint8_t status;
-    status = HAL_UART_Transmit(&huart1, Data, 11, 0xff);
-}
 
 void UartTX_Super_Capacitor(int Power_Limitation, float Power)
 {
@@ -137,15 +125,24 @@ void UartTX_Super_Capacitor(int Power_Limitation, float Power)
 
 void UART_TX_Supercap_Connection_Check(void)
 {
-	uint8_t Sent_Data[8];
+	uint8_t Sent_Data[11];
 	int Keep_Alive_Typecode = SuperCap_KeepAlive_TX_Typecode;
-	Sent_Data[0] = (uint8_t)(time.total_count>>24);
-	Sent_Data[1] = (uint8_t)((time.total_count>>16)&0xff);
-	Sent_Data[2] = (uint8_t)((time.total_count>>8)&0xff);
-	Sent_Data[3] = (uint8_t)(time.total_count&0xff);
+	Sent_Data[0]= '*';
+	Sent_Data[1]=Keep_Alive_Typecode;
+	Sent_Data[2] = (uint8_t)(time.total_count>>24);
+	Sent_Data[3] = (uint8_t)((time.total_count>>16)&0xff);
+	Sent_Data[4] = (uint8_t)((time.total_count>>8)&0xff);
+	Sent_Data[5] = (uint8_t)(time.total_count&0xff);
+	Sent_Data[6] =  0x05;
+	Sent_Data[7] =  0x06;
+	Sent_Data[8] =  0x07;
+	Sent_Data[9] =  0x08;
+	Sent_Data[10] =  ';';
+	
 	for (int i=0; i<=3; i++)
-		chassis.supercap.KeepAlive_SentData[i] = Sent_Data[i];
-	Uart_TX_Supercap(Keep_Alive_Typecode, Sent_Data);
+		chassis.supercap.KeepAlive_SentData[i] = Sent_Data[i+1];
+	uint8_t status;
+    status = HAL_UART_Transmit(&huart1, Sent_Data, 11, 0xff);
 }
 
 void Supercap_Keep_Alive(void)

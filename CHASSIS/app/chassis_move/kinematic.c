@@ -23,6 +23,7 @@ float Square(float Input) //ÊÊÓÃÓÚ¸¡µãÊýµÄÆ½·½º¯Êý
     return Ans;
 }
 
+static float offsite=-30.f; 
 
 void AGV_Vector_Composition_In_ChassisCoordinate(CHASSIS_T *chassis )
 {
@@ -34,6 +35,9 @@ void AGV_Vector_Composition_In_ChassisCoordinate(CHASSIS_T *chassis )
 	
 	Gimbal_V = sqrt(chassis->command.vx * chassis->command.vx + chassis->command.vy * chassis->command.vy);
 	Chassis_Vr = chassis->command.vw * (half_width + half_length);
+	if(chassis->parameter.mode==CHASSIS_SPIN)
+		Radian_Theta = (offsite+chassis->parameter.relative_angle)/360.00f *(2.00f*PI); 
+	else
 	Radian_Theta = chassis->parameter.relative_angle/360.00f *(2.00f*PI);  
 	
 
@@ -174,7 +178,7 @@ float AGV_DirectiveMotor_RobotMotion_To_TargetStatus(float linear_x, float linea
 float chassis_angle;
 void Chassis_Speed_Control(CHASSIS_T *chassis)
 {
-//    chassis_angle =AGV_DirectiveMotor_RobotMotion_To_TargetStatus(chassis->command.vx,chassis->command.vx,chassis->parameter.relative_angle);
+
 
     if(chassis->command.vx == 0 && chassis->command.vy == 0 && chassis->command.vw == 0)    chassis->parameter.break_mode   =   1;
 		else chassis->parameter.break_mode   =   0;

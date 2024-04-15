@@ -42,7 +42,7 @@ void Error_State_Judge(void)
 			memset(&RC.rc_receive.mouse,0,sizeof(RC.rc_receive.mouse));
 			gimbal.parameter.mode=GIMBAL_MODE_NO_FORCE;
 			chassis.send.mode	=	CHASSIS_MODE_NOFORCE;
-			buzzer_setTask(&buzzer, BUZZER_DEVICE_OFFLINE_PRIORITY);
+//			buzzer_setTask(&buzzer, BUZZER_DEVICE_OFFLINE_PRIORITY);
 		}
 	}
 	if(gimbal_time.ms_count%16==1)

@@ -276,51 +276,44 @@ void Control_Mode_Update(void)
 		case HANDLE_CONTROL :
 		//摇杆控制
 		//无力状态
-			if (switch_is_down(SW_L)&&switch_is_down(SW_R)&&gimbal.parameter.mode != GIMBAL_MODE_NO_FORCE)
-			{
-				gimbal.parameter.mode = GIMBAL_MODE_NO_FORCE;
-				chassis.send.mode = CHASSIS_MODE_NOFORCE;
-			}
-		//随动状态
-			if (switch_is_down(SW_L)&&switch_is_mid(SW_R)&&gimbal.parameter.mode != GIMBAL_MODE_ABSOLUTE)
-			{
-				gimbal.parameter.mode = GIMBAL_MODE_ABSOLUTE;
-				chassis.send.mode = CHASSIS_MODE_ABSOLUTE;
-
-			}
-		//小陀螺状态
-			if (switch_is_down(SW_L)&&switch_is_up(SW_R)&&gimbal.parameter.mode != GIMBAL_MODE_TOPANGLE)
-			{
-				gimbal.parameter.mode = GIMBAL_MODE_TOPANGLE;
-				chassis.send.mode = CHASSIS_MODE_TOPANGLE;
-
-			}
-//			if (switch_is_up(SW_L)&&gimbal.parameter.mode != GIMBAL_MODE_TOPANGLE)
+		//old
+//			if (switch_is_down(SW_L)&&switch_is_down(SW_R)&&gimbal.parameter.mode != GIMBAL_MODE_NO_FORCE)
 //			{
-//				gimbal.parameter.mode = GIMBAL_MODE_TOPANGLE;
-//				chassis.send.mode = CHASSIS_MODE_TOPANGLE;
-//				vision_control.mode=VISION_OFF;
-//				chassis.send.vision_flag	=	VISION_OFF;
-
+//				gimbal.parameter.mode = GIMBAL_MODE_NO_FORCE;
+//				chassis.send.mode = CHASSIS_MODE_NOFORCE;
 //			}
-//			if (switch_is_mid(SW_L)&&gimbal.parameter.mode != GIMBAL_MODE_ABSOLUTE)
+//		//随动状态
+//			if (switch_is_down(SW_L)&&switch_is_mid(SW_R)&&gimbal.parameter.mode != GIMBAL_MODE_ABSOLUTE)
 //			{
 //				gimbal.parameter.mode = GIMBAL_MODE_ABSOLUTE;
 //				chassis.send.mode = CHASSIS_MODE_ABSOLUTE;
-//				vision_control.mode=VISION_OFF;
-//				chassis.send.vision_flag	=	VISION_OFF;
 
 //			}
-//			if(switch_is_down(SW_L)&&vision_control.mode==VISION_OFF)
+//		//小陀螺状态
+//			if (switch_is_down(SW_L)&&switch_is_up(SW_R)&&gimbal.parameter.mode != GIMBAL_MODE_TOPANGLE)
 //			{
-//				
-//					vision_control.mode=VISION_ON;
-//					chassis.send.vision_flag	=	VISION_ON;
-//					gimbal.parameter.mode = GIMBAL_MODE_ABSOLUTE;
-//					chassis.send.mode = CHASSIS_MODE_ABSOLUTE;
-//				
-//				
+//				gimbal.parameter.mode = GIMBAL_MODE_TOPANGLE;
+//				chassis.send.mode = CHASSIS_MODE_TOPANGLE;
+
 //			}
+		//new
+			if (switch_is_up(SW_L)&&gimbal.parameter.mode != GIMBAL_MODE_TOPANGLE)
+			{
+				gimbal.parameter.mode = GIMBAL_MODE_TOPANGLE;
+				chassis.send.mode = CHASSIS_MODE_TOPANGLE;
+				vision_control.mode=VISION_OFF;
+				chassis.send.vision_flag	=	VISION_OFF;
+
+			}
+			if (switch_is_mid(SW_L)&&gimbal.parameter.mode != GIMBAL_MODE_PRECISION)
+			{
+				gimbal.parameter.mode = GIMBAL_MODE_ABSOLUTE;
+				chassis.send.mode = CHASSIS_MODE_ABSOLUTE;
+				vision_control.mode=VISION_OFF;
+				chassis.send.vision_flag	=	VISION_OFF;
+
+			}
+
 			
 			break;
 		case KEYBOARD_CONTROL :
@@ -432,21 +425,32 @@ void Vision_Control_Mode_Update(void)
 		switch(RC.mode)
 	{
 		case HANDLE_CONTROL :
-			
-			if(switch_is_up(SW_L)&&switch_is_down(SW_R))
+			//old_control
+//			if(switch_is_up(SW_L)&&switch_is_down(SW_R))
+//			{
+//				if(delay_time.vision_mode_cnt==0&&vision_control.mode==VISION_OFF)
+//				{
+//					vision_control.mode=VISION_ON;
+//					chassis.send.vision_flag	=	VISION_ON;
+//					delay_time.vision_mode_cnt=400;
+//				}
+//				if(delay_time.vision_mode_cnt==0&&vision_control.mode==VISION_ON)
+//				{
+//					vision_control.mode=VISION_OFF;
+//					chassis.send.vision_flag	=	VISION_OFF;
+//					delay_time.vision_mode_cnt=400;
+//				}
+//			}
+		//new_control
+			if(switch_is_down(SW_L)&&vision_control.mode==VISION_OFF)
 			{
-				if(delay_time.vision_mode_cnt==0&&vision_control.mode==VISION_OFF)
-				{
+				
 					vision_control.mode=VISION_ON;
 					chassis.send.vision_flag	=	VISION_ON;
-					delay_time.vision_mode_cnt=400;
-				}
-				if(delay_time.vision_mode_cnt==0&&vision_control.mode==VISION_ON)
-				{
-					vision_control.mode=VISION_OFF;
-					chassis.send.vision_flag	=	VISION_OFF;
-					delay_time.vision_mode_cnt=400;
-				}
+					gimbal.parameter.mode = GIMBAL_MODE_ABSOLUTE;
+					chassis.send.mode = CHASSIS_MODE_ABSOLUTE;
+				
+				
 			}
 							
 			
@@ -557,23 +561,8 @@ void Precision_Mode_Update(void)
     	switch(RC.mode)
 	{
 		case HANDLE_CONTROL :
-			
-//			if(switch_is_down(SW_R))
-//			{
-//				if(delay_time.precision_mode_cnt==0&&gimbal.parameter.mode!=GIMBAL_MODE_PRECISION)
-//				{
-//					gimbal.parameter.mode=GIMBAL_MODE_PRECISION;
-//					chassis.send.mode = CHASSIS_MODE_PRECISE;
-//					delay_time.precision_mode_cnt=400;
-//				}
-//				if(delay_time.precision_mode_cnt==0&&gimbal.parameter.mode==GIMBAL_MODE_PRECISION)
-//				{
-//					gimbal.parameter.mode=GIMBAL_MODE_ABSOLUTE;
-//					chassis.send.mode = CHASSIS_MODE_ABSOLUTE;
-//					delay_time.precision_mode_cnt=400;
-//				}
-//			}
-				if(switch_is_up(SW_L)&&switch_is_up(SW_R))
+			//new_control
+			if(switch_is_down(SW_R))
 			{
 				if(delay_time.precision_mode_cnt==0&&gimbal.parameter.mode!=GIMBAL_MODE_PRECISION)
 				{
@@ -588,6 +577,22 @@ void Precision_Mode_Update(void)
 					delay_time.precision_mode_cnt=400;
 				}
 			}
+		//old_control
+//				if(switch_is_up(SW_L)&&switch_is_up(SW_R))
+//			{
+//				if(delay_time.precision_mode_cnt==0&&gimbal.parameter.mode!=GIMBAL_MODE_PRECISION)
+//				{
+//					gimbal.parameter.mode=GIMBAL_MODE_PRECISION;
+//					chassis.send.mode = CHASSIS_MODE_PRECISE;
+//					delay_time.precision_mode_cnt=400;
+//				}
+//				if(delay_time.precision_mode_cnt==0&&gimbal.parameter.mode==GIMBAL_MODE_PRECISION)
+//				{
+//					gimbal.parameter.mode=GIMBAL_MODE_ABSOLUTE;
+//					chassis.send.mode = CHASSIS_MODE_ABSOLUTE;
+//					delay_time.precision_mode_cnt=400;
+//				}
+//			}
 			
 		
 			break;
@@ -626,24 +631,26 @@ void Trigger_Shoot_Number_Update(void)
 			break;
 		
 		case FRIC_RUNNING	:
-			if(switch_is_mid(SW_L)&&switch_is_down(SW_R)	&&	delay_time.shoot_number_cnt	==	0)
-			{
-				trigger.parameter.state	=	TRIGGER_RUNNING;
-				delay_time.shoot_number_cnt=400;
-				trigger.parameter.shoot_num++;
-			}
-//			if(RC.rc_receive.rc.ch[4]>200	&&	delay_time.shoot_number_cnt	==	0)
+			//old_control
+//			if(switch_is_mid(SW_L)&&switch_is_down(SW_R)	&&	delay_time.shoot_number_cnt	==	0)
 //			{
 //				trigger.parameter.state	=	TRIGGER_RUNNING;
 //				delay_time.shoot_number_cnt=400;
 //				trigger.parameter.shoot_num++;
 //			}
-//			if(RC.rc_receive.rc.ch[4]<-200	&&	delay_time.shoot_number_cnt	==	0)
-//			{
-//				trigger.parameter.state	=	TRIGGER_RUNNING;
-//				delay_time.shoot_number_cnt=400;
-//				trigger.parameter.shoot_num+=5;
-//			}
+			//new_control
+			if(RC.rc_receive.rc.ch[4]>200	&&	delay_time.shoot_number_cnt	==	0)
+			{
+				trigger.parameter.state	=	TRIGGER_RUNNING;
+				delay_time.shoot_number_cnt=400;
+				trigger.parameter.shoot_num++;
+			}
+			if(RC.rc_receive.rc.ch[4]<-200	&&	delay_time.shoot_number_cnt	==	0)
+			{
+				trigger.parameter.state	=	TRIGGER_RUNNING;
+				delay_time.shoot_number_cnt=400;
+				trigger.parameter.shoot_num+=5;
+			}
 			break;
 	}
 				
