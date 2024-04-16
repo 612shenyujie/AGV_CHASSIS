@@ -140,7 +140,7 @@ void UART_TX_Supercap_Connection_Check(void)
 	Sent_Data[10] =  ';';
 	
 	for (int i=0; i<=3; i++)
-		chassis.supercap.KeepAlive_SentData[i] = Sent_Data[i+1];
+		chassis.supercap.KeepAlive_SentData[i] = Sent_Data[i+2];
 	uint8_t status;
     status = HAL_UART_Transmit(&huart1, Sent_Data, 11, 0xff);
 }
