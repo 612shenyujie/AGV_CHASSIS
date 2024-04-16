@@ -98,6 +98,8 @@ BUZZER_RETURN_T buzzer_init_example(void)
 {
 	buzzer_parameter_t buzzer_init_param;
 	#if defined(STM32F407)
+	
+	
 		buzzer_init_param.ctx.peripheral_handle	= &htim4;
 		buzzer_init_param.ctx.channel			= TIM_CHANNEL_3;
 		buzzer_init_param.clkFreq	= 84000000;
