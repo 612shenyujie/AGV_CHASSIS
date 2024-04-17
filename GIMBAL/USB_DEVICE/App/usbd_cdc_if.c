@@ -438,8 +438,8 @@ void cdc_vcp_data_rx (uint8_t *buf, uint32_t Len)
 			if(start_receive_flag == 1)
 			{   
 
-				 Vision_Aim_Data_Task(pack_rx.target_x,pack_rx.target_y,pack_rx.target_z);
-//				Vision_Angle_Task(pack_rx.target_yaw,pack_rx.target_pitch);
+//				 Vision_Aim_Data_Task(pack_rx.target_x,pack_rx.target_y,pack_rx.target_z);
+				Vision_Angle_Task(pack_rx.target_yaw,pack_rx.target_pitch);
 				break;
 			}
 

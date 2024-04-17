@@ -86,6 +86,8 @@ typedef struct
 		int16_t velocity_rpm_error[10];
     int16_t temperature;
 
+		float velocity;
+	
     uint16_t position;
     uint16_t last_position;
     float    position_rad;

@@ -19,6 +19,8 @@ void Task_Init(void)
     Can_Connection_Init();
 		Chassis_Power_Control_Init();
 		Referee_Init();
+//		HAL_GPIO_WritePin(SUPERCAP_GPIO_Port, SUPERCAP_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(SUPERCAP_GPIO_Port, SUPERCAP_Pin, GPIO_PIN_RESET);
 }
 
 void Time_Count_Task(TIME_T *time)

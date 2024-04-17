@@ -173,7 +173,7 @@ float GM6020_Position_From_Lsb_To_Degree(uint16_t lsb)
      motor->status.temperature    =   motor->feedback.temperature_lsb;
 	 
      motor->status.velocity_rpm =   Difference_Filter(motor->feedback.velocity_lsb,motor->status.velocity_rpm_error);
-	 
+			
 //		 motor->status.velocity_rpm =   motor->feedback.velocity_lsb;
      motor->status.last_position    =   motor->status.position;
      motor->status.position        =   motor->feedback.position_lsb;
@@ -208,4 +208,5 @@ float GM6020_Position_From_Lsb_To_Degree(uint16_t lsb)
     motor->status.total_position_degree =   motor->status.position_rounds*360.0f+motor->status.position_degree-motor->status.zero_position_degree;
     motor->status.total_position_rad    =   motor->status.position_rounds*2.0f*PI+motor->status.position_rad-motor->status.zero_position_rad;
     }
+		motor->status.velocity	=	(float)(motor->status.total_position-motor->status.last_total_position)/8191.f*1000.f*60.f;
  }

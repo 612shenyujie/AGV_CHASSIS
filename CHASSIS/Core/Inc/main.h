@@ -57,6 +57,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define SUPERCAP_Pin GPIO_PIN_7
+#define SUPERCAP_GPIO_Port GPIOI
 
 /* USER CODE BEGIN Private defines */
 

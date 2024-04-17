@@ -32,8 +32,8 @@
 
 //Ò£¿ØÆ÷¿ØÖÆ²ÎÊý
 #define DEADLINE 20.0f
-#define YAW_MAX_TARGET_ANGLE 3.0f
-#define YAW_MIN_TARGET_ANGLE -3.0f
+#define YAW_MAX_TARGET_ANGLE 8.0f
+#define YAW_MIN_TARGET_ANGLE -8.0f
 #define YAW_MAX_SPEED 6.0f
 #define YAW_MIN_SPEED -6.0f
 
