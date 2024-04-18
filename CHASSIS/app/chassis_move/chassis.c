@@ -426,6 +426,7 @@ void supercap_task(void)
 		UartTX_Super_Capacitor(JudgeReceive.robot_state.MaxPower,JudgeReceive.power_state.realChassispower);
 		Power_Limition_Mode_Update();
 		Power_Limition_Kf_Update();
+		chassis.parameter.power_limition_k=1.f;
 	}
 
 }
