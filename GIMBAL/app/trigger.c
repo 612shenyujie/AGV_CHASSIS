@@ -91,7 +91,7 @@ void Trigger_Send_Command_Update(void)
 
 void Trigger_Calculate_Task(void)
 {
-	while(trigger.command.target_total_position+trigger.status.total_angle>-60.f)
+	while(trigger.command.target_total_position+trigger.status.total_angle>-60.f&&trigger.parameter.shoot_num>=0)
 	{
 		trigger.parameter.shoot_num--;
 		trigger.command.target_total_position	=	trigger.parameter.shoot_num*(60.0f);

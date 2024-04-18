@@ -29,8 +29,8 @@ typedef struct
 typedef struct
 {
 	TRIGGER_STATAE_E state;
-	uint16_t shoot_num;
-	uint16_t last_shoot_num;
+	int16_t shoot_num;
+	int16_t last_shoot_num;
 	bool online_state;
 	bool reactive_flag;
 }TRIGGER_PAPAMETER_T;

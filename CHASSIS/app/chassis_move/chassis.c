@@ -395,9 +395,9 @@ void Power_Limition_Kf_Update(void)
 	switch(chassis.parameter.power_loop)
 	{
 		case SUPERCAP_LOOP:
-			if(chassis.supercap.supercap_voltage<180.f)
+			if(chassis.supercap.supercap_voltage<150.f)
 			{
-				Scale2=(chassis.supercap.supercap_voltage-130.f)/50.0f;
+				Scale2=(chassis.supercap.supercap_voltage-130.f)/20.0f;
 				if(Scale2<0.f)
 					Scale2=0;
 			}

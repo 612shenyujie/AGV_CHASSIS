@@ -94,8 +94,8 @@ void Gimbal_Statue_Update(void)
         case   ENCODER_MODE :
        
         gimbal.pitch.status.actual_angle    =   gimbal.pitch.status.total_angle - gimbal.pitch.status.rounds*360.0f;
-//				gimbal.pitch.status.actual_speed	=	gimbal.pitch.motor.status.velocity_rpm;
-				gimbal.pitch.status.actual_speed	=	gimbal.pitch.motor.status.velocity;
+				gimbal.pitch.status.actual_speed	=	gimbal.pitch.motor.status.velocity_rpm;
+//				gimbal.pitch.status.actual_speed	=	gimbal.pitch.motor.status.velocity;
 
         break;
         case  IMU_MODE :
@@ -125,8 +125,8 @@ void Gimbal_Statue_Update(void)
             
            
       gimbal.yaw.status.actual_angle    =   gimbal.yaw.status.total_angle - gimbal.yaw.status.rounds*360.0f;
-//			gimbal.yaw.status.actual_speed	=	gimbal.yaw.motor.status.velocity_rpm;
-				 gimbal.yaw.status.actual_speed	=	gimbal.yaw.motor.status.velocity;
+			gimbal.yaw.status.actual_speed	=	gimbal.yaw.motor.status.velocity_rpm;
+//				 gimbal.yaw.status.actual_speed	=	gimbal.yaw.motor.status.velocity;
 
         break;
         case  IMU_MODE :
