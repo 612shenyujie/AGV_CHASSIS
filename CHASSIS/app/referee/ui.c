@@ -623,12 +623,9 @@ void referee_data_pack_handle(uint8_t sof,uint16_t cmd_id, uint8_t *p_data, uint
   else seq++;
 	
 	/*****数据上传*****/
-		
-
-
-
 
    __HAL_UART_CLEAR_FLAG(&huart6,UART_FLAG_TC);
+//	 HAL_UART_Transmit_DMA(&huart6, JudgeSend,frame_length);	
 	HAL_UART_Transmit(&huart6, JudgeSend,frame_length,150);
 	while (__HAL_UART_GET_FLAG(&huart6,UART_FLAG_TC) == RESET); 
 

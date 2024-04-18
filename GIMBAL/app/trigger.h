@@ -32,6 +32,7 @@ typedef struct
 	uint16_t shoot_num;
 	uint16_t last_shoot_num;
 	bool online_state;
+	bool reactive_flag;
 }TRIGGER_PAPAMETER_T;
 
 typedef struct
@@ -53,7 +54,7 @@ typedef struct
 }TRIGGER_T;
 
 extern TRIGGER_T trigger;
-
+void Trigger_Calculate_Task(void);
 void Trigger_Init(void);
 void	Trigger_Task(void);
 

@@ -21,6 +21,7 @@ void Trigger_Init(void)
 void Trigger_Status_Update(void)
 {
 	 M3508_Status_Update(&trigger.motor);
+	
 	trigger.status.actual_speed	=	trigger.motor.status.velocity_rpm/trigger.motor.parameter.reduction_rate;
 	trigger.status.total_angle =	trigger.motor.status.total_position_degree/trigger.motor.parameter.reduction_rate;
 	while(trigger.status.total_angle-trigger.status.rounds*360.0f>360.0f)trigger.status.rounds++;
@@ -66,6 +67,8 @@ void Trigger_Command_Update(void)
 //拨弹轮缓冲区数据更新
 void Trigger_Send_Command_Update(void)
 {
+	if(trigger.parameter.reactive_flag)
+	{
 	switch(trigger.parameter.state)
 	{
 		case TRIGGER_STOP:
@@ -77,6 +80,21 @@ void Trigger_Send_Command_Update(void)
 			CAN2_0x200_Tx_Data[1]=trigger.motor.command.give_current_lsb;
 			break;
 		
+	}
+	}
+	else
+	{
+	memset(&CAN2_0x200_Tx_Data,0,8);
+	}
+	
+}
+
+void Trigger_Calculate_Task(void)
+{
+	while(trigger.command.target_total_position+trigger.status.total_angle>-60.f)
+	{
+		trigger.parameter.shoot_num--;
+		trigger.command.target_total_position	=	trigger.parameter.shoot_num*(60.0f);
 	}
 }
 

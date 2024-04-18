@@ -151,6 +151,7 @@ void CAN2_Call_Back(struct Struct_CAN_Rx_Buffer *rx)
         M3508_Feedback_Update(&trigger.motor,rx->Data);
 				trigger.motor.parameter.receive_ms_time=gimbal_time.ms_count;
 				trigger.motor.parameter.receive_s_time=gimbal_time.s_count;
+				trigger.parameter.online_state	=	1;
         break;
 
         case 0x151:

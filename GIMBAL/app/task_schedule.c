@@ -42,6 +42,7 @@ void Error_State_Judge(void)
 			memset(&RC.rc_receive.mouse,0,sizeof(RC.rc_receive.mouse));
 			gimbal.parameter.mode=GIMBAL_MODE_NO_FORCE;
 			chassis.send.mode	=	CHASSIS_MODE_NOFORCE;
+			fric.parameter.mode=	FRIC_STOP;
 //			buzzer_setTask(&buzzer, BUZZER_DEVICE_OFFLINE_PRIORITY);
 		}
 	}
@@ -70,6 +71,8 @@ void Error_State_Judge(void)
 		if(trigger.motor.parameter.receive_ms_time+trigger.motor.parameter.receive_s_time*1000-gimbal_time.ms_count-gimbal_time.s_count*1000<-1000)
 		{
 			buzzer_setTask(&buzzer, BUZZER_DEVICE_OFFLINE_PRIORITY);
+			trigger.parameter.online_state	=	0;
+			Trigger_Calculate_Task();
 		}
 	}
   if(gimbal_time.ms_count%16==4)
