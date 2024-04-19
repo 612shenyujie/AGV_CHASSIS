@@ -410,7 +410,7 @@ void DMA_Send(void)
 	pack.roll         =0.0f;
 	pack.pitch        =-gimbal.pitch.status.actual_angle;
 	pack.yaw          =-gimbal.yaw.status.actual_angle;
-	pack.Game_Status_Stage	=0;
+	pack.Game_Status_Stage	=vision_control.command.game_state;
 	pack.crc16        =0xffff;
 	memcpy(Buffer,&pack,sizeof(pack));
 	Append_CRC16_Check_Sum(Buffer,sizeof(pack));

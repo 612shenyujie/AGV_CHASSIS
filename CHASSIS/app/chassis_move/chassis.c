@@ -374,11 +374,19 @@ void Power_Limition_Mode_Update(void)
 {
 	if(chassis.supercap.online_state	==	SUPERCAP_ONLINE)
 	{
-		if(chassis.supercap.supercap_voltage>130.f&&JudgeReceive.power_state.remainEnergy>50.f)
+//		if(chassis.supercap.supercap_voltage>180.f&&chassis.parameter.power_loop	==BUFFER_LOOP)
+//		{
+//			chassis.parameter.power_loop	=SUPERCAP_LOOP;
+//		}
+//			if(chassis.supercap.supercap_voltage<180.f&&chassis.parameter.power_loop	==SUPERCAP_LOOP)
+//		{
+//			chassis.parameter.power_loop	=BUFFER_LOOP;
+//		}
+		if(chassis.supercap.supercap_voltage>130.f&& JudgeReceive.power_state.remainEnergy>50.f)
 		{
 			chassis.parameter.power_loop	=SUPERCAP_LOOP;
 		}
-		else
+			else
 		{
 			chassis.parameter.power_loop	=BUFFER_LOOP;
 		}
@@ -395,11 +403,13 @@ void Power_Limition_Kf_Update(void)
 	switch(chassis.parameter.power_loop)
 	{
 		case SUPERCAP_LOOP:
-			if(chassis.supercap.supercap_voltage<150.f)
+			if(chassis.supercap.supercap_voltage<180.f)
 			{
-				Scale2=(chassis.supercap.supercap_voltage-130.f)/20.0f;
+				Scale2=(chassis.supercap.supercap_voltage-100.f)/50.0f;
 				if(Scale2<0.f)
 					Scale2=0;
+				if(Scale2>1.f)
+					Scale2=1;
 			}
 			chassis.parameter.power_limition_k=Scale1*Scale2;
 			break;
@@ -426,7 +436,7 @@ void supercap_task(void)
 		UartTX_Super_Capacitor(JudgeReceive.robot_state.MaxPower,JudgeReceive.power_state.realChassispower);
 		Power_Limition_Mode_Update();
 		Power_Limition_Kf_Update();
-		chassis.parameter.power_limition_k=1.f;
+//		chassis.parameter.power_limition_k=1.f;
 	}
 
 }
@@ -437,6 +447,7 @@ void Chassis_Init(void)
 		chassis.parameter.mode =   CHASSIS_NORMAL;
     chassis.parameter.invert_flag =  1;//1:正向，0：反向
     chassis.parameter.break_mode    =   1;
+		chassis.parameter.power_loop	=SUPERCAP_LOOP;
 		chassis.parameter.speed_slow	=	Ease_Out;
     chassis.parameter.relative_angle    =   0.f;
 		chassis.parameter.power_limition_k	=1;

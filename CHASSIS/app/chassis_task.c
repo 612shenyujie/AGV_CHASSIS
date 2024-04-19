@@ -42,7 +42,7 @@ void Chassis_Task()
     if(time.ms_count%5==0)
      {
        Chassis_Move();
-			 Send_Speed_And_State_Task();	 
+			 
      }		 
 		if(time.ms_count%20==17)
 		{
@@ -56,6 +56,7 @@ void Chassis_Task()
     if(time.ms_count%10==4)
     {
 		referee_unpack_fifo_data();
+			 Send_Speed_And_State_Task();	
 //		Buffer_Limition_Kf_Update();
 		
     }

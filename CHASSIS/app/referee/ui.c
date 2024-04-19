@@ -7,15 +7,16 @@ unsigned char JudgeSend[SEND_MAX_SIZE];
 int Char_Change_Array[7];					//0表示没变化，非0表示有变化
 int Graphic_Change_Array[7];
 float relative_angle,last_relative_angle;
+char	spin_mode,last_spin_mode;
 char LowHP_Flag,lastLowHP_Flag;									//低血量警报
 ext_student_interactive_char_header_data_t custom_char_draw;
 ext_student_interactive_header_data_t custom_grapic_draw;
 char change_cnt[7];
 	int32_t temp_pitch;
-float c_pos_x[12] = {0.01,0.01,0.01,0.9,0.9, 0.5,0.64, 0.54,0.40,0.53,0.3,0.4};
+float c_pos_x[12] = {0.01,0.01,0.01,0.9,0.9, 0.01,0.64, 0.54,0.40,0.53,0.3,0.4};
 float c_pos_y[12] = {0.8,0.7,0.6,0.8 ,0.75, 0.5,0.1, 0.05,0.1 ,0.15,0.5,0.7};
-float g_pos_x[CAP_GRAPHIC_NUM] = {0.05,0.05,0.05,0.5,0.343,0.459,0.62,0.5,0.42};
-float g_pos_y[CAP_GRAPHIC_NUM] = {0.74,0.64,0.54,0.5,0.0,0.36,0.1,0.8,0.1};
+float g_pos_x[CAP_GRAPHIC_NUM] = {0.05,0.05,0.05,0.5,0.05,0.459,0.62,0.5,0.42};
+float g_pos_y[CAP_GRAPHIC_NUM] = {0.74,0.64,0.54,0.5,0.44,0.36,0.1,0.8,0.1};
 float g_line_x[20]={0.657,0.541,0.343,0.459,0.5,0.5,0.47,0.53};
 float g_line_y[20]={0.0,0.36,0.0,0.36,0.0,0.5,0.392,0.392};
 /*瞄准线偏移量*/
@@ -57,6 +58,22 @@ int Graphic_Change_Check(void)
 		Graphic_Change_Array[3]=Op_Change;
 		change_cnt[3]=10;
 	}
+	
+	if(connection.connection_rx.mode==CHASSIS_SPIN)
+	spin_mode=1;
+	else
+		spin_mode=0;
+	
+	
+	if(spin_mode!=last_spin_mode)
+	{
+		Graphic_Change_Array[4]=Op_Change;
+		change_cnt[4]=5;
+	}
+	
+	
+	last_spin_mode=spin_mode;
+	
 	for(i = 0;i<7;i++)
 	{
 		if(Graphic_Change_Array[i] == Op_Change)
@@ -84,6 +101,7 @@ int Char_Change_Check(void)
 	
 	LowHP_Flag = JudgeReceive.robot_state.maxHP * 0.35 > JudgeReceive.robot_state.remainHP ? 1:0;
 	
+	
 	/*有变化，标志各个位*/
 
 	
@@ -94,12 +112,13 @@ int Char_Change_Check(void)
 		Char_Change_Array[3]=Op_Change;
 		change_cnt[3]=5;
 	}
+	
 
 	
 	/*保存这次标志和上次比较*/
 
 	lastLowHP_Flag = LowHP_Flag;
-
+	
 	
 	
 	/*检索有没有发生变化，如果有变化则返回修改图层*/
@@ -216,7 +235,20 @@ void referee_data_load_String(int Op_type)
 
 			break;
 			case 5:
-			
+			custom_char_draw.char_custom.grapic_data_struct.graphic_name[0] = 0;
+			custom_char_draw.char_custom.grapic_data_struct.graphic_name[1] = 6;
+			custom_char_draw.char_custom.grapic_data_struct.graphic_name[2] = 0;
+			custom_char_draw.char_custom.grapic_data_struct.operate_tpye=Op_type;
+			custom_char_draw.char_custom.grapic_data_struct.graphic_tpye=7;
+			custom_char_draw.char_custom.grapic_data_struct.layer=9;
+			custom_char_draw.char_custom.grapic_data_struct.color=Orange;
+			custom_char_draw.char_custom.grapic_data_struct.start_angle=25;
+			custom_char_draw.char_custom.grapic_data_struct.end_angle=strlen("Spin Mode:");
+			custom_char_draw.char_custom.grapic_data_struct.width=1;
+			custom_char_draw.char_custom.grapic_data_struct.start_x=c_pos_x[5]*SCREEN_LENGTH;
+			custom_char_draw.char_custom.grapic_data_struct.start_y=c_pos_y[5]*SCREEN_WIDTH;
+			memset(custom_char_draw.char_custom.data,'\0',sizeof(custom_char_draw.char_custom.data));
+			strcpy(custom_char_draw.char_custom.data,"Spin Mode:");
 				break;
 			
 			
@@ -464,6 +496,21 @@ void referee_data_load_Graphic(int Op_type)
 				custom_grapic_draw.graphic_custom.grapic_data_struct[2].radius=20;
 			if(Op_type == Op_Change) goto CONT_2;
 			break;
+			SPIN_MODE:		custom_grapic_draw.graphic_custom.grapic_data_struct[2].graphic_name[0] = 1;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[2].graphic_name[1] = 4;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[2].graphic_name[2] = 0;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[2].operate_tpye=Op_type;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[2].graphic_tpye=2;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[2].layer=4;
+				if(spin_mode)
+			custom_grapic_draw.graphic_custom.grapic_data_struct[2].color=Green;
+			else
+				custom_grapic_draw.graphic_custom.grapic_data_struct[2].color=Orange;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[2].width=10;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[2].start_x=g_pos_x[4] * SCREEN_LENGTH;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[2].start_y=g_pos_y[4] * SCREEN_WIDTH;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[2].radius=20;
+			if(Op_type == Op_Change) goto CONT_4;
 			case 2:
 					RELATIVE_:
 
@@ -487,13 +534,8 @@ void referee_data_load_Graphic(int Op_type)
 				start_angle+=360.f;
 			if(end_angle<0)
 				end_angle+=360.f;
-			
-			
 			custom_grapic_draw.graphic_custom.grapic_data_struct[0].start_angle=start_angle;
 			custom_grapic_draw.graphic_custom.grapic_data_struct[0].end_angle=end_angle;
-			
-			
-
 			custom_grapic_draw.graphic_custom.grapic_data_struct[0].end_x=40;
 			custom_grapic_draw.graphic_custom.grapic_data_struct[0].end_y=40;
 			memset(custom_char_draw.char_custom.data,'\0',sizeof(custom_char_draw.char_custom.data));
@@ -542,6 +584,15 @@ void referee_data_load_Graphic(int Op_type)
 				change_cnt[3]--;
 			else
 			Graphic_Change_Array[3]=Op_None;
+		}
+		if(Graphic_Change_Array[4] == Op_Change)  
+		{
+			goto SPIN_MODE;
+	CONT_4:
+			if(change_cnt[4])
+				change_cnt[4]--;
+			else
+			Graphic_Change_Array[4]=Op_None;
 		}
 	}
 }

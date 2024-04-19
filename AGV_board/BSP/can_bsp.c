@@ -19,7 +19,9 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 		//briter_encoder_feedback_handler(&briter_encoder, rxdata);
 
 		M3508_feedback_handler(&M3508_bus_1, CAN_RxHeaderStruct.StdId, rxdata);
+		if(CAN_RxHeaderStruct.StdId - 0x200	==	steering_wheel.directive_part.motor.M3508_kit.parameter.ESC_ID)
 		M3508_gear_feedback_handler(&steering_wheel.directive_part.motor.M3508_kit);
+		if(CAN_RxHeaderStruct.StdId - 0x200	==	steering_wheel.motion_part.motor.M3508_kit.parameter.ESC_ID)
 		M3508_gear_feedback_handler(&steering_wheel.motion_part.motor.M3508_kit);
 		
 		
@@ -57,8 +59,11 @@ void HAL_CAN_RxFifo1MsgPendingCallback(CAN_HandleTypeDef *hcan)
 
 		//briter_encoder_feedback_handler(&briter_encoder, rxdata);
 		M3508_feedback_handler(&M3508_bus_1, CAN_RxHeaderStruct.StdId, rxdata);
+	if(CAN_RxHeaderStruct.StdId - 0x200	==	steering_wheel.directive_part.motor.M3508_kit.parameter.ESC_ID)
 		M3508_gear_feedback_handler(&steering_wheel.directive_part.motor.M3508_kit);
+		if(CAN_RxHeaderStruct.StdId - 0x200	==	steering_wheel.motion_part.motor.M3508_kit.parameter.ESC_ID)
 		M3508_gear_feedback_handler(&steering_wheel.motion_part.motor.M3508_kit);
+
 		
 		
 		// 因为switch只能用常量，所以改用If
