@@ -172,13 +172,13 @@ void Gimbal_Command_Update(void)
             {
             case GIMBAL_MODE_PRECISION :
 //								gimbal.yaw.parameter.mode=ENCODER_MODE;
-                gimbal.yaw.command.add_angle=RC.rc_sent.yaw.target_angle/6.0f;
-                gimbal.pitch.command.add_angle=RC.rc_sent.pitch.target_angle/4.0f;
+                gimbal.yaw.command.add_angle=RC.rc_sent.yaw.target_angle/108.0f;
+                gimbal.pitch.command.add_angle=RC.rc_sent.pitch.target_angle/72.0f;
                 break;
             case GIMBAL_MODE_TOPANGLE :
                 case GIMBAL_MODE_ABSOLUTE :
-                gimbal.yaw.command.add_angle=RC.rc_sent.yaw.target_angle/9.0f;
-                gimbal.pitch.command.add_angle=RC.rc_sent.pitch.target_angle/6.0f;
+                gimbal.yaw.command.add_angle=RC.rc_sent.yaw.target_angle/54.0f;
+                gimbal.pitch.command.add_angle=RC.rc_sent.pitch.target_angle/36.0f;
                 break;
             default:
                 gimbal.yaw.command.add_angle=0.0f;
@@ -437,13 +437,10 @@ void Gimbal_Task(void)
     case NORMAL :
 		if(gimbal.parameter.mode != GIMBAL_MODE_NO_FORCE)
 			{
-			if(gimbal_time.ms_count%10==1)
-			{
+			
 				Gimbal_Mode_Change_Judge();
 				Gimbal_Motor_Mode_Update();
 				Gimbal_Command_Update();
-			}
-			
         Gimbal_Motor_Command_Update();
 			
 			}
