@@ -93,6 +93,7 @@ typedef enum
 {
 	SUPERCAP_OFF	=0x00u,
 	SUPERCAP_ON	=	0x01u,
+	SUPERCAP_CHARGING	=	0x02u,
 }SUPERCAP_STATE_E;
 
 typedef enum

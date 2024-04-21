@@ -259,8 +259,8 @@ void Gimbal_Motor_Command_Update(void)
 
     //根据参数模式，计算出目标角度和速度
 
-		while(gimbal.yaw.command.target_angle-gimbal.yaw.status.total_angle>360.0f)	gimbal.yaw.command.target_angle-=360.0f;
-				while(gimbal.yaw.command.target_angle-gimbal.yaw.status.total_angle<-360.0f)	gimbal.yaw.command.target_angle+=360.0f;
+		while(gimbal.yaw.command.target_angle-gimbal.yaw.status.total_angle>180.0f)	gimbal.yaw.command.target_angle-=360.0f;
+				while(gimbal.yaw.command.target_angle-gimbal.yaw.status.total_angle<-180.0f)	gimbal.yaw.command.target_angle+=360.0f;
 		switch(gimbal.yaw.parameter.mode)
     {
 				

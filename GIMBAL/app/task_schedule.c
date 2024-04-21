@@ -110,9 +110,9 @@ void Time_Count_Task(void)
 		gimbal_time.state=RUNNING_STATE;
 	// 如果延迟计数等于1，改变标定状态为已标定
 	if(delay_time.gimbal_cali_cnt== 1)	gimbal.parameter.calibration_state=CALIBRATED ;
-	if(gimbal_time.s_count<5)	chassis.send.ui_init_flag=0;
-	if(gimbal_time.s_count==5)	chassis.send.ui_init_flag=1;
-	if(gimbal_time.s_count>=5&&delay_time.ui_mode_cnt==0)chassis.send.ui_init_flag=1;
+	if(gimbal_time.s_count<10)	chassis.send.ui_init_flag=0;
+	if(gimbal_time.s_count==10)	chassis.send.ui_init_flag=1;
+	if(gimbal_time.s_count>=10&&delay_time.ui_mode_cnt==0)chassis.send.ui_init_flag=1;
 };
 	
 

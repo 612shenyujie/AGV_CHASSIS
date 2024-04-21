@@ -187,7 +187,7 @@ void platform_filtter_config_setting(void)
 		#endif
 		#ifdef motor_power_test
 //		can_filter_set(&CAN_FilterStructure_3,0x01,0,0,STD_ID_MODE|EQUIPMENT_ID_IMPROVE);
-		can_filter_set(&CAN_FilterStructure_3,0x0D,0,0,STD_ID_MODE|EQUIPMENT_ID_IMPROVE);
+//		can_filter_set(&CAN_FilterStructure_3,0x0B,0,0,STD_ID_MODE|EQUIPMENT_ID_IMPROVE);
 		#endif
 		
 		HAL_CAN_ConfigFilter(&hcan1,&CAN_FilterStructure_3);

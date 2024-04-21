@@ -18,6 +18,7 @@ typedef struct
   float scaled_power_coefficient_32; // ??????
   uint8_t all_mscb_ready_flag;
   float expect_power_32[4];
+	float total_expect_power;
   float scaled_power_32[4];
 }   chassis_power_control_t;
 

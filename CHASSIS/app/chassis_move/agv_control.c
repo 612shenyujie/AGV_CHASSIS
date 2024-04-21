@@ -117,7 +117,7 @@ void calculate_true_power(void)
 	switch(chassis.parameter.power_loop)
 	{
 		case SUPERCAP_LOOP:
-			chassis_power_control.power_limit_max   =   JudgeReceive.robot_state.MaxPower+30.f;
+			chassis_power_control.power_limit_max   =   JudgeReceive.robot_state.MaxPower+5.f;
 			break;
 		case BUFFER_LOOP:
 			chassis_power_control.power_limit_max   =   JudgeReceive.robot_state.MaxPower;
@@ -135,7 +135,7 @@ void calculate_true_power(void)
 				 continue;
 			sum+=chassis_power_control.expect_power_32[i];
     }
-		total_power=sum;
+		chassis_power_control.total_expect_power=sum;
     chassis_power_control.scaled_power_coefficient_32 = (chassis_power_control.power_limit_max) / sum;
 
     if (chassis_power_control.scaled_power_coefficient_32<=1)

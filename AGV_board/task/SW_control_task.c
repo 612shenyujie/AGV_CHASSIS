@@ -37,13 +37,13 @@ void SW_control_task(void)
 		//step-2
 //		briter_encoder_set_callback_mode(&steering_wheel.directive_part.encoder.briter_encoder,BRITER_ENCODER_SET_CALLBACK_REQUEST);
 //		//step-3
-//		briter_encoder_set_increment_direction(&steering_wheel.directive_part.encoder.briter_encoder,BRITER_ENCODER_INCREMENT_DIRECTION_CW);
+		briter_encoder_set_increment_direction(&steering_wheel.directive_part.encoder.briter_encoder,BRITER_ENCODER_INCREMENT_DIRECTION_CW);
 //		//step-4
 //		if(ms_count%10==0)
 //			steering_wheel.directive_part.encoder.briter_encoder.parameter.CAN_ID=0x01;
-//		briter_encoder_set_CAN_ID(&steering_wheel.directive_part.encoder.briter_encoder,0x0D);
-		if(ms_count%10==0)
-		briter_encoder_request_tatal_angle(&steering_wheel.directive_part.encoder.briter_encoder);
+//		briter_encoder_set_CAN_ID(&steering_wheel.directive_part.encoder.briter_encoder,0x0B);
+//		if(ms_count%10==0)
+//		briter_encoder_request_tatal_angle(&steering_wheel.directive_part.encoder.briter_encoder);
 		#endif
     
 

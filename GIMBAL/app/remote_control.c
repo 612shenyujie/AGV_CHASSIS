@@ -810,7 +810,7 @@ void UI_mode_Update(void)
 					if(RC.rc_receive.key_board.button.Q && delay_time.ui_mode_cnt==0&&chassis.send.ui_init_flag==1)
 					{
 						chassis.send.ui_init_flag=0;
-						delay_time.ui_mode_cnt=2000;
+						delay_time.ui_mode_cnt=5000;
 					}
 				
 					

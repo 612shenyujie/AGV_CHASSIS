@@ -20,7 +20,7 @@ float left_fric_data[PID_DATA_LEN]
 	={0.022f,0.0007f,0.15f,5.0f,0.05f,0.0f,500.0f,70.0f,0.3f,0.01f,0.0f,0.0f,900.0f,1800.0f};
 //right-fric-PID
 float right_fric_data[PID_DATA_LEN]
-	={0.032f,0.0008f,0.13f,5.5f,0.1f,0.0f,500.0f,70.0f,0.3f,0.01f,0.0f,0.0f,900.0f,1800.0f};
+	={0.032f,0.0007f,0.15f,5.0f,0.05f,0.0f,500.0f,70.0f,0.3f,0.01f,0.0f,0.0f,900.0f,1800.0f};
 //float left_fric_data[PID_DATA_LEN]
 //	={0.042f,0.0007f,0.15f,5.0f,0.05f,0.0f,500.0f,70.0f,0.3f,0.01f,0.0f,0.0f,900.0f,1800.0f};
 ////right-fric-PID

@@ -23,7 +23,7 @@ float Square(float Input) //ÊÊÓÃÓÚ¸¡µãÊýµÄÆ½·½º¯Êý
     return Ans;
 }
 
-static float offsite=-20.f; 
+static float offsite=-30.f; 
 
 void AGV_Vector_Composition_In_ChassisCoordinate(CHASSIS_T *chassis )
 {

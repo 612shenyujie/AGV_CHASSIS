@@ -19,9 +19,9 @@ void Steering_Wheel_PID_HandleInit(steering_wheel_t *steering_wheel)
 	// 先把PID结构体置零
 	memset(&steering_wheel->directive_part.motor.PID_Handles	, 0, sizeof(steering_wheel->directive_part.motor.PID_Handles));
 	memset(&steering_wheel->motion_part.motor.PID_Handles		, 0, sizeof(steering_wheel->motion_part.motor.PID_Handles));
-	steering_wheel->directive_part.motor.PID_Handles.position_loop_handle.hDefKpGain = 10;
+	steering_wheel->directive_part.motor.PID_Handles.position_loop_handle.hDefKpGain = 7;
 	steering_wheel->directive_part.motor.PID_Handles.position_loop_handle.hKpDivisorPOW2 = 6;
-	steering_wheel->directive_part.motor.PID_Handles.position_loop_handle.hDefKdGain = 2;
+	steering_wheel->directive_part.motor.PID_Handles.position_loop_handle.hDefKdGain = 1;
 	steering_wheel->directive_part.motor.PID_Handles.position_loop_handle.hKdDivisorPOW2 = 0;
 	steering_wheel->directive_part.motor.PID_Handles.position_loop_handle.hUpperOutputLimit = 2000;
 	steering_wheel->directive_part.motor.PID_Handles.position_loop_handle.hLowerOutputLimit = -2000;
@@ -36,7 +36,7 @@ void Steering_Wheel_PID_HandleInit(steering_wheel_t *steering_wheel)
 	steering_wheel->directive_part.motor.PID_Handles.velocity_loop_handle.wUpperIntegralLimit = 1600;
 	steering_wheel->directive_part.motor.PID_Handles.velocity_loop_handle.wLowerIntegralLimit = -1600;
 	// 动力电机速度环 默认Kp Ki Kd 写入
-	steering_wheel->motion_part.motor.PID_Handles.velocity_loop_handle.hDefKpGain = 200;
+	steering_wheel->motion_part.motor.PID_Handles.velocity_loop_handle.hDefKpGain = 72;
 	steering_wheel->motion_part.motor.PID_Handles.velocity_loop_handle.hKpDivisorPOW2 = 2;
 	steering_wheel->motion_part.motor.PID_Handles.velocity_loop_handle.hDefKiGain = 20;
 	steering_wheel->motion_part.motor.PID_Handles.velocity_loop_handle.hKiDivisorPOW2 = 2;
@@ -166,7 +166,7 @@ STEERING_WHEEL_RETURN_T Steering_Wheel_HandleInit(steering_wheel_t *steering_whe
 		#endif
 		#ifdef motor_power_test
 //		birter_encoder_init.CAN_ID					= NORM_ENCODER_ID;
-		birter_encoder_init.CAN_ID					= D_ENCODER_ID;
+		birter_encoder_init.CAN_ID					= B_ENCODER_ID;
 		#endif
 		briter_encoder_parameter_init(&steering_wheel->directive_part.encoder.briter_encoder, &birter_encoder_init);
 		#ifdef AGV_HERO

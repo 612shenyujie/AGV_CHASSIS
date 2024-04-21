@@ -370,30 +370,42 @@ void Buffer_Limition_Kf_Update(void)
 	
 }
 
+void	Supercap_State_Update(void)
+{
+	
+	if(chassis.supercap.state==SUPERCAP_ON)
+		HAL_GPIO_WritePin(SUPERCAP_GPIO_Port, SUPERCAP_Pin, GPIO_PIN_RESET);
+	if(chassis.supercap.state==SUPERCAP_CHARGING	&&	chassis_power_control.total_expect_power>25.f)
+		HAL_GPIO_WritePin(SUPERCAP_GPIO_Port, SUPERCAP_Pin, GPIO_PIN_SET);
+	if(chassis.supercap.state==SUPERCAP_CHARGING	&&	chassis_power_control.total_expect_power<=25.f)
+		HAL_GPIO_WritePin(SUPERCAP_GPIO_Port, SUPERCAP_Pin, GPIO_PIN_RESET);
+	
+}
+
 void Power_Limition_Mode_Update(void)
 {
-	if(chassis.supercap.online_state	==	SUPERCAP_ONLINE)
+	if(chassis.supercap.online_state	==	SUPERCAP_ONLINE &&	chassis.supercap.state==SUPERCAP_ON)
 	{
-//		if(chassis.supercap.supercap_voltage>180.f&&chassis.parameter.power_loop	==BUFFER_LOOP)
-//		{
-//			chassis.parameter.power_loop	=SUPERCAP_LOOP;
-//		}
-//			if(chassis.supercap.supercap_voltage<180.f&&chassis.parameter.power_loop	==SUPERCAP_LOOP)
-//		{
-//			chassis.parameter.power_loop	=BUFFER_LOOP;
-//		}
-		if(chassis.supercap.supercap_voltage>130.f&& JudgeReceive.power_state.remainEnergy>50.f)
+
+		if(chassis.supercap.supercap_voltage>180.f)
+		{
+			chassis.parameter.power_loop	=SUPERCAP_LOOP;
+			chassis.supercap.state	=SUPERCAP_ON;
+		}
+			else	if(chassis.supercap.supercap_voltage>130.f)
 		{
 			chassis.parameter.power_loop	=SUPERCAP_LOOP;
 		}
-			else
+			else 
 		{
-			chassis.parameter.power_loop	=BUFFER_LOOP;
+//			chassis.parameter.power_loop	=BUFFER_LOOP;
+			chassis.supercap.state	=SUPERCAP_CHARGING;
 		}
 	}
 	else
 	{
 			chassis.parameter.power_loop	=BUFFER_LOOP;
+			
 	}
 }
 
@@ -405,7 +417,7 @@ void Power_Limition_Kf_Update(void)
 		case SUPERCAP_LOOP:
 			if(chassis.supercap.supercap_voltage<180.f)
 			{
-				Scale2=(chassis.supercap.supercap_voltage-100.f)/50.0f;
+				Scale2=(chassis.supercap.supercap_voltage-145.f)/35.0f;
 				if(Scale2<0.f)
 					Scale2=0;
 				if(Scale2>1.f)
@@ -414,9 +426,9 @@ void Power_Limition_Kf_Update(void)
 			chassis.parameter.power_limition_k=Scale1*Scale2;
 			break;
 		case BUFFER_LOOP:
-				if(JudgeReceive.power_state.remainEnergy<50.f)
+				if(JudgeReceive.power_state.remainEnergy<20.f)
 			{
-				Scale2=(JudgeReceive.power_state.remainEnergy-5.f)/45.0f;
+				Scale2=(JudgeReceive.power_state.remainEnergy)/20.0f;
 				if(Scale2<0.f)
 					Scale2=0;
 			}
@@ -435,6 +447,7 @@ void supercap_task(void)
 	{
 		UartTX_Super_Capacitor(JudgeReceive.robot_state.MaxPower,JudgeReceive.power_state.realChassispower);
 		Power_Limition_Mode_Update();
+//		Supercap_State_Update();
 		Power_Limition_Kf_Update();
 //		chassis.parameter.power_limition_k=1.f;
 	}
@@ -448,12 +461,13 @@ void Chassis_Init(void)
     chassis.parameter.invert_flag =  1;//1:正向，0：反向
     chassis.parameter.break_mode    =   1;
 		chassis.parameter.power_loop	=SUPERCAP_LOOP;
+		chassis.supercap.state=SUPERCAP_ON;
 		chassis.parameter.speed_slow	=	Ease_Out;
     chassis.parameter.relative_angle    =   0.f;
 		chassis.parameter.power_limition_k	=1;
 		chassis.A_motor.zero_position = 0x1e80;
-		chassis.B_motor.zero_position = 0x174c;
-		chassis.C_motor.zero_position = 0x0ADE;
+		chassis.B_motor.zero_position = 0x1822;
+		chassis.C_motor.zero_position = 0x1ADE;
 		chassis.D_motor.zero_position = 0x01ac;
 		chassis.A_motor.active_status=1;
 		chassis.B_motor.active_status=1;

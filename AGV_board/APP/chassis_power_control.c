@@ -36,12 +36,12 @@ float expert_power_calculate(void)
 {
 	chassis_power_control.expect_motion_part_power_32=
 	steering_wheel.motion_part.motor.command.torque*TOQUE_COEFFICIENT*steering_wheel.motion_part.motor.M3508_kit.feedback.current_rotor_rpm+
-	K2*steering_wheel.motion_part.motor.M3508_kit.feedback.current_rotor_rpm*		steering_wheel.motion_part.motor.M3508_kit.feedback.current_rotor_rpm+
-	K1*steering_wheel.motion_part.motor.command.torque*steering_wheel.motion_part.motor.command.torque+CONSTANT;
+	K1*steering_wheel.motion_part.motor.M3508_kit.feedback.current_rotor_rpm*		steering_wheel.motion_part.motor.M3508_kit.feedback.current_rotor_rpm+
+	K2*steering_wheel.motion_part.motor.command.torque*steering_wheel.motion_part.motor.command.torque+CONSTANT;
 	chassis_power_control.expect_directive_part_power_32=
 	steering_wheel.directive_part.motor.command.torque*TOQUE_COEFFICIENT*steering_wheel.directive_part.motor.M3508_kit.feedback.current_rotor_rpm+
-	K2*steering_wheel.directive_part.motor.M3508_kit.feedback.current_rotor_rpm*		steering_wheel.directive_part.motor.M3508_kit.feedback.current_rotor_rpm+
-	K1*steering_wheel.directive_part.motor.command.torque*steering_wheel.directive_part.motor.command.torque+CONSTANT;
+	K1*steering_wheel.directive_part.motor.M3508_kit.feedback.current_rotor_rpm*		steering_wheel.directive_part.motor.M3508_kit.feedback.current_rotor_rpm+
+	K2*steering_wheel.directive_part.motor.command.torque*steering_wheel.directive_part.motor.command.torque+CONSTANT;
 	
 	chassis_power_control.expect_motion_part_power_32=chassis_power_control.expect_motion_part_power_32;
 	chassis_power_control.expect_directive_part_power_32=chassis_power_control.expect_directive_part_power_32;

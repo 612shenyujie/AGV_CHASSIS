@@ -13,12 +13,12 @@ ext_student_interactive_char_header_data_t custom_char_draw;
 ext_student_interactive_header_data_t custom_grapic_draw;
 char change_cnt[7];
 	int32_t temp_pitch;
-float c_pos_x[12] = {0.01,0.01,0.01,0.9,0.9, 0.01,0.64, 0.54,0.40,0.53,0.3,0.4};
-float c_pos_y[12] = {0.8,0.7,0.6,0.8 ,0.75, 0.5,0.1, 0.05,0.1 ,0.15,0.5,0.7};
-float g_pos_x[CAP_GRAPHIC_NUM] = {0.05,0.05,0.05,0.5,0.05,0.459,0.62,0.5,0.42};
-float g_pos_y[CAP_GRAPHIC_NUM] = {0.74,0.64,0.54,0.5,0.44,0.36,0.1,0.8,0.1};
-float g_line_x[20]={0.657,0.541,0.343,0.459,0.5,0.5,0.47,0.53};
-float g_line_y[20]={0.0,0.36,0.0,0.36,0.0,0.5,0.392,0.392};
+float c_pos_x[12] = {0.01,0.01,0.01,0.9,0.9, 0.87,0.64, 0.54,0.40,0.53,0.3,0.4};
+float c_pos_y[12] = {0.8,0.7,0.6,0.8 ,0.75, 0.7,0.1, 0.05,0.1 ,0.15,0.5,0.7};
+float g_pos_x[CAP_GRAPHIC_NUM] = {0.05,0.05,0.05,0.5,0.92,0.459,0.62,0.5,0.42};
+float g_pos_y[CAP_GRAPHIC_NUM] = {0.74,0.64,0.54,0.5,0.64,0.36,0.1,0.8,0.1};
+float g_line_x[20]={0.657,0.541,0.343,0.459,0.5,0.5,0.49,0.51,0.48,0.52};
+float g_line_y[20]={0.0,0.36,0.0,0.36,0.0,0.5,0.392,0.392,0.37,0.37};
 /*瞄准线偏移量*/
 int AIM_bias_x = 0;
 int AIM_bias_y = 0;
@@ -154,7 +154,7 @@ void referee_data_load_String(int Op_type)
 			custom_char_draw.char_custom.grapic_data_struct.graphic_name[2] = 0;
 			custom_char_draw.char_custom.grapic_data_struct.operate_tpye=Op_type;
 			custom_char_draw.char_custom.grapic_data_struct.graphic_tpye=7;
-			custom_char_draw.char_custom.grapic_data_struct.layer=9;
+			custom_char_draw.char_custom.grapic_data_struct.layer=1;
 			custom_char_draw.char_custom.grapic_data_struct.color=Orange;
 			custom_char_draw.char_custom.grapic_data_struct.start_angle=25;
 			custom_char_draw.char_custom.grapic_data_struct.end_angle=strlen("Fric Mode:");
@@ -171,7 +171,7 @@ void referee_data_load_String(int Op_type)
 			custom_char_draw.char_custom.grapic_data_struct.graphic_name[2] = 0;
 			custom_char_draw.char_custom.grapic_data_struct.operate_tpye=Op_type;
 			custom_char_draw.char_custom.grapic_data_struct.graphic_tpye=7;
-			custom_char_draw.char_custom.grapic_data_struct.layer=9;
+			custom_char_draw.char_custom.grapic_data_struct.layer=2;
 			custom_char_draw.char_custom.grapic_data_struct.color=Orange; 
 			custom_char_draw.char_custom.grapic_data_struct.start_angle=25;
 			custom_char_draw.char_custom.grapic_data_struct.end_angle=strlen(" Auto Aim:");
@@ -188,7 +188,7 @@ void referee_data_load_String(int Op_type)
 			custom_char_draw.char_custom.grapic_data_struct.graphic_name[2] = 0;
 			custom_char_draw.char_custom.grapic_data_struct.operate_tpye=Op_type;
 			custom_char_draw.char_custom.grapic_data_struct.graphic_tpye=7;
-			custom_char_draw.char_custom.grapic_data_struct.layer=9;
+			custom_char_draw.char_custom.grapic_data_struct.layer=3;
 			custom_char_draw.char_custom.grapic_data_struct.color=Orange; 
 			custom_char_draw.char_custom.grapic_data_struct.start_angle=25;
 			custom_char_draw.char_custom.grapic_data_struct.end_angle=strlen("Follow Mode:");
@@ -204,7 +204,7 @@ void referee_data_load_String(int Op_type)
 			custom_char_draw.char_custom.grapic_data_struct.graphic_name[2] = 0;
 			custom_char_draw.char_custom.grapic_data_struct.operate_tpye=Op_type;
 			custom_char_draw.char_custom.grapic_data_struct.graphic_tpye=7;
-			custom_char_draw.char_custom.grapic_data_struct.layer=9;
+			custom_char_draw.char_custom.grapic_data_struct.layer=4;
 			custom_char_draw.char_custom.grapic_data_struct.color=Orange; 
 			custom_char_draw.char_custom.grapic_data_struct.start_angle=25;
 			custom_char_draw.char_custom.grapic_data_struct.end_angle=strlen("Pitch:");
@@ -215,13 +215,30 @@ void referee_data_load_String(int Op_type)
 			strcpy(custom_char_draw.char_custom.data,"Pitch:");
 			break;
 			case 4:
-				PITCH_:	
+				custom_char_draw.char_custom.grapic_data_struct.graphic_name[0] = 0;
+			custom_char_draw.char_custom.grapic_data_struct.graphic_name[1] = 7;
+			custom_char_draw.char_custom.grapic_data_struct.graphic_name[2] = 0;
+			custom_char_draw.char_custom.grapic_data_struct.operate_tpye=Op_type;
+			custom_char_draw.char_custom.grapic_data_struct.graphic_tpye=7;
+			custom_char_draw.char_custom.grapic_data_struct.layer=1;
+			custom_char_draw.char_custom.grapic_data_struct.color=Orange;
+			custom_char_draw.char_custom.grapic_data_struct.start_angle=25;
+			custom_char_draw.char_custom.grapic_data_struct.end_angle=strlen("Spin Mode:");
+			custom_char_draw.char_custom.grapic_data_struct.width=1;
+			custom_char_draw.char_custom.grapic_data_struct.start_x=c_pos_x[5]*SCREEN_LENGTH;
+			custom_char_draw.char_custom.grapic_data_struct.start_y=c_pos_y[5]*SCREEN_WIDTH;
+			memset(custom_char_draw.char_custom.data,'\0',sizeof(custom_char_draw.char_custom.data));
+			strcpy(custom_char_draw.char_custom.data,"Spin Mode:");
+				break;
+				
+			case 5:
+			PITCH_:	
 			custom_char_draw.char_custom.grapic_data_struct.graphic_name[0] = 0;
 			custom_char_draw.char_custom.grapic_data_struct.graphic_name[1] = 5;
 			custom_char_draw.char_custom.grapic_data_struct.graphic_name[2] = 0;
 			custom_char_draw.char_custom.grapic_data_struct.operate_tpye=Op_type;
 			custom_char_draw.char_custom.grapic_data_struct.graphic_tpye=5;
-			custom_char_draw.char_custom.grapic_data_struct.layer=9;
+			custom_char_draw.char_custom.grapic_data_struct.layer=4;
 			custom_char_draw.char_custom.grapic_data_struct.color=Purple; 
 			custom_char_draw.char_custom.grapic_data_struct.start_angle=25;
 			custom_char_draw.char_custom.grapic_data_struct.width=1;
@@ -234,22 +251,6 @@ void referee_data_load_String(int Op_type)
 			
 
 			break;
-			case 5:
-			custom_char_draw.char_custom.grapic_data_struct.graphic_name[0] = 0;
-			custom_char_draw.char_custom.grapic_data_struct.graphic_name[1] = 6;
-			custom_char_draw.char_custom.grapic_data_struct.graphic_name[2] = 0;
-			custom_char_draw.char_custom.grapic_data_struct.operate_tpye=Op_type;
-			custom_char_draw.char_custom.grapic_data_struct.graphic_tpye=7;
-			custom_char_draw.char_custom.grapic_data_struct.layer=9;
-			custom_char_draw.char_custom.grapic_data_struct.color=Orange;
-			custom_char_draw.char_custom.grapic_data_struct.start_angle=25;
-			custom_char_draw.char_custom.grapic_data_struct.end_angle=strlen("Spin Mode:");
-			custom_char_draw.char_custom.grapic_data_struct.width=1;
-			custom_char_draw.char_custom.grapic_data_struct.start_x=c_pos_x[5]*SCREEN_LENGTH;
-			custom_char_draw.char_custom.grapic_data_struct.start_y=c_pos_y[5]*SCREEN_WIDTH;
-			memset(custom_char_draw.char_custom.data,'\0',sizeof(custom_char_draw.char_custom.data));
-			strcpy(custom_char_draw.char_custom.data,"Spin Mode:");
-				break;
 			
 			
 			default:
@@ -353,7 +354,7 @@ void referee_data_load_Graphic(int Op_type)
 				custom_grapic_draw.graphic_custom.grapic_data_struct[0].graphic_name[2] = 0;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[0].operate_tpye=Op_type;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[0].graphic_tpye=2;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[0].layer=3;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[0].layer=1;
 				if(connection.connection_rx.fric.flag==2)
 				custom_grapic_draw.graphic_custom.grapic_data_struct[0].color=Purple;		
 				else if(connection.connection_rx.fric.flag==1)
@@ -371,7 +372,7 @@ void referee_data_load_Graphic(int Op_type)
 				custom_grapic_draw.graphic_custom.grapic_data_struct[1].graphic_name[2] = 0;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[1].operate_tpye=Op_type;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[1].graphic_tpye=2;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[1].layer=4;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[1].layer=2;
 				if(connection.connection_rx.vision.flag)
 			custom_grapic_draw.graphic_custom.grapic_data_struct[1].color=Green;
 			else
@@ -388,20 +389,20 @@ void referee_data_load_Graphic(int Op_type)
 				custom_grapic_draw.graphic_custom.grapic_data_struct[2].graphic_name[2] = 0;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[2].operate_tpye=Op_type;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[2].graphic_tpye=0;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[2].layer=3;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[2].layer=6;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[2].color=Purple;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[2].width=2;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[2].start_x=g_line_x[4] * SCREEN_LENGTH;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[2].start_y=g_line_y[4] * SCREEN_WIDTH;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[2].end_x=g_line_x[5] * SCREEN_LENGTH;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[2].end_y=g_line_y[5] * SCREEN_WIDTH;
-				/*1m瞄准线*/
+				/*1m瞄准线*//*3m瞄准线*/
 				custom_grapic_draw.graphic_custom.grapic_data_struct[3].graphic_name[0] = 2;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[3].graphic_name[1] = 4;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[3].graphic_name[2] = 0;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[3].operate_tpye=Op_type;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[3].graphic_tpye=0;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[3].layer=3;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[3].layer=6;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[3].color=Purple;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[3].width=2;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[3].start_x=g_line_x[6] * SCREEN_LENGTH;
@@ -409,27 +410,27 @@ void referee_data_load_Graphic(int Op_type)
 				custom_grapic_draw.graphic_custom.grapic_data_struct[3].end_x=g_line_x[7] * SCREEN_LENGTH;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[3].end_y=g_line_y[7] * SCREEN_WIDTH;
 				
-				/*3m瞄准线*/
+				/*5m瞄准线*/
 				custom_grapic_draw.graphic_custom.grapic_data_struct[4].graphic_name[0] = 2;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[4].graphic_name[1] = 5;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[4].graphic_name[2] = 0;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[4].operate_tpye=Op_type;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[4].graphic_tpye=0;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[4].layer=3;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[4].layer=6;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[4].color=Purple;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[4].width=2;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[4].start_x=g_line_x[6] * SCREEN_LENGTH;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[4].start_y=g_line_y[6] * SCREEN_WIDTH;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[4].end_x=g_line_x[7] * SCREEN_LENGTH;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[4].end_y=g_line_y[7] * SCREEN_WIDTH;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[4].start_x=g_line_x[8] * SCREEN_LENGTH;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[4].start_y=g_line_y[8] * SCREEN_WIDTH;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[4].end_x=g_line_x[9] * SCREEN_LENGTH;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[4].end_y=g_line_y[9] * SCREEN_WIDTH;
 				
-				/*5m瞄准线*/
+				/*7m瞄准线*/
 				custom_grapic_draw.graphic_custom.grapic_data_struct[5].graphic_name[0] = 2;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[5].graphic_name[1] = 6;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[5].graphic_name[2] = 0;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[5].operate_tpye=Op_type;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[5].graphic_tpye=0;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[5].layer=3;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[5].layer=6;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[5].color=Purple;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[5].width=2;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[5].start_x=g_line_x[6] * SCREEN_LENGTH;
@@ -437,13 +438,13 @@ void referee_data_load_Graphic(int Op_type)
 				custom_grapic_draw.graphic_custom.grapic_data_struct[5].end_x=g_line_x[7] * SCREEN_LENGTH;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[5].end_y=g_line_y[7] * SCREEN_WIDTH;
 				
-				/*7m瞄准线*/
+				/*11m瞄准线*/
 				custom_grapic_draw.graphic_custom.grapic_data_struct[6].graphic_name[0] = 2;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[6].graphic_name[1] = 7;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[6].graphic_name[2] = 0;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[6].operate_tpye=Op_type;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[6].graphic_tpye=0;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[6].layer=3;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[6].layer=6;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[6].color=Purple;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[6].width=2;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[6].start_x=g_line_x[6] * SCREEN_LENGTH;
@@ -459,7 +460,7 @@ void referee_data_load_Graphic(int Op_type)
 				custom_grapic_draw.graphic_custom.grapic_data_struct[0].graphic_name[2] = 0;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[0].operate_tpye=Op_type;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[0].graphic_tpye=0;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[0].layer=2;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[0].layer=6;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[0].color=Purple;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[0].width=4;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[0].start_x=g_line_x[0] * SCREEN_LENGTH;
@@ -472,7 +473,7 @@ void referee_data_load_Graphic(int Op_type)
 				custom_grapic_draw.graphic_custom.grapic_data_struct[1].graphic_name[2] = 0;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[1].operate_tpye=Op_type;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[1].graphic_tpye=0;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[1].layer=3;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[1].layer=6;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[1].color=Purple;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[1].width=4;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[1].start_x=g_line_x[2] * SCREEN_LENGTH;
@@ -485,7 +486,7 @@ void referee_data_load_Graphic(int Op_type)
 				custom_grapic_draw.graphic_custom.grapic_data_struct[2].graphic_name[2] = 0;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[2].operate_tpye=Op_type;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[2].graphic_tpye=2;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[2].layer=4;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[2].layer=3;
 				if(connection.connection_rx.follow.flag)
 			custom_grapic_draw.graphic_custom.grapic_data_struct[2].color=Green;
 			else
@@ -495,22 +496,23 @@ void referee_data_load_Graphic(int Op_type)
 				custom_grapic_draw.graphic_custom.grapic_data_struct[2].start_y=g_pos_y[2] * SCREEN_WIDTH;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[2].radius=20;
 			if(Op_type == Op_Change) goto CONT_2;
-			break;
-			SPIN_MODE:		custom_grapic_draw.graphic_custom.grapic_data_struct[2].graphic_name[0] = 1;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[2].graphic_name[1] = 4;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[2].graphic_name[2] = 0;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[2].operate_tpye=Op_type;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[2].graphic_tpye=2;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[2].layer=4;
+		
+			SPIN_MODE:		custom_grapic_draw.graphic_custom.grapic_data_struct[3].graphic_name[0] = 1;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[3].graphic_name[1] = 4;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[3].graphic_name[2] = 0;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[3].operate_tpye=Op_type;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[3].graphic_tpye=2;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[3].layer=4;
 				if(spin_mode)
-			custom_grapic_draw.graphic_custom.grapic_data_struct[2].color=Green;
+			custom_grapic_draw.graphic_custom.grapic_data_struct[3].color=Green;
 			else
-				custom_grapic_draw.graphic_custom.grapic_data_struct[2].color=Orange;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[2].width=10;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[2].start_x=g_pos_x[4] * SCREEN_LENGTH;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[2].start_y=g_pos_y[4] * SCREEN_WIDTH;
-				custom_grapic_draw.graphic_custom.grapic_data_struct[2].radius=20;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[3].color=Orange;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[3].width=10;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[3].start_x=g_pos_x[4] * SCREEN_LENGTH;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[3].start_y=g_pos_y[4] * SCREEN_WIDTH;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[3].radius=20;
 			if(Op_type == Op_Change) goto CONT_4;
+				break;
 			case 2:
 					RELATIVE_:
 
@@ -519,7 +521,7 @@ void referee_data_load_Graphic(int Op_type)
 			custom_grapic_draw.graphic_custom.grapic_data_struct[0].graphic_name[2] = 0;
 			custom_grapic_draw.graphic_custom.grapic_data_struct[0].operate_tpye=Op_type;
 			custom_grapic_draw.graphic_custom.grapic_data_struct[0].graphic_tpye=4;
-			custom_grapic_draw.graphic_custom.grapic_data_struct[0].layer=9;
+			custom_grapic_draw.graphic_custom.grapic_data_struct[0].layer=5;
 			custom_grapic_draw.graphic_custom.grapic_data_struct[0].color=Cyan; 
 			custom_grapic_draw.graphic_custom.grapic_data_struct[0].width=10;
 			custom_grapic_draw.graphic_custom.grapic_data_struct[0].start_x=g_pos_x[3]*SCREEN_LENGTH;
