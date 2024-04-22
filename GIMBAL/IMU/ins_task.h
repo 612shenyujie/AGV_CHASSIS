@@ -21,6 +21,8 @@
 #define Y 1
 #define Z 2
 
+
+
 #define INS_TASK_PERIOD 1
 
 typedef struct
@@ -44,8 +46,11 @@ typedef struct
 
     // 位姿
     float Roll;
+		float Roll_Speed;	
     float Pitch;
+		float Pitch_Speed;
     float Yaw;
+		float Yaw_Speed;
     float YawTotalAngle;
 } INS_t;
 

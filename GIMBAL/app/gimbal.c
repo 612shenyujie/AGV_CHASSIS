@@ -46,7 +46,7 @@ float gimbal_yaw_encoder_position_data[PID_DATA_LEN]
 float gimbal_yaw_imu_speed_data[PID_DATA_LEN]
 	={18000.0f,20.0f,0.0f,25000.0f,1000.0f,0.01f,0.5f,0.1f,0.5f,0.0f};
 float gimbal_yaw_imu_position_data[PID_DATA_LEN]
-	={0.35f,0.1f,1.0f,10.0f,0.01f,0.04f,1.0f,0.5f,0.5f,0.0f};
+	={0.35f,0.1f,1.0f,10.0f,0.01f,0.00f,1.0f,0.5f,0.5f,0.0f};
 
 
 /*******************************质心补偿参数******************************************/
@@ -82,8 +82,8 @@ void Gimbal_Statue_Update(void)
 {
     //pitch轴数据多圈处理
 	GM6020_Status_Update(&gimbal.pitch.motor);
-    gimbal.pitch.imu.status.actual_angle =   1.0f * INS.Pitch;
-    gimbal.pitch.imu.status.actual_speed = -1.0f * INS.MotionAccel_n[Z];	    
+    gimbal.pitch.imu.status.actual_angle =   1.0f * INS.Roll;
+    gimbal.pitch.imu.status.actual_speed = -1.0f * INS.Gyro[Y];	    
     gimbal.pitch.status.total_angle =	gimbal.pitch.motor.status.total_position_degree/gimbal.pitch.parameter.number_ratio;
 	while(gimbal.pitch.status.total_angle-gimbal.pitch.status.rounds*360.0f>180.0f) gimbal.pitch.status.rounds++;
 	while(gimbal.pitch.status.total_angle-gimbal.pitch.status.rounds*360.0f<-180.0f) gimbal.pitch.status.rounds--;
@@ -113,7 +113,7 @@ void Gimbal_Statue_Update(void)
             if(gimbal.yaw.imu.status.actual_angle-gimbal.yaw.imu.status.last_actual_angle>180.0f) gimbal.yaw.imu.status.rounds--;
             if(gimbal.yaw.imu.status.actual_angle-gimbal.yaw.imu.status.last_actual_angle<-180.0f)gimbal.yaw.imu.status.rounds++;
             gimbal.yaw.imu.status.total_angle = gimbal.yaw.imu.status.rounds*360.0f + gimbal.yaw.imu.status.actual_angle+chassis.send.invert_flag*180.0f;
-            gimbal.yaw.imu.status.actual_speed = -INS.MotionAccel_n[X];
+            gimbal.yaw.imu.status.actual_speed = -INS.Gyro[Z];
 			gimbal.yaw.status.total_angle =	gimbal.yaw.motor.status.total_position_degree/gimbal.yaw.parameter.number_ratio+chassis.send.invert_flag*180.0f;
 		    while(gimbal.yaw.status.total_angle-gimbal.yaw.status.rounds*360.0f>180.0f) gimbal.yaw.status.rounds++;
 		    while(gimbal.yaw.status.total_angle-gimbal.yaw.status.rounds*360.0f<-180.0f) gimbal.yaw.status.rounds--;
@@ -171,13 +171,13 @@ void Gimbal_Command_Update(void)
             {
             case GIMBAL_MODE_PRECISION :
 //								gimbal.yaw.parameter.mode=ENCODER_MODE;
-                gimbal.yaw.command.add_angle=RC.rc_sent.yaw.target_angle/6.0f;
-                gimbal.pitch.command.add_angle=RC.rc_sent.pitch.target_angle/4.0f;
+                gimbal.yaw.command.add_angle=RC.rc_sent.yaw.target_angle/48.0f;
+                gimbal.pitch.command.add_angle=RC.rc_sent.pitch.target_angle/36.0f;
                 break;
             case GIMBAL_MODE_TOPANGLE :
                 case GIMBAL_MODE_ABSOLUTE :
-                gimbal.yaw.command.add_angle=RC.rc_sent.yaw.target_angle/9.0f;
-                gimbal.pitch.command.add_angle=RC.rc_sent.pitch.target_angle/6.0f;
+                gimbal.yaw.command.add_angle=RC.rc_sent.yaw.target_angle/96.0f;
+                gimbal.pitch.command.add_angle=RC.rc_sent.pitch.target_angle/54.0f;
                 break;
             default:
                 gimbal.yaw.command.add_angle=0.0f;
@@ -305,9 +305,9 @@ void Gimbal_Motor_Mode_Update(void)
         break;
     case GIMBAL_MODE_PRECISION :
         //精度模式
-				gimbal.yaw.motor.parameter.calibrate_state    =   MOTOR_CALIBRATED;
-        gimbal.yaw.parameter.mode = ENCODER_MODE;
-        gimbal.pitch.parameter.mode = ENCODER_MODE;
+
+        gimbal.yaw.parameter.mode = IMU_MODE;
+        gimbal.pitch.parameter.mode = IMU_MODE;
 
 
         break;
@@ -365,13 +365,13 @@ void Gimbal_Mode_Change_Judge(void)
 	if(gimbal.parameter.last_mode==GIMBAL_MODE_ABSOLUTE&&gimbal.parameter.mode==GIMBAL_MODE_PRECISION)
 	{
 		gimbal.yaw.motor.parameter.calibrate_state    =   MOTOR_CALIBRATED;
-		gimbal.yaw.command.target_angle=0;
+
 		gimbal.pitch.command.target_angle=-13.45;
 	}
 	if(gimbal.parameter.last_mode==GIMBAL_MODE_PRECISION&&gimbal.parameter.mode==GIMBAL_MODE_ABSOLUTE)
 	{
 
-		gimbal.yaw.command.target_angle=gimbal.yaw.imu.status.total_angle;
+
 		gimbal.pitch.command.target_angle=0;
 	}
 	gimbal.parameter.last_mode=gimbal.parameter.mode;
@@ -436,12 +436,11 @@ void Gimbal_Task(void)
     case NORMAL :
 		if(gimbal.parameter.mode != GIMBAL_MODE_NO_FORCE)
 			{
-			if(gimbal_time.ms_count%10==1)
-			{
+			
 				Gimbal_Mode_Change_Judge();
 				Gimbal_Motor_Mode_Update();
 				Gimbal_Command_Update();
-			}
+			
 			
         Gimbal_Motor_Command_Update();
 			
@@ -451,7 +450,7 @@ void Gimbal_Task(void)
     }
 					
 					
-//		Gimbal_Send_command_Update();
+		Gimbal_Send_command_Update();
     Gimbal_Statue_Update();
 					
 
