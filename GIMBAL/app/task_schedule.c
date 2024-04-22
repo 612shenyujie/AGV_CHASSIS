@@ -1,16 +1,21 @@
 #include "task_schedule.h"
+#include "ins_task.h"
+
 
 TASK_TIME_T gimbal_time;
-
+float temp;
 int16_t cnt;
 uint16_t pwmVal=0;
+
+
+
 void Init_Task(void)
 {
 		
 		//初始化CAN连接
 		Can_Connection_Init();
 		//初始化IMU
-		IMU_Init();
+		INS_Init();
 		//初始化遥控器
 		Remote_Init();
 		//初始化摩擦轮
@@ -156,7 +161,7 @@ void task_schedule()
 		 
 				
 	}
-	buzzer_taskScheduler(&buzzer);
+//	buzzer_taskScheduler(&buzzer);
 	//执行时间计数任务
 	Time_Count_Task();
 	//执行延迟计数任务
@@ -173,8 +178,8 @@ void task_schedule()
 	else
 	{
 		//执行INS任务
-		INS_task();
-		
+		INS_Task();
+		temp=arm_sin_f32(3.14/2.f);
 	}
 	
 };

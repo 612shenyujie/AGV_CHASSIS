@@ -40,8 +40,6 @@ gimbal\task_schedule.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 gimbal\task_schedule.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h
 gimbal\task_schedule.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h
 gimbal\task_schedule.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h
-gimbal\task_schedule.o: ../IMU/bsp_imu.h
-gimbal\task_schedule.o: ../IMU/struct_typedef.h
 gimbal\task_schedule.o: ..\app\fric.h
 gimbal\task_schedule.o: ../bsp/motor.h
 gimbal\task_schedule.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
@@ -67,3 +65,9 @@ gimbal\task_schedule.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd
 gimbal\task_schedule.o: ..\app\buzzer.h
 gimbal\task_schedule.o: ../bsp/buzzer_bsp.h
 gimbal\task_schedule.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+gimbal\task_schedule.o: ../IMU/ins_task.h
+gimbal\task_schedule.o: ../Components/Devices/BMI088driver.h
+gimbal\task_schedule.o: ../Components/Algorithm/QuaternionEKF.h
+gimbal\task_schedule.o: ../Components/kalman_filter.h
+gimbal\task_schedule.o: ../Components/Algorithm/Include/arm_math.h
+gimbal\task_schedule.o: ../Drivers/CMSIS/Include/core_cm4.h

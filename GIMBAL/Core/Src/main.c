@@ -31,6 +31,8 @@
 /* USER CODE BEGIN Includes */
 #include "task_schedule.h"
 #include "buzzer.h"
+#include "BMI088driver.h"
+#include "bsp_dwt.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -78,8 +80,7 @@ int main(void)
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-
- HAL_Init();
+  HAL_Init();
 
   /* USER CODE BEGIN Init */
 
@@ -108,6 +109,9 @@ int main(void)
   MX_USB_DEVICE_Init();
   MX_TIM8_Init();
   /* USER CODE BEGIN 2 */
+	 DWT_Init(168);
+    while (BMI088_init(&hspi1, 1) != BMI088_NO_ERROR)
+        ;
 	Init_Task();
 	HAL_TIM_Base_Start(&htim8);
 	HAL_TIM_PWM_Start(&htim8,TIM_CHANNEL_1);

@@ -12,7 +12,6 @@
 #define TASK_SCHEDULE_H_
 
 #include "tim.h"
-#include "bsp_imu.h"
 #include "fric.h"
 #include "remote_control.h"
 #include "gimbal.h"

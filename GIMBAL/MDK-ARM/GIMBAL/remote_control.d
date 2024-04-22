@@ -43,8 +43,6 @@ gimbal\remote_control.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_e
 gimbal\remote_control.o: ../Core/Inc/usart.h
 gimbal\remote_control.o: ..\app\task_schedule.h
 gimbal\remote_control.o: ../Core/Inc/tim.h
-gimbal\remote_control.o: ../IMU/bsp_imu.h
-gimbal\remote_control.o: ../IMU/struct_typedef.h
 gimbal\remote_control.o: ..\app\fric.h
 gimbal\remote_control.o: ../bsp/motor.h
 gimbal\remote_control.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h

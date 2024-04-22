@@ -53,8 +53,6 @@ gimbal\can_connection.o: ..\app\gimbal.h
 gimbal\can_connection.o: ..\app\trigger.h
 gimbal\can_connection.o: ..\app\task_schedule.h
 gimbal\can_connection.o: ../Core/Inc/tim.h
-gimbal\can_connection.o: ../IMU/bsp_imu.h
-gimbal\can_connection.o: ../IMU/struct_typedef.h
 gimbal\can_connection.o: ../USB_DEVICE/App/usbd_cdc_if.h
 gimbal\can_connection.o: ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h
 gimbal\can_connection.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h

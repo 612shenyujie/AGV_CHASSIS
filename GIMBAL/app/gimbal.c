@@ -12,7 +12,7 @@
 
 #include 	"remote_control.h"
 
-#include 	"bsp_imu.h"
+#include "ins_task.h"
 
 #include 	"task_schedule.h"
 
@@ -22,7 +22,6 @@
 
 #include "math.h"
 
-#define pitch_test
 
 
 
@@ -83,8 +82,8 @@ void Gimbal_Statue_Update(void)
 {
     //pitch轴数据多圈处理
 	GM6020_Status_Update(&gimbal.pitch.motor);
-    gimbal.pitch.imu.status.actual_angle =   1.0f * INS_angle[1] / (2 * 3.141590f) * 360.0f;
-    gimbal.pitch.imu.status.actual_speed = -1.0f * INS_gyro[0] +0.023f;	    
+    gimbal.pitch.imu.status.actual_angle =   1.0f * INS.Pitch;
+    gimbal.pitch.imu.status.actual_speed = -1.0f * INS.MotionAccel_n[Z];	    
     gimbal.pitch.status.total_angle =	gimbal.pitch.motor.status.total_position_degree/gimbal.pitch.parameter.number_ratio;
 	while(gimbal.pitch.status.total_angle-gimbal.pitch.status.rounds*360.0f>180.0f) gimbal.pitch.status.rounds++;
 	while(gimbal.pitch.status.total_angle-gimbal.pitch.status.rounds*360.0f<-180.0f) gimbal.pitch.status.rounds--;
@@ -110,11 +109,11 @@ void Gimbal_Statue_Update(void)
 			GM6020_Status_Update(&gimbal.yaw.motor);
 
 			gimbal.yaw.imu.status.last_actual_angle = gimbal.yaw.imu.status.actual_angle;
-            gimbal.yaw.imu.status.actual_angle = -INS_angle[0] / (2 * 3.141590f) * 360.0f;
+            gimbal.yaw.imu.status.actual_angle = -INS.Yaw;
             if(gimbal.yaw.imu.status.actual_angle-gimbal.yaw.imu.status.last_actual_angle>180.0f) gimbal.yaw.imu.status.rounds--;
             if(gimbal.yaw.imu.status.actual_angle-gimbal.yaw.imu.status.last_actual_angle<-180.0f)gimbal.yaw.imu.status.rounds++;
             gimbal.yaw.imu.status.total_angle = gimbal.yaw.imu.status.rounds*360.0f + gimbal.yaw.imu.status.actual_angle+chassis.send.invert_flag*180.0f;
-            gimbal.yaw.imu.status.actual_speed = -1.0f * INS_gyro[2]+0.09f;
+            gimbal.yaw.imu.status.actual_speed = -INS.MotionAccel_n[X];
 			gimbal.yaw.status.total_angle =	gimbal.yaw.motor.status.total_position_degree/gimbal.yaw.parameter.number_ratio+chassis.send.invert_flag*180.0f;
 		    while(gimbal.yaw.status.total_angle-gimbal.yaw.status.rounds*360.0f>180.0f) gimbal.yaw.status.rounds++;
 		    while(gimbal.yaw.status.total_angle-gimbal.yaw.status.rounds*360.0f<-180.0f) gimbal.yaw.status.rounds--;
@@ -452,7 +451,7 @@ void Gimbal_Task(void)
     }
 					
 					
-		Gimbal_Send_command_Update();
+//		Gimbal_Send_command_Update();
     Gimbal_Statue_Update();
 					
 

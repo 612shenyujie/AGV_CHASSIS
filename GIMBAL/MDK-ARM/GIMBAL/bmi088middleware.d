@@ -1,6 +1,5 @@
-gimbal\bmi088middleware.o: ..\IMU\BMI088Middleware.c
-gimbal\bmi088middleware.o: ..\IMU\BMI088Middleware.h
-gimbal\bmi088middleware.o: ..\IMU\struct_typedef.h
+gimbal\bmi088middleware.o: ..\Components\Devices\BMI088Middleware.c
+gimbal\bmi088middleware.o: ..\Components\Devices\BMI088Middleware.h
 gimbal\bmi088middleware.o: ../Core/Inc/main.h
 gimbal\bmi088middleware.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 gimbal\bmi088middleware.o: ../Core/Inc/stm32f4xx_hal_conf.h
@@ -40,4 +39,3 @@ gimbal\bmi088middleware.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uar
 gimbal\bmi088middleware.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h
 gimbal\bmi088middleware.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h
 gimbal\bmi088middleware.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h
-gimbal\bmi088middleware.o: ..\IMU\delay.h

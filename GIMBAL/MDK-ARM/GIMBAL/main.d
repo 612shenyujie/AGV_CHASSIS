@@ -52,8 +52,6 @@ gimbal\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 gimbal\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 gimbal\main.o: ../Core/Inc/gpio.h
 gimbal\main.o: ../app/task_schedule.h
-gimbal\main.o: ../IMU/bsp_imu.h
-gimbal\main.o: ../IMU/struct_typedef.h
 gimbal\main.o: ../app/fric.h
 gimbal\main.o: ../bsp/motor.h
 gimbal\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
@@ -72,3 +70,5 @@ gimbal\main.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h
 gimbal\main.o: ../app/buzzer.h
 gimbal\main.o: ../bsp/buzzer_bsp.h
 gimbal\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+gimbal\main.o: ../Components/Devices/BMI088driver.h
+gimbal\main.o: ../bsp/bsp_dwt.h
