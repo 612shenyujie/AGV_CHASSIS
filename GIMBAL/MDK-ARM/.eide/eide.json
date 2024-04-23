@@ -33,10 +33,16 @@
             "path": "../app/task_schedule.c"
           },
           {
+            "path": "../app/vision.c"
+          },
+          {
             "path": "../app/trigger.c"
           },
           {
-            "path": "../app/vision.c"
+            "path": "../app/buzzer.c"
+          },
+          {
+            "path": "../app/buzzer.h"
           }
         ],
         "folders": []
@@ -132,10 +138,43 @@
         "name": "bsp",
         "files": [
           {
+            "path": "../bsp/bsp_dwt.c"
+          },
+          {
+            "path": "../bsp/bsp_PWM.c"
+          },
+          {
+            "path": "../bsp/buzzer_bsp.c"
+          },
+          {
+            "path": "../bsp/buzzer_bsp.h"
+          },
+          {
             "path": "../bsp/drv_can.c"
           },
           {
             "path": "../bsp/motor.c"
+          },
+          {
+            "path": "../Components/Algorithm/QuaternionEKF.c"
+          },
+          {
+            "path": "../Components/Controller/controller.c"
+          },
+          {
+            "path": "../Components/Devices/BMI088driver.c"
+          },
+          {
+            "path": "../Components/Devices/BMI088Middleware.c"
+          },
+          {
+            "path": "../Components/Devices/transfer_function.c"
+          },
+          {
+            "path": "../Components/kalman_filter.c"
+          },
+          {
+            "path": "../Components/user_lib.c"
           }
         ],
         "folders": []
@@ -234,31 +273,7 @@
         "name": "imu",
         "files": [
           {
-            "path": "../IMU/BMI088driver.c"
-          },
-          {
-            "path": "../IMU/BMI088Middleware.c"
-          },
-          {
-            "path": "../IMU/bsp_imu.c"
-          },
-          {
-            "path": "../IMU/bsp_imu_pwm.c"
-          },
-          {
-            "path": "../IMU/delay.c"
-          },
-          {
-            "path": "../IMU/ist8310driver.c"
-          },
-          {
-            "path": "../IMU/ist8310driver_middleware.c"
-          },
-          {
-            "path": "../IMU/MahonyAHRS.c"
-          },
-          {
-            "path": "../IMU/bsp_spi.c"
+            "path": "../IMU/ins_task.c"
           }
         ],
         "folders": []
@@ -284,6 +299,30 @@
               }
             ],
             "folders": []
+          },
+          {
+            "name": "Library",
+            "files": [],
+            "folders": [
+              {
+                "name": "DSP Library",
+                "files": [],
+                "folders": [
+                  {
+                    "name": "DSP Library",
+                    "files": [
+                      {
+                        "path": "../Drivers/CMSIS/Lib/ARM/arm_cortexM4lf_math.lib"
+                      },
+                      {
+                        "path": "../Middlewares/ST/ARM/DSP/Lib/arm_cortexM4l_math.lib"
+                      }
+                    ],
+                    "folders": []
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -450,13 +489,26 @@
           "../USB_DEVICE/Target",
           "../Middlewares/ST/STM32_USB_Device_Library/Core/Inc",
           "../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc",
+          "../Components/Algorithm/Include",
+          "../Components/Algorithm",
+          "../Components/Controller",
+          "../Components/Devices",
+          "../Components",
+          "../Drivers/CMSIS/Lib/ARM",
+          "../Middlewares/ST/ARM/DSP/Inc",
           "RTE/_GIMBAL"
         ],
         "libList": [],
         "sourceDirList": [],
         "defineList": [
           "USE_HAL_DRIVER",
-          "STM32F407xx"
+          "STM32F407xx",
+          "ARM_MATH_CM4",
+          "__FPU_USED=1U",
+          "__FPU_PRESENT=1U",
+          "__CC_ARM",
+          "ARM_MATH_MATRIX_CHECK",
+          "ARM_MATH_ROUNDING"
         ]
       }
     }

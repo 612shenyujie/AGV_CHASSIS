@@ -163,6 +163,7 @@ typedef __packed struct
 	uint16_t invert_cnt;
 	uint16_t xpower_mode_cnt;
 	uint16_t ui_mode_cnt;
+	uint16_t distance_change_cnt;
 }DELAY_TIME_T;
 
 void Remote_Init(void);

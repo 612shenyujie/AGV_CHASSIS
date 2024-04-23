@@ -6,7 +6,7 @@
     ],
     "settings": {
         "files.associations": {
-            "vision.h": "c"
+            "controller.h": "c"
         }
     },
     "extensions": {}

@@ -105,12 +105,22 @@ typedef  struct
 	
 }GIMBAL_YAW_T,GIMBAL_PITCH_T;
 
+typedef enum
+{
+	FIVE_METER_DISTANCE=	0x00u,
+	SEVEN_METER_DISTANCE=	0x01u,
+	TEN_METER_DISTANCE=	0x02u,
+	
+}PRECISION_DISTANCE_E;
+
 
 typedef  struct 
 {
 	GIMBAL_MODE_T mode;
 	GIMBAL_MODE_T last_mode;
 	CALIBRATION_STATE_T calibration_state;
+	PRECISION_DISTANCE_E precision_distance;
+	PRECISION_DISTANCE_E last_precision_distance;
 }GIMBAL_PARAMETER_T;
 
 

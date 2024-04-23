@@ -314,6 +314,7 @@ void Gimbal_Motor_Mode_Update(void)
 
     }
 		gimbal.parameter.last_mode=gimbal.parameter.mode;
+		gimbal.parameter.last_precision_distance=gimbal.parameter.precision_distance;
 };
 
 void Gimbal_Cali_Task(void)
@@ -365,13 +366,19 @@ void Gimbal_Mode_Change_Judge(void)
 	if(gimbal.parameter.last_mode==GIMBAL_MODE_ABSOLUTE&&gimbal.parameter.mode==GIMBAL_MODE_PRECISION)
 	{
 		gimbal.yaw.motor.parameter.calibrate_state    =   MOTOR_CALIBRATED;
-
-		gimbal.pitch.command.target_angle=-13.45;
+		gimbal.pitch.command.target_angle=-10.45f;
+	}
+	if(gimbal.parameter.mode==GIMBAL_MODE_PRECISION)
+	{
+		if(gimbal.parameter.precision_distance	==	FIVE_METER_DISTANCE	&&gimbal.parameter.last_precision_distance!=FIVE_METER_DISTANCE)
+		gimbal.pitch.command.target_angle=-10.45f;
+		if(gimbal.parameter.precision_distance	==	SEVEN_METER_DISTANCE	&&gimbal.parameter.last_precision_distance!=SEVEN_METER_DISTANCE)
+		gimbal.pitch.command.target_angle=-13.45f;
+		if(gimbal.parameter.precision_distance	==	TEN_METER_DISTANCE	&&gimbal.parameter.last_precision_distance!=TEN_METER_DISTANCE)
+		gimbal.pitch.command.target_angle=-30.45f;
 	}
 	if(gimbal.parameter.last_mode==GIMBAL_MODE_PRECISION&&gimbal.parameter.mode==GIMBAL_MODE_ABSOLUTE)
 	{
-
-
 		gimbal.pitch.command.target_angle=0;
 	}
 	gimbal.parameter.last_mode=gimbal.parameter.mode;
@@ -440,8 +447,6 @@ void Gimbal_Task(void)
 				Gimbal_Mode_Change_Judge();
 				Gimbal_Motor_Mode_Update();
 				Gimbal_Command_Update();
-			
-			
         Gimbal_Motor_Command_Update();
 			
 			}

@@ -485,7 +485,7 @@ void Fric_Wheel_Mode_Update(void)
 	case HANDLE_CONTROL :
 		if(gimbal.parameter.mode!= GIMBAL_MODE_NO_FORCE)
 		{
-		        if(switch_is_mid(SW_L)&&switch_is_up(SW_R))
+		        if(switch_is_up(SW_R))
 				{
 					if(delay_time.fric_mode_cnt==0&&fric.parameter.mode!=FRIC_STOP)
 					{
@@ -603,6 +603,7 @@ void Precision_Mode_Update(void)
 				{
 					gimbal.parameter.mode=GIMBAL_MODE_PRECISION;
 					chassis.send.mode = CHASSIS_MODE_PRECISE;
+					gimbal.parameter.precision_distance=FIVE_METER_DISTANCE;
 					delay_time.precision_mode_cnt=400;
 				}
 				if(delay_time.precision_mode_cnt==0&&gimbal.parameter.mode==GIMBAL_MODE_PRECISION)
@@ -611,6 +612,25 @@ void Precision_Mode_Update(void)
 					chassis.send.mode = CHASSIS_MODE_ABSOLUTE;
 					delay_time.precision_mode_cnt=400;
 				}
+			}
+			if(RC.rc_receive.key_board.button.SHIFT&&RC.rc_receive.key_board.button.R&&gimbal.parameter.mode==GIMBAL_MODE_PRECISION)
+			{
+			if(delay_time.distance_change_cnt==0&&gimbal.parameter.precision_distance==FIVE_METER_DISTANCE)
+			{
+				delay_time.distance_change_cnt=400;
+				gimbal.parameter.precision_distance=SEVEN_METER_DISTANCE;
+			}
+			if(delay_time.distance_change_cnt==0&&gimbal.parameter.precision_distance==SEVEN_METER_DISTANCE)
+			{
+				delay_time.distance_change_cnt=400;
+				gimbal.parameter.precision_distance=TEN_METER_DISTANCE;
+			}
+			if(delay_time.distance_change_cnt==0&&gimbal.parameter.precision_distance==TEN_METER_DISTANCE)
+			{
+				delay_time.distance_change_cnt=400;
+				gimbal.parameter.precision_distance=FIVE_METER_DISTANCE;
+			}
+				
 			}
 			break;
 		
