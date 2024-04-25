@@ -50,11 +50,11 @@ float gimbal_yaw_imu_position_data[PID_DATA_LEN]
 
 
 /*******************************质心补偿参数******************************************/
-#define L_gravity 	0.03791	//m
+#define L_gravity 	0.0499	//m
 #define PI_DIV_180 (0.017453292519943296)//π/180
 #define DegToRad(x)	((x)*PI_DIV_180)//角度转换为弧度
 #define gravity	9.8f
-#define M_gravity 2.831f
+#define M_gravity 3.270f
 #define KT_GM	0.00019836
 #define KB_GM	0.10979
 
@@ -66,7 +66,7 @@ int16_t Pitch_Gravity_Compensation(void)
 	//计算俯仰角变化量
 	Theate_change	=	DegToRad(gimbal.pitch.imu.status.actual_angle);
 	//计算重力角度
-	Theate_gravity	=	DegToRad(61.23);
+	Theate_gravity	=	DegToRad(61.56);
 	//计算实际重力角度
 	L_actual_gravity	=	L_gravity*cos(Theate_gravity-Theate_change);
 	//计算重力校正所需力矩
@@ -225,7 +225,7 @@ void Gimbal_Motor_Command_Update(void)
 
 			case IMU_MODE :
 				
-//				gimbal.pitch.motor.command.grivity_voltage_lsb=Pitch_Gravity_Compensation();		
+				gimbal.pitch.motor.command.grivity_voltage_lsb=Pitch_Gravity_Compensation();		
         PID_Calculate(&gimbal.pitch.pid.imu_angle_loop,gimbal.pitch.status.actual_angle,gimbal.pitch.command.target_angle);
         //设置目标速度
         gimbal.pitch.command.target_speed = -gimbal.pitch.pid.imu_angle_loop.Output;
@@ -315,6 +315,7 @@ void Gimbal_Motor_Mode_Update(void)
     }
 		gimbal.parameter.last_mode=gimbal.parameter.mode;
 		gimbal.parameter.last_precision_distance=gimbal.parameter.precision_distance;
+		gimbal.affiliated_pitch.last_state=	gimbal.affiliated_pitch.state;
 };
 
 void Gimbal_Cali_Task(void)
@@ -360,13 +361,13 @@ void Gimbal_Send_command_Update(void)
 
 void Gimbal_Mode_Change_Judge(void)
 {
-	if(gimbal.parameter.mode	== GIMBAL_MODE_ABSOLUTE)
-			gimbal.yaw.motor.parameter.calibrate_state    =   MOTOR_NO_CALIBRATE;
+	
 	
 	if(gimbal.parameter.last_mode==GIMBAL_MODE_ABSOLUTE&&gimbal.parameter.mode==GIMBAL_MODE_PRECISION)
 	{
-		gimbal.yaw.motor.parameter.calibrate_state    =   MOTOR_CALIBRATED;
 		gimbal.pitch.command.target_angle=-10.45f;
+		gimbal.affiliated_pitch.target_angle	=	31.f;
+		gimbal.affiliated_pitch.add_angle=0.f;
 	}
 	if(gimbal.parameter.mode==GIMBAL_MODE_PRECISION)
 	{
@@ -376,10 +377,30 @@ void Gimbal_Mode_Change_Judge(void)
 		gimbal.pitch.command.target_angle=-13.45f;
 		if(gimbal.parameter.precision_distance	==	TEN_METER_DISTANCE	&&gimbal.parameter.last_precision_distance!=TEN_METER_DISTANCE)
 		gimbal.pitch.command.target_angle=-30.45f;
+		if(gimbal.affiliated_pitch.state	==	AFFILIATED_PITCH_LOW_ANGLE	&&	gimbal.affiliated_pitch.last_state	!=	AFFILIATED_PITCH_LOW_ANGLE)
+		{
+		gimbal.affiliated_pitch.add_angle=0.f;
+			gimbal.affiliated_pitch.target_angle	=	31.f;
+		}
+			
+		if(gimbal.affiliated_pitch.state	==	AFFILIATED_PITCH_MID_ANGLE	&&	gimbal.affiliated_pitch.last_state	!=	AFFILIATED_PITCH_MID_ANGLE)
+		{
+		gimbal.affiliated_pitch.add_angle=0.f;
+			gimbal.affiliated_pitch.target_angle	=29.f;
+		}	
+		
+		if(gimbal.affiliated_pitch.state	==	AFFILIATED_PITCH_HIGH_ANGLE	&&	gimbal.affiliated_pitch.last_state	!=	AFFILIATED_PITCH_HIGH_ANGLE)
+		{
+		gimbal.affiliated_pitch.add_angle=0.f;
+			gimbal.affiliated_pitch.target_angle	=	20.f;
+		}		
+		
 	}
 	if(gimbal.parameter.last_mode==GIMBAL_MODE_PRECISION&&gimbal.parameter.mode==GIMBAL_MODE_ABSOLUTE)
 	{
 		gimbal.pitch.command.target_angle=0;
+		gimbal.affiliated_pitch.target_angle=37.0f;
+		gimbal.affiliated_pitch.add_angle=0.f;
 	}
 	gimbal.parameter.last_mode=gimbal.parameter.mode;
 }
@@ -392,7 +413,7 @@ void Gimbal_Init(void)
 
     gimbal.parameter.calibration_state = NO_CALIBRATION;
     gimbal.parameter.mode = GIMBAL_MODE_NO_FORCE;
-		
+		gimbal.affiliated_pitch.target_angle=37.0f;
 
     gimbal.pitch.parameter.number_ratio = 1.0f;
     gimbal.yaw.parameter.number_ratio = 2.0f;
@@ -412,6 +433,34 @@ void Gimbal_Init(void)
     PID_Init(&gimbal.yaw.pid.imu_speed_loop,gimbal_yaw_imu_speed_data,Integral_Limit|ChangingIntegralRate|Trapezoid_Intergral|Trapezoid_Intergral);
 }
 
+float test_angle=37.f;
+
+void Gimbal_Affiliated_Pitch_Task(void)
+{
+	gimbal.affiliated_pitch.command_angle=gimbal.affiliated_pitch.add_angle+gimbal.affiliated_pitch.target_angle;	
+	if(gimbal.affiliated_pitch.command_angle<20.f)
+	{
+		gimbal.affiliated_pitch.command_angle=20.f;
+		gimbal.affiliated_pitch.add_angle=gimbal.affiliated_pitch.command_angle-gimbal.affiliated_pitch.target_angle;
+	}
+	if(gimbal.affiliated_pitch.command_angle>45.f)
+	{
+		gimbal.affiliated_pitch.command_angle=45.f;
+		gimbal.affiliated_pitch.add_angle=gimbal.affiliated_pitch.command_angle-gimbal.affiliated_pitch.target_angle;
+	}
+	switch(gimbal.affiliated_pitch.mode)
+	{
+		
+		case AFFILIATED_PITCH_REMOVABLE   :
+			__HAL_TIM_SetCompare(&htim8, TIM_CHANNEL_2, 500+(gimbal.affiliated_pitch.command_angle/180.f)*2000);
+		
+		break;
+		case AFFILIATED_PITCH_UNREMOVABLE   :
+			__HAL_TIM_SetCompare(&htim8, TIM_CHANNEL_2, 500+(gimbal.affiliated_pitch.command_angle/180.f)*2000);
+		break;
+	}
+}
+
 void Gimbal_Task(void)
 {
     switch (gimbal.parameter.calibration_state)
@@ -427,8 +476,8 @@ void Gimbal_Task(void)
     case CALIBRATING :
         delay_time.gimbal_cali_cnt--;
         Gimbal_Cali_Task();
-				if(delay_time.gimbal_cali_cnt==100)
-        chassis.send.mode	=	CHASSIS_MODE_ABSOLUTE;
+				
+        
 				
         break;
     case CALIBRATED :
@@ -438,6 +487,7 @@ void Gimbal_Task(void)
 				gimbal.parameter.mode = GIMBAL_MODE_ABSOLUTE;
 				gimbal.yaw.motor.parameter.calibrate_state    =   MOTOR_CALIBRATED;
         gimbal.pitch.motor.parameter.calibrate_state    =   MOTOR_CALIBRATED;
+				chassis.send.mode	=	CHASSIS_MODE_ABSOLUTE;
 				buzzer_setTask(&buzzer, BUZZER_CALIBRATED_PRIORITY);
         break;
     case NORMAL :
@@ -448,6 +498,7 @@ void Gimbal_Task(void)
 				Gimbal_Motor_Mode_Update();
 				Gimbal_Command_Update();
         Gimbal_Motor_Command_Update();
+				Gimbal_Affiliated_Pitch_Task();
 			
 			}
         

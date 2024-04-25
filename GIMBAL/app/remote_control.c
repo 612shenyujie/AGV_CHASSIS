@@ -319,7 +319,7 @@ void Control_Mode_Update(void)
 		case KEYBOARD_CONTROL :
 			//键鼠控制
 			//小陀螺模式切换
-		if(!RC.rc_receive.key_board.button.CTRL&&RC.rc_receive.key_board.button.R)
+		if(!RC.rc_receive.key_board.button.SHIFT&&!RC.rc_receive.key_board.button.CTRL&&RC.rc_receive.key_board.button.R)
 		{
 			if (delay_time.spin_mode_cnt	==	0&&gimbal.parameter.mode != GIMBAL_MODE_TOPANGLE)
 			{
@@ -380,10 +380,15 @@ void Remote_Command_Update(void)
 				case	GIMBAL_MODE_PRECISION:
 				RC.rc_sent.yaw.target_angle=rc_control_cali(YAW_MAX_TARGET_ANGLE_PRECISION,YAW_MIN_TARGET_ANGLE_PRECISION,RC.rc_receive.mouse.x,KEY_MAX,KEY_MID,KEY_MIN,KEY_DEADLINE);
 				RC.rc_sent.pitch.target_angle=rc_control_cali(PITCH_MAX_TARGET_ANGLE_PRECISION,PITCH_MIN_TARGET_ANGLE_PRECISION,RC.rc_receive.mouse.y,KEY_MAX,KEY_MID,KEY_MIN,KEY_DEADLINE);
+				if(RC.rc_receive.mouse.z>=10)
+					gimbal.affiliated_pitch.add_angle+=0.05f;
+				if(RC.rc_receive.mouse.z<=-10)
+					gimbal.affiliated_pitch.add_angle-=0.05f;
 				break;
 				default	:
 				RC.rc_sent.yaw.target_angle=rc_control_cali(YAW_MAX_TARGET_ANGLE_RUNNING,YAW_MIN_TARGET_ANGLE_RUNNING,RC.rc_receive.mouse.x,KEY_MAX,KEY_MID,KEY_MIN,KEY_DEADLINE);
 				RC.rc_sent.pitch.target_angle=rc_control_cali(PITCH_MAX_TARGET_ANGLE_RUNNING,PITCH_MIN_TARGET_ANGLE_RUNNING,RC.rc_receive.mouse.y,KEY_MAX,KEY_MID,KEY_MIN,KEY_DEADLINE);
+				
 				break;
 				}
 			
@@ -405,6 +410,10 @@ void Remote_Command_Update(void)
 				case	GIMBAL_MODE_PRECISION:
 				RC.rc_sent.yaw.target_angle=rc_control_cali(YAW_MAX_TARGET_ANGLE_PRECISION,YAW_MIN_TARGET_ANGLE_PRECISION,RC.rc_receive.mouse.x,KEY_MAX,KEY_MID,KEY_MIN,KEY_DEADLINE);
 				RC.rc_sent.pitch.target_angle=rc_control_cali(PITCH_MAX_TARGET_ANGLE_PRECISION,PITCH_MIN_TARGET_ANGLE_PRECISION,RC.rc_receive.mouse.y,KEY_MAX,KEY_MID,KEY_MIN,KEY_DEADLINE);
+				if(RC.rc_receive.mouse.z>=10)
+					gimbal.affiliated_pitch.add_angle+=0.05f;
+				if(RC.rc_receive.mouse.z<=-10)
+					gimbal.affiliated_pitch.add_angle-=0.05f;
 				break;
 				default	:
 				RC.rc_sent.yaw.target_angle=rc_control_cali(YAW_MAX_TARGET_ANGLE_NORMAL,YAW_MIN_TARGET_ANGLE_NORMAL,RC.rc_receive.mouse.x,KEY_MAX,KEY_MID,KEY_MIN,KEY_DEADLINE);
@@ -568,12 +577,14 @@ void Precision_Mode_Update(void)
 				{
 					gimbal.parameter.mode=GIMBAL_MODE_PRECISION;
 					chassis.send.mode = CHASSIS_MODE_PRECISE;
+					gimbal.affiliated_pitch.mode	=	AFFILIATED_PITCH_REMOVABLE;
 					delay_time.precision_mode_cnt=400;
 				}
 				if(delay_time.precision_mode_cnt==0&&gimbal.parameter.mode==GIMBAL_MODE_PRECISION)
 				{
 					gimbal.parameter.mode=GIMBAL_MODE_ABSOLUTE;
 					chassis.send.mode = CHASSIS_MODE_ABSOLUTE;
+					gimbal.affiliated_pitch.mode	=	AFFILIATED_PITCH_UNREMOVABLE;
 					delay_time.precision_mode_cnt=400;
 				}
 			}
@@ -603,6 +614,8 @@ void Precision_Mode_Update(void)
 				{
 					gimbal.parameter.mode=GIMBAL_MODE_PRECISION;
 					chassis.send.mode = CHASSIS_MODE_PRECISE;
+					gimbal.affiliated_pitch.mode	=	AFFILIATED_PITCH_REMOVABLE;
+					gimbal.affiliated_pitch.state	=	AFFILIATED_PITCH_LOW_ANGLE;
 					gimbal.parameter.precision_distance=FIVE_METER_DISTANCE;
 					delay_time.precision_mode_cnt=400;
 				}
@@ -610,6 +623,7 @@ void Precision_Mode_Update(void)
 				{
 					gimbal.parameter.mode=GIMBAL_MODE_ABSOLUTE;
 					chassis.send.mode = CHASSIS_MODE_ABSOLUTE;
+					gimbal.affiliated_pitch.mode	=	AFFILIATED_PITCH_UNREMOVABLE;
 					delay_time.precision_mode_cnt=400;
 				}
 			}
@@ -619,16 +633,19 @@ void Precision_Mode_Update(void)
 			{
 				delay_time.distance_change_cnt=400;
 				gimbal.parameter.precision_distance=SEVEN_METER_DISTANCE;
+				gimbal.affiliated_pitch.state	=	AFFILIATED_PITCH_MID_ANGLE;
 			}
 			if(delay_time.distance_change_cnt==0&&gimbal.parameter.precision_distance==SEVEN_METER_DISTANCE)
 			{
 				delay_time.distance_change_cnt=400;
 				gimbal.parameter.precision_distance=TEN_METER_DISTANCE;
+				gimbal.affiliated_pitch.state	=	AFFILIATED_PITCH_HIGH_ANGLE;
 			}
 			if(delay_time.distance_change_cnt==0&&gimbal.parameter.precision_distance==TEN_METER_DISTANCE)
 			{
 				delay_time.distance_change_cnt=400;
 				gimbal.parameter.precision_distance=FIVE_METER_DISTANCE;
+				gimbal.affiliated_pitch.state	=	AFFILIATED_PITCH_LOW_ANGLE;
 			}
 				
 			}
@@ -783,6 +800,7 @@ void Delay_Cnt_Task(void)
 	if(delay_time.invert_cnt)	delay_time.invert_cnt--;
 	if(delay_time.xpower_mode_cnt) delay_time.xpower_mode_cnt--;
 	if(delay_time.ui_mode_cnt) delay_time.ui_mode_cnt--;
+	if(delay_time.distance_change_cnt)	delay_time.distance_change_cnt--;
 };
 
 void Remote_Init(void)
@@ -838,6 +856,11 @@ void UI_mode_Update(void)
 			
 			break;
    }
+}
+
+void Affiliated_Pitch_Update(void)
+{
+
 }
 
 void Remote_Task(void)

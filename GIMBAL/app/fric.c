@@ -21,11 +21,7 @@ float left_fric_data[PID_DATA_LEN]
 //right-fric-PID
 float right_fric_data[PID_DATA_LEN]
 	={0.032f,0.0007f,0.15f,5.0f,0.05f,0.0f,500.0f,70.0f,0.3f,0.01f,0.0f,0.0f,900.0f,1800.0f};
-//float left_fric_data[PID_DATA_LEN]
-//	={0.042f,0.0007f,0.15f,5.0f,0.05f,0.0f,500.0f,70.0f,0.3f,0.01f,0.0f,0.0f,900.0f,1800.0f};
-////right-fric-PID
-//float right_fric_data[PID_DATA_LEN]
-//	={0.046f,0.0007f,0.2f,5.0f,0.05f,0.0f,500.0f,70.0f,0.3f,0.01f,0.0f,0.0f,900.0f,1800.0f};
+
 	
 		float meanFilter(float* data, int size)
 {
@@ -81,7 +77,7 @@ void Fric_Status_Update(void)
     fric.right_motor.status.given_current =   fric.right_motor.motor.status.given_current;
     fric.left_motor.status.temperature =   fric.left_motor.motor.status.temperature;
     fric.right_motor.status.temperature =   fric.right_motor.motor.status.temperature;
-		fric.parameter.lr_error=fric.left_motor.status.actual_speed-fric.right_motor.status.actual_speed;
+		fric.parameter.lr_error=fric.left_motor.status.actual_speed+fric.right_motor.status.actual_speed;
 }
 //摩擦轮命令更新
 void Fric_Command_Update(void)

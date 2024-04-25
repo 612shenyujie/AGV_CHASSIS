@@ -123,6 +123,29 @@ typedef  struct
 	PRECISION_DISTANCE_E last_precision_distance;
 }GIMBAL_PARAMETER_T;
 
+typedef enum
+{
+	AFFILIATED_PITCH_REMOVABLE	=0x01u,
+	AFFILIATED_PITCH_UNREMOVABLE	=0x00u,
+}AFFILIATED_PITCH_MODE_E;
+
+typedef enum
+{
+	AFFILIATED_PITCH_LOW_ANGLE	=0x00u,
+	AFFILIATED_PITCH_MID_ANGLE	=0x01u,
+	AFFILIATED_PITCH_HIGH_ANGLE	=0x02u,
+
+}AFFILIATED_PITCH_STATE_E;
+
+typedef struct
+{
+	float target_angle;
+	float	add_angle;
+	float command_angle;
+	AFFILIATED_PITCH_MODE_E	mode;
+	AFFILIATED_PITCH_STATE_E	state;
+	AFFILIATED_PITCH_STATE_E	last_state;
+}AFFILIATED_PITCH_T;
 
 typedef  struct 
 {
@@ -130,10 +153,11 @@ typedef  struct
 	GIMBAL_YAW_T yaw;
 	GIMBAL_PITCH_T pitch;
 	GIMBAL_PARAMETER_T parameter;
-	
+	AFFILIATED_PITCH_T affiliated_pitch;
 }GIMBAL_T;
 
 extern GIMBAL_T gimbal;
+
 
 
 void Gimbal_Init(void);

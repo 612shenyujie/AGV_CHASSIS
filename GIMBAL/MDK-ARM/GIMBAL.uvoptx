@@ -166,7 +166,7 @@
         <Ww>
           <count>2</count>
           <WinNumber>1</WinNumber>
-          <ItemText>fric</ItemText>
+          <ItemText>fric,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>3</count>
@@ -247,6 +247,11 @@
           <count>18</count>
           <WinNumber>1</WinNumber>
           <ItemText>watch_F</ItemText>
+        </Ww>
+        <Ww>
+          <count>19</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>test_angle</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>
