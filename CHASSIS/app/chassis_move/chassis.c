@@ -270,11 +270,11 @@ void Power_Limition_Mode_Update(void)
 		{
 			chassis.parameter.power_loop	=SUPERCAP_LOOP;
 		}
-			else 
-		{
-//			chassis.parameter.power_loop	=BUFFER_LOOP;
-			chassis.supercap.state	=SUPERCAP_CHARGING;
-		}
+//			else 
+//		{
+////			chassis.parameter.power_loop	=BUFFER_LOOP;
+//			chassis.supercap.state	=SUPERCAP_CHARGING;
+//		}
 	}
 	else
 	{
