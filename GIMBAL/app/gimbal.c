@@ -35,7 +35,7 @@ float gimbal_pitch_encoder_position_data[PID_DATA_LEN]
 float gimbal_pitch_imu_speed_data[PID_DATA_LEN]
 	={7000.0f,28.0f,0.0f,25000.0f,10000.0f,0.0f,1000.0f,100.0f,0.7f,0.0f};
 float gimbal_pitch_imu_position_data[PID_DATA_LEN]
-	={1.2f,0.0f,15.0f,4.0f,0.0f,0.01f,0.5f,0.1f,0.5f,0.0f};
+	={2.0f,0.1f,0.0f,4.0f,0.3f,0.01f,0.5f,0.1f,0.5f,0.0f};
 
 //Kp,Ki,Kd,MaxOut,Inter_limition,Deadband,Change_I_A,Change_I_B,OUTPUT_FILTER,DOUTPUT_FILTER
 /*****************************************yaw轴PID*****************************************************/

@@ -29,132 +29,6 @@ int cnt_i = 0;
 uint8_t receive_data[DMA_REC_LEN];
 uint8_t start_receive_flag = 0;
 
-void supercap_uart_init(void)
-{
-    __HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);
-    HAL_UART_Receive_DMA(&huart1, dma_rx_buff, DMA_REC_LEN);
-
-}
-
-
-void USART1_IRQHandler(void)
-{
- int j;
-    if (__HAL_UART_GET_FLAG(&huart1, UART_FLAG_IDLE) != RESET)
-    {
-        __HAL_UART_CLEAR_IDLEFLAG(&huart1);
-        HAL_UART_DMAStop(&huart1);
-        length = DMA_REC_LEN - __HAL_DMA_GET_COUNTER(&hdma_usart1_rx);
-        for (j = 0; j < length; j++)
-        {
-
-            if (start_receive_flag == 1)
-            {
-                if (cnt_i < 9)
-                {
-                    receive_data[cnt_i++] = dma_rx_buff[j];
-                }
-								else
-								{	
-									 uint8_t Temp[8];
-                for ( cnt_i = 0; cnt_i < 8; cnt_i++)
-                    Temp[cnt_i] = receive_data[cnt_i+1];
-                switch (receive_data[0])
-                {
-                    case Super_Cap_RX_Typecode:
-                        chassis.supercap.state = Temp[0];
-                        chassis.supercap.supercap_per = Temp[1];
-                        chassis.supercap.supercap_voltage = Temp[2];
-                        break;
-                    case SuperCap_Status_RX_Typecode:
-                        if (chassis.supercap.KeepAlive_SentData[0] == Temp[0] &&
-                            chassis.supercap.KeepAlive_SentData[1] == Temp[1] &&
-                            chassis.supercap.KeepAlive_SentData[2] == Temp[2] &&
-                            chassis.supercap.KeepAlive_SentData[3] == Temp[3])
-                        {
-                            chassis.supercap.Keep_Alive_Time_Cnt = 0;
-                        }
-                        break;
-                }
-
-                memset(receive_data, 0, sizeof(receive_data));
-                start_receive_flag = 0;
-                cnt_i = 0;
-                break;
-									break;
-								}
-            }
-
-            if (dma_rx_buff[j] == '*'&&dma_rx_buff[j+10] == ';'&&start_receive_flag==0)
-            {
-                start_receive_flag = 1;
-                cnt_i = 0;
-            }
-        }
-
-        memset(dma_rx_buff, 0, sizeof(dma_rx_buff));
-        cnt_i = 0;
-        HAL_UART_Receive_DMA(&huart1, dma_rx_buff, DMA_REC_LEN);
-    }
-}
-
-
-void UartTX_Super_Capacitor(int Power_Limitation, float Power)
-{
-	
-	int IntIze_Power;
-	uint8_t Buffer[11];
-	IntIze_Power = (int) (Power*10);
-    Buffer[0] =  '*';	
-	Buffer[1] =  SuperCap_Power_TX_Typecode;
-  Buffer[2] =  (uint8_t)(Power_Limitation / 100);
-	Power_Limitation = Power_Limitation - Buffer[2]*100;
-  Buffer[3] =  (uint8_t)(Power_Limitation / 10);
-  Buffer[4] =  (uint8_t)(Power_Limitation % 10);
-  Buffer[5] =  (uint8_t)(IntIze_Power/1000);
-	IntIze_Power=IntIze_Power- Buffer[5]*1000;
-	Buffer[6] =  (uint8_t)(IntIze_Power/100);
-	IntIze_Power=IntIze_Power- Buffer[6]*100;
-	Buffer[7] =  (uint8_t)(IntIze_Power/10);
-	Buffer[8] =  (uint8_t)(IntIze_Power%10);
-	Buffer[9] = 0; 
-	Buffer[10] = ';';
-    uint8_t status;
-    status = HAL_UART_Transmit(&huart1, Buffer, 11, 0xff);
-}
-
-void UART_TX_Supercap_Connection_Check(void)
-{
-	uint8_t Sent_Data[11];
-	int Keep_Alive_Typecode = SuperCap_KeepAlive_TX_Typecode;
-	Sent_Data[0]= '*';
-	Sent_Data[1]=Keep_Alive_Typecode;
-	Sent_Data[2] = (uint8_t)(time.total_count>>24);
-	Sent_Data[3] = (uint8_t)((time.total_count>>16)&0xff);
-	Sent_Data[4] = (uint8_t)((time.total_count>>8)&0xff);
-	Sent_Data[5] = (uint8_t)(time.total_count&0xff);
-	Sent_Data[6] =  0x05;
-	Sent_Data[7] =  0x06;
-	Sent_Data[8] =  0x07;
-	Sent_Data[9] =  0x08;
-	Sent_Data[10] =  ';';
-	
-	for (int i=0; i<=3; i++)
-		chassis.supercap.KeepAlive_SentData[i] = Sent_Data[i+2];
-	uint8_t status;
-    status = HAL_UART_Transmit(&huart1, Sent_Data, 11, 0xff);
-}
-
-void Supercap_Keep_Alive(void)
-{
-	chassis.supercap.Keep_Alive_Time_Cnt++;	
-	UART_TX_Supercap_Connection_Check();	
-	
-	if (chassis.supercap.Keep_Alive_Time_Cnt > 10)
-		chassis.supercap.online_state = SUPERCAP_OFFLINE;
-	else chassis.supercap.online_state = SUPERCAP_ONLINE;
-}
-
 
 	
 
@@ -387,12 +261,12 @@ void Power_Limition_Mode_Update(void)
 	if(chassis.supercap.online_state	==	SUPERCAP_ONLINE &&	chassis.supercap.state==SUPERCAP_ON)
 	{
 
-		if(chassis.supercap.supercap_voltage>180.f)
+		if(chassis.supercap.supercap_voltage>18.f)
 		{
 			chassis.parameter.power_loop	=SUPERCAP_LOOP;
 			chassis.supercap.state	=SUPERCAP_ON;
 		}
-			else	if(chassis.supercap.supercap_voltage>130.f)
+			else	if(chassis.supercap.supercap_voltage>13.f)
 		{
 			chassis.parameter.power_loop	=SUPERCAP_LOOP;
 		}
@@ -415,9 +289,9 @@ void Power_Limition_Kf_Update(void)
 	switch(chassis.parameter.power_loop)
 	{
 		case SUPERCAP_LOOP:
-			if(chassis.supercap.supercap_voltage<180.f)
+			if(chassis.supercap.supercap_voltage<18.f)
 			{
-				Scale2=(chassis.supercap.supercap_voltage-145.f)/35.0f;
+				Scale2=(chassis.supercap.supercap_voltage-14.f)/3.5f;
 				if(Scale2<0.f)
 					Scale2=0;
 				if(Scale2>1.f)
@@ -437,15 +311,36 @@ void Power_Limition_Kf_Update(void)
 	}
 }
 
+	float Max_Power;
+	float	Add_Power; 
+void Tx_Super_Capacitor(void)
+{
+	if(JudgeReceive.power_state.remainEnergy>10.f)
+	{
+		Add_Power=(JudgeReceive.power_state.remainEnergy-10.f)/50.f*20.f;
+	}
+	else
+		Add_Power=0.f;
+	Max_Power=JudgeReceive.robot_state.MaxPower+Add_Power;
+	memcpy(&CAN1_0x66_Tx_Data,&Max_Power,4);
+	memcpy(&CAN1_0x66_Tx_Data[4],&JudgeReceive.power_state.realChassispower,4);
+	CAN_Send_Data(&hcan1,0x66,CAN1_0x66_Tx_Data,8);
+}
+
 void supercap_task(void)
 {
-
+	if(time.ms_count+time.s_count*1000-chassis.supercap.alive_ms-chassis.supercap.alive_s*1000>1500)
+	{
+		chassis.supercap.online_state	=SUPERCAP_OFFLINE;	
+	}
+	else
+	{
+		chassis.supercap.online_state	=SUPERCAP_ONLINE;	
+	}
 	
-	if (time.total_count%200 == 50)
-		Supercap_Keep_Alive();
 	if (time.total_count%100 == 0)
 	{
-		UartTX_Super_Capacitor(JudgeReceive.robot_state.MaxPower,JudgeReceive.power_state.realChassispower);
+		Tx_Super_Capacitor();
 		Power_Limition_Mode_Update();
 //		Supercap_State_Update();
 		Power_Limition_Kf_Update();
@@ -456,7 +351,7 @@ void supercap_task(void)
 
 void Chassis_Init(void)
 {
-    supercap_uart_init();
+    
 		chassis.parameter.mode =   CHASSIS_NORMAL;
     chassis.parameter.invert_flag =  1;//1:正向，0：反向
     chassis.parameter.break_mode    =   1;

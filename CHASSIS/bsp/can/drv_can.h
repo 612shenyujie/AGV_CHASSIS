@@ -99,6 +99,8 @@ extern uint8_t CAN2_0xxf6_Tx_Data[];
 extern uint8_t CAN2_0xxf7_Tx_Data[];
 extern uint8_t CAN2_0xxf8_Tx_Data[];
 
+extern uint8_t CAN1_0x66_Tx_Data[8];
+
 extern uint8_t AGV_A_Tx_Data[8];
 extern uint8_t AGV_B_Tx_Data[8];
 extern uint8_t AGV_C_Tx_Data[8];
