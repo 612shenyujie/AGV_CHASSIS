@@ -13,7 +13,9 @@ BUZZER_RETURN_T buzzer_playDjiStartUp(buzzer_t *buzzer);
 BUZZER_RETURN_T buzzer_playCalibrating(buzzer_t *buzzer);
 BUZZER_RETURN_T buzzer_playCalibrated(buzzer_t *buzzer);
 BUZZER_RETURN_T buzzer_playDeviceOffline(buzzer_t *buzzer);
-
+BUZZER_RETURN_T buzzer_playMotionMotorOffline(buzzer_t *buzzer);
+BUZZER_RETURN_T buzzer_playDirectiveMotorOffline(buzzer_t *buzzer);
+BUZZER_RETURN_T buzzer_playEncoderOffline(buzzer_t *buzzer);
 BUZZER_RETURN_T buzzer_handleInit(buzzer_t *buzzer, buzzer_parameter_t param);
 
 /*
@@ -76,10 +78,19 @@ BUZZER_RETURN_T buzzer_taskScheduler(buzzer_t *buzzer)
 			ret = buzzer_playCalibrating(buzzer); // 校准音
 			break;
 		case BUZZER_CALIBRATED_PRIORITY:
-			buzzer_playCalibrated(buzzer); // 校准完成音
+			ret =buzzer_playCalibrated(buzzer); // 校准完成音
 			break;
 		case BUZZER_DEVICE_OFFLINE_PRIORITY:
-			buzzer_playDeviceOffline(buzzer); // 设备离线音
+			ret =buzzer_playDeviceOffline(buzzer); // 设备离线音
+			break;
+		case	BUZZER_MOTION_MOTOR_OFFLINE_PRIORITY:
+			ret =buzzer_playMotionMotorOffline(buzzer);
+			break;
+		case	BUZZER_DIRECTIVE_MOTOR_OFFLINE_PRIORITY:
+			ret =buzzer_playDirectiveMotorOffline(buzzer);
+			break;
+		case	BUZZER_ENCODER_OFFLINE_PRIORITY:
+			ret =buzzer_playEncoderOffline(buzzer);
 			break;
 		default:
 			ret = BUZZER_ERROR;
@@ -182,6 +193,54 @@ BUZZER_RETURN_T buzzer_playDeviceOffline(buzzer_t *buzzer)
 	else if (!buzzerBsp_checkTickTolerance(BUZZER_DEVICE_OFFLINE_STEP3_BUZZER_SWITCH_OFF, wait, BUZZER_TASK_TICK_DIFFERENCE_TOLERANCE))
 		buzzer_setState(buzzer, BUZZER_SWITCH_OFF);
 	else if (!buzzerBsp_checkTickTolerance(BUZZER_DEVICE_OFFLINE_STEP4_BUZZER_RELEASE, wait, BUZZER_TASK_TICK_DIFFERENCE_TOLERANCE))
+		buzzer->status.currentTask = BUZZER_FREE_PRIORITY; // 任务完成，释放优先级
+
+}
+
+BUZZER_RETURN_T buzzer_playMotionMotorOffline(buzzer_t *buzzer)
+{
+	uint32_t current_tick, wait;
+	buzzer_getTick(buzzer, &current_tick); // 获取当前 Tick
+	wait = current_tick - buzzer->status.tickStart;
+	if (!buzzerBsp_checkTickTolerance(BUZZER_DEVICE_MOTION_MOTOR_OFFLINE_STEP1_PLAY_TONE_D4, wait, BUZZER_TASK_TICK_DIFFERENCE_TOLERANCE))
+		buzzer_playTone(buzzer, TONE_D4);
+	else if	(!buzzerBsp_checkTickTolerance(BUZZER_DEVICE_MOTION_MOTOR_OFFLINE_STEP2_PLAY_TONE_D_SLASH_4, wait, BUZZER_TASK_TICK_DIFFERENCE_TOLERANCE))
+		buzzer_playTone(buzzer, TONE_D_SLASH_4);
+	else if (!buzzerBsp_checkTickTolerance(BUZZER_DEVICE_MOTION_MOTOR_OFFLINE_STEP3_BUZZER_SWITCH_OFF, wait, BUZZER_TASK_TICK_DIFFERENCE_TOLERANCE))
+		buzzer_setState(buzzer, BUZZER_SWITCH_OFF);
+	else if (!buzzerBsp_checkTickTolerance(BUZZER_DEVICE_MOTION_MOTOR_OFFLINE_STEP4_BUZZER_RELEASE, wait, BUZZER_TASK_TICK_DIFFERENCE_TOLERANCE))
+		buzzer->status.currentTask = BUZZER_FREE_PRIORITY; // 任务完成，释放优先级
+
+}
+
+BUZZER_RETURN_T buzzer_playDirectiveMotorOffline(buzzer_t *buzzer)
+{
+	uint32_t current_tick, wait;
+	buzzer_getTick(buzzer, &current_tick); // 获取当前 Tick
+	wait = current_tick - buzzer->status.tickStart;
+	if (!buzzerBsp_checkTickTolerance(BUZZER_DEVICE_DIRECTIVE_MOTOR_OFFLINE_STEP1_PLAY_TONE_F4, wait, BUZZER_TASK_TICK_DIFFERENCE_TOLERANCE))
+		buzzer_playTone(buzzer, TONE_F4);
+	else if	(!buzzerBsp_checkTickTolerance(BUZZER_DEVICE_DIRECTIVE_MOTOR_OFFLINE_STEP2_PLAY_TONE_F_SLASH_4, wait, BUZZER_TASK_TICK_DIFFERENCE_TOLERANCE))
+		buzzer_playTone(buzzer, TONE_F_SLASH_4);
+	else if (!buzzerBsp_checkTickTolerance(BUZZER_DEVICE_DIRECTIVE_MOTOR_OFFLINE_STEP3_BUZZER_SWITCH_OFF, wait, BUZZER_TASK_TICK_DIFFERENCE_TOLERANCE))
+		buzzer_setState(buzzer, BUZZER_SWITCH_OFF);
+	else if (!buzzerBsp_checkTickTolerance(BUZZER_DEVICE_DIRECTIVE_MOTOR_OFFLINE_STEP4_BUZZER_RELEASE, wait, BUZZER_TASK_TICK_DIFFERENCE_TOLERANCE))
+		buzzer->status.currentTask = BUZZER_FREE_PRIORITY; // 任务完成，释放优先级
+
+}
+
+BUZZER_RETURN_T buzzer_playEncoderOffline(buzzer_t *buzzer)
+{
+	uint32_t current_tick, wait;
+	buzzer_getTick(buzzer, &current_tick); // 获取当前 Tick
+	wait = current_tick - buzzer->status.tickStart;
+	if (!buzzerBsp_checkTickTolerance(BUZZER_DEVICE_ENCODER_OFFLINE_STEP1_PLAY_TONE_G5, wait, BUZZER_TASK_TICK_DIFFERENCE_TOLERANCE))
+		buzzer_playTone(buzzer, TONE_G5);
+	else if	(!buzzerBsp_checkTickTolerance(BUZZER_DEVICE_ENCODER_OFFLINE_STEP2_PLAY_TONE_G_SLASH_5, wait, BUZZER_TASK_TICK_DIFFERENCE_TOLERANCE))
+		buzzer_playTone(buzzer, TONE_G_SLASH_5);
+	else if (!buzzerBsp_checkTickTolerance(BUZZER_DEVICE_ENCODER_OFFLINE_STEP3_BUZZER_SWITCH_OFF, wait, BUZZER_TASK_TICK_DIFFERENCE_TOLERANCE))
+		buzzer_setState(buzzer, BUZZER_SWITCH_OFF);
+	else if (!buzzerBsp_checkTickTolerance(BUZZER_DEVICE_ENCODER_OFFLINE_STEP4_BUZZER_RELEASE, wait, BUZZER_TASK_TICK_DIFFERENCE_TOLERANCE))
 		buzzer->status.currentTask = BUZZER_FREE_PRIORITY; // 任务完成，释放优先级
 
 }

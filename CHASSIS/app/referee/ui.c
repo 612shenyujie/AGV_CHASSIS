@@ -13,8 +13,10 @@ ext_student_interactive_char_header_data_t custom_char_draw;
 ext_student_interactive_header_data_t custom_grapic_draw;
 char change_cnt[7];
 	int32_t temp_pitch;
-float c_pos_x[12] = {0.01,0.01,0.01,0.9,0.9, 0.87,0.64, 0.54,0.40,0.53,0.3,0.4};
-float c_pos_y[12] = {0.8,0.7,0.6,0.8 ,0.75, 0.7,0.1, 0.05,0.1 ,0.15,0.5,0.7};
+	int32_t temp_supercap_per;
+	int32_t	last_temp_supercap_per;
+float c_pos_x[12] = {0.01,0.01,0.01,0.9,0.9, 0.87,0.55, 0.54,0.40,0.53,0.3,0.4};
+float c_pos_y[12] = {0.8,0.7,0.6,0.8 ,0.75, 0.7,0.5, 0.05,0.1 ,0.15,0.5,0.7};
 float g_pos_x[CAP_GRAPHIC_NUM] = {0.05,0.05,0.05,0.5,0.92,0.459,0.62,0.5,0.42};
 float g_pos_y[CAP_GRAPHIC_NUM] = {0.74,0.64,0.54,0.5,0.64,0.36,0.1,0.8,0.1};
 float g_line_x[20]={0.657,0.541,0.343,0.459,0.5,0.5,0.49,0.51,0.48,0.52};
@@ -104,7 +106,7 @@ int Char_Change_Check(void)
 	
 	/*有变化，标志各个位*/
 
-	
+		temp_supercap_per=chassis.supercap.supercap_per*1000;
 	temp_pitch=-connection.connection_rx.pitch_angle*1000;
 	if(fabs(connection.connection_rx.pitch_angle-connection.connection_rx.last_pitch_angle)>0.2)
 	{
@@ -112,7 +114,12 @@ int Char_Change_Check(void)
 		Char_Change_Array[3]=Op_Change;
 		change_cnt[3]=5;
 	}
-	
+	if(abs(temp_supercap_per-last_temp_supercap_per)>20)
+	{
+		last_temp_supercap_per=temp_supercap_per;
+		Char_Change_Array[6]=Op_Change;
+		change_cnt[6]=5;
+	}
 
 	
 	/*保存这次标志和上次比较*/
@@ -248,8 +255,24 @@ void referee_data_load_String(int Op_type)
 			custom_char_draw.char_custom.grapic_data_struct.end_x=temp_pitch>>10&0x7ff;
 			custom_char_draw.char_custom.grapic_data_struct.end_y=temp_pitch>>21&0x7ff;
 			memset(custom_char_draw.char_custom.data,'\0',sizeof(custom_char_draw.char_custom.data));
-			
-
+			break;
+			case	6:
+				SUPERCAP_:
+				custom_char_draw.char_custom.grapic_data_struct.graphic_name[0] = 0;
+			custom_char_draw.char_custom.grapic_data_struct.graphic_name[1] = 8;
+			custom_char_draw.char_custom.grapic_data_struct.graphic_name[2] = 0;
+			custom_char_draw.char_custom.grapic_data_struct.operate_tpye=Op_type;
+			custom_char_draw.char_custom.grapic_data_struct.graphic_tpye=5;
+			custom_char_draw.char_custom.grapic_data_struct.layer=5;
+			custom_char_draw.char_custom.grapic_data_struct.color=Purple; 
+			custom_char_draw.char_custom.grapic_data_struct.start_angle=25;
+			custom_char_draw.char_custom.grapic_data_struct.width=1;
+			custom_char_draw.char_custom.grapic_data_struct.start_x=c_pos_x[6]*SCREEN_LENGTH;
+			custom_char_draw.char_custom.grapic_data_struct.start_y=c_pos_y[6]*SCREEN_WIDTH;
+			custom_char_draw.char_custom.grapic_data_struct.radius=temp_supercap_per&0x3ff;
+			custom_char_draw.char_custom.grapic_data_struct.end_x=temp_supercap_per>>10&0x7ff;
+			custom_char_draw.char_custom.grapic_data_struct.end_y=temp_supercap_per>>21&0x7ff;
+			memset(custom_char_draw.char_custom.data,'\0',sizeof(custom_char_draw.char_custom.data));
 			break;
 			
 			
@@ -331,7 +354,19 @@ void referee_data_load_String(int Op_type)
 			}
 			
 		}
-		
+		if(Char_Change_Array[6] == Op_Change)  
+		{
+			if(change_cnt[6]>0)
+			{
+			 change_cnt[6] -- ;
+				goto SUPERCAP_;
+			}
+			else
+			{
+			Char_Change_Array[6] = Op_None;
+			}
+			
+		}
 	
 	}
 }
@@ -516,8 +551,8 @@ void referee_data_load_Graphic(int Op_type)
 			case 2:
 					RELATIVE_:
 
-			custom_grapic_draw.graphic_custom.grapic_data_struct[0].graphic_name[0] = 0;
-			custom_grapic_draw.graphic_custom.grapic_data_struct[0].graphic_name[1] = 6;
+			custom_grapic_draw.graphic_custom.grapic_data_struct[0].graphic_name[0] = 3;
+			custom_grapic_draw.graphic_custom.grapic_data_struct[0].graphic_name[1] = 1;
 			custom_grapic_draw.graphic_custom.grapic_data_struct[0].graphic_name[2] = 0;
 			custom_grapic_draw.graphic_custom.grapic_data_struct[0].operate_tpye=Op_type;
 			custom_grapic_draw.graphic_custom.grapic_data_struct[0].graphic_tpye=4;
@@ -542,6 +577,23 @@ void referee_data_load_Graphic(int Op_type)
 			custom_grapic_draw.graphic_custom.grapic_data_struct[0].end_y=40;
 			memset(custom_char_draw.char_custom.data,'\0',sizeof(custom_char_draw.char_custom.data));
 				if(Op_type == Op_Change) goto CONT_3;
+			/*超电部分*/
+//			custom_grapic_draw.graphic_custom.grapic_data_struct[1].graphic_name[0] = 3;
+//			custom_grapic_draw.graphic_custom.grapic_data_struct[1].graphic_name[1] = 2;
+//			custom_grapic_draw.graphic_custom.grapic_data_struct[1].graphic_name[2] = 0;
+//			custom_grapic_draw.graphic_custom.grapic_data_struct[1].operate_tpye=Op_type;
+//			custom_grapic_draw.graphic_custom.grapic_data_struct[1].graphic_tpye=4;
+//			custom_grapic_draw.graphic_custom.grapic_data_struct[1].layer=5;
+//			custom_grapic_draw.graphic_custom.grapic_data_struct[1].color=Cyan; 
+//			custom_grapic_draw.graphic_custom.grapic_data_struct[1].width=10;
+//			custom_grapic_draw.graphic_custom.grapic_data_struct[1].start_x=g_pos_x[3]*SCREEN_LENGTH;
+//			custom_grapic_draw.graphic_custom.grapic_data_struct[1].start_y=g_pos_x[3]*SCREEN_WIDTH;
+//			custom_grapic_draw.graphic_custom.grapic_data_struct[1].start_angle=start_angle;
+//			custom_grapic_draw.graphic_custom.grapic_data_struct[1].end_angle=end_angle;
+//			custom_grapic_draw.graphic_custom.grapic_data_struct[1].end_x=40;
+//			custom_grapic_draw.graphic_custom.grapic_data_struct[1].end_y=40;
+//			memset(custom_char_draw.char_custom.data,'\0',sizeof(custom_char_draw.char_custom.data));
+//				if(Op_type == Op_Change) goto CONT_3;
 				break;
 			
 			default:

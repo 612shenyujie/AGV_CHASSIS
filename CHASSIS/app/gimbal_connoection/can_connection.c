@@ -35,6 +35,7 @@ void CAN1_Call_Back(struct Struct_CAN_Rx_Buffer *rx)
 				case 0x67:
         memcpy(&chassis.supercap.supercap_voltage,&rx->Data[0],4);
 				memcpy(&chassis.supercap.supercap_per,&rx->Data[4],4);
+				chassis.supercap.supercap_per=chassis.supercap.supercap_per*100.f;
 				chassis.supercap.alive_ms	=	time.ms_count;
 				chassis.supercap.alive_s	=	time.s_count;
         break;

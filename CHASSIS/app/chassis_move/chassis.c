@@ -20,7 +20,7 @@
 CHASSIS_T chassis;
 YAW_T   yaw;
 PID_T   yaw_pid;
-float yaw_position_loop_data[10]= {0.07f,0.0f,0.f,2.5f,0.0f,1.0f,0.f,0.f,0.f,0.f};
+float yaw_position_loop_data[10]= {0.23f,0.0f,3.5f,3.5f,0.0f,0.1f,0.f,0.f,0.f,0.f};
 
 uint8_t dma_rx_buff[DMA_REC_LEN];
 uint8_t length;
@@ -258,23 +258,18 @@ void	Supercap_State_Update(void)
 
 void Power_Limition_Mode_Update(void)
 {
-	if(chassis.supercap.online_state	==	SUPERCAP_ONLINE &&	chassis.supercap.state==SUPERCAP_ON)
+	if(chassis.supercap.online_state	==	SUPERCAP_ONLINE )
 	{
 
-		if(chassis.supercap.supercap_voltage>18.f)
+		if(chassis.supercap.supercap_per>30.f)
 		{
 			chassis.parameter.power_loop	=SUPERCAP_LOOP;
-			chassis.supercap.state	=SUPERCAP_ON;
+		
 		}
-			else	if(chassis.supercap.supercap_voltage>13.f)
+			else	if(chassis.supercap.supercap_per>10.f)
 		{
 			chassis.parameter.power_loop	=SUPERCAP_LOOP;
 		}
-//			else 
-//		{
-////			chassis.parameter.power_loop	=BUFFER_LOOP;
-//			chassis.supercap.state	=SUPERCAP_CHARGING;
-//		}
 	}
 	else
 	{
@@ -289,9 +284,9 @@ void Power_Limition_Kf_Update(void)
 	switch(chassis.parameter.power_loop)
 	{
 		case SUPERCAP_LOOP:
-			if(chassis.supercap.supercap_voltage<18.f)
+			if(chassis.supercap.supercap_per<30.f)
 			{
-				Scale2=(chassis.supercap.supercap_voltage-14.f)/3.5f;
+				Scale2=(chassis.supercap.supercap_per-10.f)/20.f;
 				if(Scale2<0.f)
 					Scale2=0;
 				if(Scale2>1.f)
@@ -344,7 +339,7 @@ void supercap_task(void)
 		Power_Limition_Mode_Update();
 //		Supercap_State_Update();
 		Power_Limition_Kf_Update();
-//		chassis.parameter.power_limition_k=1.f;
+
 	}
 
 }

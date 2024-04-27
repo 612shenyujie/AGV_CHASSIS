@@ -298,11 +298,13 @@ STEERING_WHEEL_RETURN_T Steering_Wheel_StatusUpdate(steering_wheel_t *steering_w
 		Steering_Wheel_MotorAndEncoderStatusUpdate(steering_wheel);
 		Steering_Wheel_PartStatusUpdate(steering_wheel);
 		if(ms_count+s_count*1000-steering_wheel->directive_part.motor.M3508_kit.parameter.ms_count-steering_wheel->directive_part.motor.M3508_kit.parameter.s_count*1000>1000)
-			buzzer_setTask(&buzzer,BUZZER_DEVICE_OFFLINE_PRIORITY);
+			buzzer_setTask(&buzzer,BUZZER_DIRECTIVE_MOTOR_OFFLINE_PRIORITY);
+
 		if(ms_count+s_count*1000-steering_wheel->motion_part.motor.M3508_kit.parameter.ms_count-steering_wheel->motion_part.motor.M3508_kit.parameter.s_count*1000>1000)
-			buzzer_setTask(&buzzer,BUZZER_DEVICE_OFFLINE_PRIORITY);
+			buzzer_setTask(&buzzer,BUZZER_MOTION_MOTOR_OFFLINE_PRIORITY);
+//				buzzer_setTask(&buzzer,BUZZER_DEVICE_OFFLINE_PRIORITY);
 		if(ms_count+s_count*1000-steering_wheel->directive_part.encoder.parameter.ms_count-steering_wheel->directive_part.encoder.parameter.s_count*1000>1000)
-			buzzer_setTask(&buzzer,BUZZER_DEVICE_OFFLINE_PRIORITY);
+			buzzer_setTask(&buzzer,BUZZER_ENCODER_OFFLINE_PRIORITY);
 		return STEERING_WHEEL_OK;
 	}
 	else return STEERING_WHEEL_ILLEGAL_HANDLE;

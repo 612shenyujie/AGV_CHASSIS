@@ -35,7 +35,7 @@ float gimbal_pitch_encoder_position_data[PID_DATA_LEN]
 float gimbal_pitch_imu_speed_data[PID_DATA_LEN]
 	={7000.0f,28.0f,0.0f,25000.0f,10000.0f,0.0f,1000.0f,100.0f,0.7f,0.0f};
 float gimbal_pitch_imu_position_data[PID_DATA_LEN]
-	={2.0f,0.1f,0.0f,4.0f,0.3f,0.01f,0.5f,0.1f,0.5f,0.0f};
+	={1.5f,0.1f,0.0f,4.0f,0.3f,0.01f,0.5f,0.1f,0.5f,0.0f};
 
 //Kp,Ki,Kd,MaxOut,Inter_limition,Deadband,Change_I_A,Change_I_B,OUTPUT_FILTER,DOUTPUT_FILTER
 /*****************************************yaw轴PID*****************************************************/
@@ -112,7 +112,7 @@ void Gimbal_Statue_Update(void)
             gimbal.yaw.imu.status.actual_angle = -INS.Yaw;
             if(gimbal.yaw.imu.status.actual_angle-gimbal.yaw.imu.status.last_actual_angle>180.0f) gimbal.yaw.imu.status.rounds--;
             if(gimbal.yaw.imu.status.actual_angle-gimbal.yaw.imu.status.last_actual_angle<-180.0f)gimbal.yaw.imu.status.rounds++;
-            gimbal.yaw.imu.status.total_angle = gimbal.yaw.imu.status.rounds*360.0f + gimbal.yaw.imu.status.actual_angle+chassis.send.invert_flag*180.0f;
+            gimbal.yaw.imu.status.total_angle = gimbal.yaw.imu.status.rounds*360.0f + gimbal.yaw.imu.status.actual_angle;
             gimbal.yaw.imu.status.actual_speed = -INS.Gyro[Z];
 			gimbal.yaw.status.total_angle =	gimbal.yaw.motor.status.total_position_degree/gimbal.yaw.parameter.number_ratio+chassis.send.invert_flag*180.0f;
 		    while(gimbal.yaw.status.total_angle-gimbal.yaw.status.rounds*360.0f>180.0f) gimbal.yaw.status.rounds++;
@@ -225,7 +225,7 @@ void Gimbal_Motor_Command_Update(void)
 
 			case IMU_MODE :
 				
-				gimbal.pitch.motor.command.grivity_voltage_lsb=Pitch_Gravity_Compensation();		
+//				gimbal.pitch.motor.command.grivity_voltage_lsb=Pitch_Gravity_Compensation();		
         PID_Calculate(&gimbal.pitch.pid.imu_angle_loop,gimbal.pitch.status.actual_angle,gimbal.pitch.command.target_angle);
         //设置目标速度
         gimbal.pitch.command.target_speed = -gimbal.pitch.pid.imu_angle_loop.Output;
@@ -257,15 +257,18 @@ void Gimbal_Motor_Command_Update(void)
     }
 
     //根据参数模式，计算出目标角度和速度
-
-		while(gimbal.yaw.command.target_angle-gimbal.yaw.status.total_angle>180.0f)	gimbal.yaw.command.target_angle-=360.0f;
-				while(gimbal.yaw.command.target_angle-gimbal.yaw.status.total_angle<-180.0f)	gimbal.yaw.command.target_angle+=360.0f;
+		if(vision_control.mode==VISION_OFF)
+				gimbal.yaw.command.actual_angle=gimbal.yaw.command.target_angle+chassis.send.invert_flag*180.f;
+		else
+				gimbal.yaw.command.actual_angle=gimbal.yaw.command.target_angle;
+		while(gimbal.yaw.command.actual_angle-gimbal.yaw.status.total_angle>180.0f)	gimbal.yaw.command.actual_angle-=360.0f;
+				while(gimbal.yaw.command.actual_angle-gimbal.yaw.status.total_angle<-180.0f)	gimbal.yaw.command.actual_angle+=360.0f;
 		switch(gimbal.yaw.parameter.mode)
     {
 				
 			case IMU_MODE :
        
-        PID_Calculate(&gimbal.yaw.pid.imu_angle_loop,gimbal.yaw.status.total_angle,gimbal.yaw.command.target_angle);
+        PID_Calculate(&gimbal.yaw.pid.imu_angle_loop,gimbal.yaw.status.total_angle,gimbal.yaw.command.actual_angle);
         //设置目标速度
         gimbal.yaw.command.target_speed = gimbal.yaw.pid.imu_angle_loop.Output;
         //计算出输出速度
@@ -275,7 +278,7 @@ void Gimbal_Motor_Command_Update(void)
 
         break;
     case ENCODER_MODE  :
-       PID_Calculate(&gimbal.yaw.pid.encoder_angle_loop,gimbal.yaw.status.total_angle,gimbal.yaw.command.target_angle);
+       PID_Calculate(&gimbal.yaw.pid.encoder_angle_loop,gimbal.yaw.status.total_angle,gimbal.yaw.command.actual_angle);
         //设置目标速度
         gimbal.yaw.command.target_speed = gimbal.yaw.pid.encoder_angle_loop.Output;
         //计算出输出速度
@@ -396,7 +399,7 @@ void Gimbal_Mode_Change_Judge(void)
 		}		
 		
 	}
-	if(gimbal.parameter.last_mode==GIMBAL_MODE_PRECISION&&gimbal.parameter.mode==GIMBAL_MODE_ABSOLUTE)
+	if(gimbal.parameter.last_mode==GIMBAL_MODE_PRECISION&&(gimbal.parameter.mode==GIMBAL_MODE_ABSOLUTE||gimbal.parameter.mode==GIMBAL_MODE_TOPANGLE))
 	{
 		gimbal.pitch.command.target_angle=0;
 		gimbal.affiliated_pitch.target_angle=37.0f;
