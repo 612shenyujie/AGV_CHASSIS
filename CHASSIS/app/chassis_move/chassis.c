@@ -20,7 +20,7 @@
 CHASSIS_T chassis;
 YAW_T   yaw;
 PID_T   yaw_pid;
-float yaw_position_loop_data[10]= {0.23f,0.0f,3.5f,3.5f,0.0f,0.1f,0.f,0.f,0.f,0.f};
+float yaw_position_loop_data[10]= {0.15f,0.0f,3.5f,3.5f,0.0f,0.1f,0.f,0.f,0.f,0.f};
 
 uint8_t dma_rx_buff[DMA_REC_LEN];
 uint8_t length;
