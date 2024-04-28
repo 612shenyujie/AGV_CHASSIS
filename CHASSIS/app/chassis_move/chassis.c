@@ -286,7 +286,7 @@ void Power_Limition_Kf_Update(void)
 		case SUPERCAP_LOOP:
 			if(chassis.supercap.supercap_per<30.f)
 			{
-				Scale2=(chassis.supercap.supercap_per-10.f)/20.f;
+				Scale2=(chassis.supercap.supercap_per-15.f)/15.f;
 				if(Scale2<0.f)
 					Scale2=0;
 				if(Scale2>1.f)

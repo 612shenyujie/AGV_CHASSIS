@@ -108,7 +108,10 @@ void AGV_connoection(int ms_cnt)
 }
 
 
+
 float total_power;
+
+
 void calculate_true_power(void)
 {
     
@@ -117,7 +120,12 @@ void calculate_true_power(void)
 	switch(chassis.parameter.power_loop)
 	{
 		case SUPERCAP_LOOP:
-			chassis_power_control.power_limit_max   =   JudgeReceive.robot_state.MaxPower+5.f;
+			if(chassis.supercap.supercap_per>80.f)
+				chassis_power_control.power_limit_max   =   JudgeReceive.robot_state.MaxPower+20.f;
+			else if(chassis.supercap.supercap_per>40.f)
+				chassis_power_control.power_limit_max   =   JudgeReceive.robot_state.MaxPower+(chassis.supercap.supercap_per-40.f)*20.f;
+			else
+				chassis_power_control.power_limit_max   =   JudgeReceive.robot_state.MaxPower;
 			break;
 		case BUFFER_LOOP:
 			chassis_power_control.power_limit_max   =   JudgeReceive.robot_state.MaxPower;
