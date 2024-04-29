@@ -106,7 +106,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x57F606B8)
 I (../Core/Inc/gpio.h)(0x65EDDB54)
 I (../app/task_schedule.h)(0x662A8A5B)
-I (../app/fric.h)(0x662BC88D)
+I (../app/fric.h)(0x662E9163)
 I (../bsp/motor.h)(0x661F962B)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
 I (../PID/PID.h)(0x66083701)
@@ -1442,7 +1442,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x658AE03A)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h)(0x658AE03A)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x658AE03A)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x658AE03A)
-I (..\app\fric.h)(0x662BC88D)
+I (..\app\fric.h)(0x662E9163)
 I (../bsp/motor.h)(0x661F962B)
 I (../PID/PID.h)(0x66083701)
 I (..\app\remote_control.h)(0x662A8A5B)
@@ -1465,8 +1465,8 @@ I (..\app\buzzer.h)(0x6606BAF2)
 I (../bsp/buzzer_bsp.h)(0x6606BAF2)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x57F606B6)
 I (..\app\vision.h)(0x661AA05A)
-F (..\app\fric.c)(0x662BC7D1)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -W -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../IMU -I ../PID -I ../app -I ../bsp -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I ../Components/Algorithm/Include -I ../Components/Algorithm -I ../Components/Controller -I ../Components/Devices -I ../Components -I ../Drivers/CMSIS/Lib/ARM -I ../Middlewares/ST/ARM/DSP/Inc-I.\RTE\_GIMBAL-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o gimbal\fric.o --omf_browse gimbal\fric.crf --depend gimbal\fric.d)
-I (..\app\fric.h)(0x662BC88D)
+F (..\app\fric.c)(0x662E82D7)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -W -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../IMU -I ../PID -I ../app -I ../bsp -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I ../Components/Algorithm/Include -I ../Components/Algorithm -I ../Components/Controller -I ../Components/Devices -I ../Components -I ../Drivers/CMSIS/Lib/ARM -I ../Middlewares/ST/ARM/DSP/Inc-I.\RTE\_GIMBAL-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="523" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o gimbal\fric.o --omf_browse gimbal\fric.crf --depend gimbal\fric.d)
+I (..\app\fric.h)(0x662E9163)
 I (../bsp/motor.h)(0x661F962B)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
@@ -1569,7 +1569,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x57F606B6)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
 I (..\app\task_schedule.h)(0x662A8A5B)
 I (../Core/Inc/tim.h)(0x65FAE8B6)
-I (..\app\fric.h)(0x662BC88D)
+I (..\app\fric.h)(0x662E9163)
 I (../bsp/drv_can.h)(0x65FFECC1)
 I (..\app\can_connection.h)(0x660D6EDA)
 I (..\app\trigger.h)(0x66211AE0)
@@ -1628,7 +1628,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x658AE03A)
 I (../Core/Inc/usart.h)(0x65EE0C8C)
 I (..\app\task_schedule.h)(0x662A8A5B)
 I (../Core/Inc/tim.h)(0x65FAE8B6)
-I (..\app\fric.h)(0x662BC88D)
+I (..\app\fric.h)(0x662E9163)
 I (../bsp/motor.h)(0x661F962B)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
 I (../PID/PID.h)(0x66083701)
@@ -1692,7 +1692,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x658AE03A)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h)(0x658AE03A)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h)(0x658AE03A)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h)(0x658AE03A)
-I (..\app\fric.h)(0x662BC88D)
+I (..\app\fric.h)(0x662E9163)
 I (../bsp/motor.h)(0x661F962B)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
 I (../PID/PID.h)(0x66083701)

@@ -335,6 +335,22 @@ steering_communication_pack_t steering_communication_DELETE_SUBSCRIBED_VALUE_han
 		用于处理 cmd_id 为 SET_VELOCITY_VECTOR 的情况
 */
 
+//steering_communication_pack_t steering_communication_SET_VELOCITY_VECTOR_handler(steering_wheel_t *steering, steering_communication_pack_t rx_pack)
+//{
+//	// 修改为SET_VELOCITY_VECTOR的CMDID
+//	rx_pack.cmd_id = SET_VELOCITY_VECTOR;
+
+//	int16_t rx_data1_byte[4];
+//	memcpy(rx_data1_byte, rx_pack.data1, sizeof(rx_data1_byte));
+//	steering->parameter.buffer_limition_k=rx_pack.data2/100.0f;
+//	memcpy(&chassis_power_control.power_limit_max, rx_data1_byte+2, 4);
+//	Steering_Wheel_SetProtocolPosition(steering, rx_data1_byte[0]);
+//	Steering_Wheel_SetProtocolSpeed(steering,rx_data1_byte[1]);
+//	memset(&rx_pack.data1,0,8);
+//	memcpy(&rx_pack.data1,&chassis_power_control.expect_total_power_32,4);
+//		return rx_pack;
+//}
+
 steering_communication_pack_t steering_communication_SET_VELOCITY_VECTOR_handler(steering_wheel_t *steering, steering_communication_pack_t rx_pack)
 {
 	// 修改为SET_VELOCITY_VECTOR的CMDID

@@ -102,11 +102,14 @@ void Fric_Command_Update(void)
     }
 }
 //摩擦轮缓冲区更新
+float watch_pid_out_right;
+float watch_pid_out_left;
 void Fric_Current_Update(void)
 {
 		PID_Calculate(&fric.left_motor.pid.speed_loop, fric.left_motor.status.actual_speed,   fric.left_motor.command.target_speed);
 		PID_Calculate(&fric.right_motor.pid.speed_loop, fric.right_motor.status.actual_speed,   fric.right_motor.command.target_speed);
-    
+			watch_pid_out_right=-fric.right_motor.pid.speed_loop.Output;
+			watch_pid_out_left	= fric.left_motor.pid.speed_loop.Output;
      M3508_Command_Update(&fric.left_motor.motor,fric.left_motor.pid.speed_loop.Output);
      M3508_Command_Update(&fric.right_motor.motor,fric.right_motor.pid.speed_loop.Output);      
 	

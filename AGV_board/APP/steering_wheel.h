@@ -14,8 +14,8 @@ extern "C" {
 /*************************************烧录必选项****************************************************/	
 //舵小板选择
 //#define AGV_BOARD_A //不同舵轮对应宏定义
-#define AGV_BOARD_B
-//#define AGV_BOARD_C
+//#define AGV_BOARD_B
+#define AGV_BOARD_C
 //#define AGV_BOARD_D
 //兵种选择
 #define AGV_HERO
@@ -29,7 +29,7 @@ extern "C" {
 	
 #define A_ENCODER_ZERO_POSION 0x1e80U
 #define B_ENCODER_ZERO_POSION 0x1822U
-#define C_ENCODER_ZERO_POSION 0x1ADEU
+#define C_ENCODER_ZERO_POSION 0x1d62U
 #define D_ENCODER_ZERO_POSION 0x01acU	
 	
 #define A_STEERING_CAN_ID 0x1AU
