@@ -6,7 +6,7 @@ float Trigger_Angle_Loop_Data[PID_DATA_LEN]
 ={10.0f,0.01f,250.0f,30.0f,5.0f,0.1f,1.0f,0.1f,0.6f,0.0f};
 
 float Trigger_Speed_Loop_Data[PID_DATA_LEN]
-={0.65f,0.03f,0.0f,20.0f,1.0f,0.0f,1.0f,0.5f,0.0f,0.0f};
+={0.50f,0.03f,0.0f,10.0f,1.0f,0.0f,1.0f,0.5f,0.0f,0.0f};
 //拨弹轮初始化
 void Trigger_Init(void)
 {

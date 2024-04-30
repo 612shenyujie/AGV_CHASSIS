@@ -33,7 +33,7 @@ float gimbal_pitch_encoder_speed_data[PID_DATA_LEN]
 float gimbal_pitch_encoder_position_data[PID_DATA_LEN]
 	={9.77f,0.1f,0.35f,150.0f,10.0f,0.00f,0.5f,0.1f,0.5f,0.0f};
 float gimbal_pitch_imu_speed_data[PID_DATA_LEN]
-	={7000.0f,28.0f,0.0f,25000.0f,10000.0f,0.0f,1000.0f,100.0f,0.7f,0.0f};
+	={6000.0f,25.0f,0.0f,25000.0f,10000.0f,0.0f,1000.0f,100.0f,0.7f,0.0f};
 float gimbal_pitch_imu_position_data[PID_DATA_LEN]
 	={1.5f,0.1f,0.0f,4.0f,0.3f,0.01f,0.5f,0.1f,0.5f,0.0f};
 
@@ -46,7 +46,7 @@ float gimbal_yaw_encoder_position_data[PID_DATA_LEN]
 float gimbal_yaw_imu_speed_data[PID_DATA_LEN]
 	={18000.0f,20.0f,0.0f,25000.0f,1000.0f,0.01f,0.5f,0.1f,0.5f,0.0f};
 float gimbal_yaw_imu_position_data[PID_DATA_LEN]
-	={0.35f,0.1f,1.0f,10.0f,0.01f,0.00f,1.0f,0.5f,0.5f,0.0f};
+	={0.30f,0.1f,1.0f,10.0f,0.01f,0.00f,1.0f,0.5f,0.5f,0.0f};
 
 
 /*******************************质心补偿参数******************************************/

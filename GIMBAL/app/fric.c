@@ -17,11 +17,15 @@ XPOWER_COMMAND_T xpower;
 
 //left-fric-PID
 float left_fric_data[PID_DATA_LEN]
-	={0.022f,0.0007f,0.15f,5.0f,0.05f,0.0f,500.0f,70.0f,0.3f,0.01f,0.0f,0.0f,900.0f,1800.0f};
+	={0.032f,0.0007f,0.15f,20.0f,0.00f,0.0f,0.0f,0.0f,0.3f,0.00f,0.0f,0.0f,0.0f,00.0f};
 //right-fric-PID
 float right_fric_data[PID_DATA_LEN]
-	={0.032f,0.0008f,0.15f,5.0f,0.1f,0.0f,500.0f,70.0f,0.3f,0.01f,0.0f,0.0f,900.0f,1800.0f};
-
+	={0.032f,0.0008f,0.15f,20.0f,0.0f,0.0f,0.0f,0.0f,0.3f,0.00f,0.0f,0.0f,00.0f,00.0f};
+//float left_fric_data[PID_DATA_LEN]
+//	={25.5f,			0.2f,			0.0f,				15000.0f,			4000.0f};
+////right-fric-PID
+//float right_fric_data[PID_DATA_LEN]
+//	={25.5f,			0.2f,			0.0f,				15000.0f,			4000.0f};
 	
 		float meanFilter(float* data, int size)
 {
@@ -55,8 +59,10 @@ void Fric_Init(void)
     M3508_Init(&fric.left_motor.motor,0x201,1,0.3);
     
 
-    PID_Init(&fric.left_motor.pid.speed_loop,left_fric_data,Integral_Limit|ChangingIntegralRate|OutputFilter);
-	PID_Init(&fric.right_motor.pid.speed_loop,right_fric_data,Integral_Limit|ChangingIntegralRate|OutputFilter);
+    PID_Init(&fric.left_motor.pid.speed_loop,left_fric_data,OutputFilter);
+	PID_Init(&fric.right_motor.pid.speed_loop,right_fric_data,OutputFilter);
+//	PID_Init(&fric.left_motor.pid.speed_loop,left_fric_data,Integral_Limit);
+//	PID_Init(&fric.right_motor.pid.speed_loop,right_fric_data,Integral_Limit);
 
 }
 //摩擦轮状态更新
@@ -121,6 +127,10 @@ void Fric_Current_Update(void)
 		 CAN1_0x200_Tx_Data[1]=fric.right_motor.motor.command.give_current_lsb;
 		 CAN1_0x200_Tx_Data[2]=fric.left_motor.motor.command.give_current_lsb>>8;
 		 CAN1_0x200_Tx_Data[3]=fric.left_motor.motor.command.give_current_lsb;
+//				CAN1_0x200_Tx_Data[0]=(int16_t)fric.right_motor.pid.speed_loop.Output>>8;
+//		 CAN1_0x200_Tx_Data[1]=(int16_t)fric.right_motor.pid.speed_loop.Output;
+//		 CAN1_0x200_Tx_Data[2]=(int16_t)fric.left_motor.pid.speed_loop.Output>>8;
+//		 CAN1_0x200_Tx_Data[3]=(int16_t)fric.left_motor.pid.speed_loop.Output;
         break;
         case FRIC_RUNNING  :
 				case FRIC_BRUSTING	:
@@ -129,6 +139,10 @@ void Fric_Current_Update(void)
 		 CAN1_0x200_Tx_Data[1]=fric.right_motor.motor.command.give_current_lsb;
 		 CAN1_0x200_Tx_Data[2]=fric.left_motor.motor.command.give_current_lsb>>8;
 		 CAN1_0x200_Tx_Data[3]=fric.left_motor.motor.command.give_current_lsb;
+//				CAN1_0x200_Tx_Data[0]=(int16_t)fric.right_motor.pid.speed_loop.Output>>8;
+//		 CAN1_0x200_Tx_Data[1]=(int16_t)fric.right_motor.pid.speed_loop.Output;
+//		 CAN1_0x200_Tx_Data[2]=(int16_t)fric.left_motor.pid.speed_loop.Output>>8;
+//		 CAN1_0x200_Tx_Data[3]=(int16_t)fric.left_motor.pid.speed_loop.Output;
         break;
     }			
 }
