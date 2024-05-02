@@ -64,7 +64,7 @@ void Chassis_Send_data_Update( void)
 		CAN2_0x152_Tx_Data[3]	=	chassis.send.fric_state;
 		CAN2_0x152_Tx_Data[4]	=	chassis.send.vision_flag;
 		CAN2_0x152_Tx_Data[5]	=	chassis.send.ui_init_flag;
-    
+    CAN2_0x152_Tx_Data[6]	=	chassis.send.spin_direction_flag;
 		memcpy(&CAN2_0x154_Tx_Data[0],&chassis.send.fric_speed,2);
 		memcpy(&CAN2_0x154_Tx_Data[2],&chassis.send.pitch_angle,4);
 		

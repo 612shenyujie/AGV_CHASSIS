@@ -46,7 +46,7 @@ float gimbal_yaw_encoder_position_data[PID_DATA_LEN]
 float gimbal_yaw_imu_speed_data[PID_DATA_LEN]
 	={18000.0f,20.0f,0.0f,25000.0f,1000.0f,0.01f,0.5f,0.1f,0.5f,0.0f};
 float gimbal_yaw_imu_position_data[PID_DATA_LEN]
-	={0.30f,0.1f,1.0f,10.0f,0.01f,0.00f,1.0f,0.5f,0.5f,0.0f};
+	={0.28f,0.1f,1.0f,10.0f,0.01f,0.00f,1.0f,0.5f,0.5f,0.0f};
 
 
 /*******************************质心补偿参数******************************************/

@@ -23,7 +23,7 @@ float Square(float Input) //ÊÊÓÃÓÚ¸¡µãÊýµÄÆ½·½º¯Êý
     return Ans;
 }
 
-static float offsite=-30.f; 
+
 
 void AGV_Vector_Composition_In_ChassisCoordinate(CHASSIS_T *chassis )
 {
@@ -36,7 +36,7 @@ void AGV_Vector_Composition_In_ChassisCoordinate(CHASSIS_T *chassis )
 	Gimbal_V = sqrt(chassis->command.vx * chassis->command.vx + chassis->command.vy * chassis->command.vy);
 	Chassis_Vr = chassis->command.vw * (half_width + half_length);
 	if(chassis->parameter.mode==CHASSIS_SPIN)
-		Radian_Theta = (offsite+chassis->parameter.relative_angle)/360.00f *(2.00f*PI); 
+		Radian_Theta = (yaw.parameter.yaw_offset+chassis->parameter.relative_angle)/360.00f *(2.00f*PI); 
 	else
 	Radian_Theta = chassis->parameter.relative_angle/360.00f *(2.00f*PI);  
 	

@@ -69,7 +69,12 @@ typedef struct
   uint64_t SyncTimeStamp; 
  
 	}game_status;
-
+	//0x0203
+	struct{
+		float x; 
+		float y; 
+		float angle;
+	}robot_pos_t;
 }
 JudgeReceive_t;
 #pragma pack(pop)

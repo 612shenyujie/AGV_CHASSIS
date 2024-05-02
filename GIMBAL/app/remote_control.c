@@ -313,6 +313,17 @@ void Control_Mode_Update(void)
 				chassis.send.vision_flag	=	VISION_OFF;
 
 			}
+			if(switch_is_down(SW_R)&&gimbal.parameter.mode == GIMBAL_MODE_TOPANGLE&&chassis.send.spin_direction_flag	==	0&&delay_time.spin_direction_cnt==0)
+			{
+				delay_time.spin_direction_cnt=400;
+				chassis.send.spin_direction_flag	=	1;
+			}
+			
+			if(switch_is_down(SW_R)&&gimbal.parameter.mode == GIMBAL_MODE_TOPANGLE&&chassis.send.spin_direction_flag	==	1&&delay_time.spin_direction_cnt==0)
+			{
+				delay_time.spin_direction_cnt=400;
+				chassis.send.spin_direction_flag	=	0;
+			}
 
 			
 			break;
@@ -571,7 +582,7 @@ void Precision_Mode_Update(void)
 	{
 		case HANDLE_CONTROL :
 			//new_control
-			if(switch_is_down(SW_R))
+			if(switch_is_down(SW_R)&&gimbal.parameter.mode!=GIMBAL_MODE_TOPANGLE)
 			{
 				if(delay_time.precision_mode_cnt==0&&gimbal.parameter.mode!=GIMBAL_MODE_PRECISION)
 				{
@@ -801,6 +812,7 @@ void Delay_Cnt_Task(void)
 	if(delay_time.xpower_mode_cnt) delay_time.xpower_mode_cnt--;
 	if(delay_time.ui_mode_cnt) delay_time.ui_mode_cnt--;
 	if(delay_time.distance_change_cnt)	delay_time.distance_change_cnt--;
+	if(delay_time.spin_direction_cnt)	delay_time.spin_direction_cnt--;
 };
 
 void Remote_Init(void)

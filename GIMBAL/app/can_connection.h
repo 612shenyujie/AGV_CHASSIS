@@ -43,7 +43,7 @@ typedef  struct
 		bool ui_init_flag;
 		int16_t fric_speed;
 		float pitch_angle;
-		
+		bool	spin_direction_flag;
 
 }CHASSIS_SEND_T;
 

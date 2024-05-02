@@ -17,10 +17,10 @@ XPOWER_COMMAND_T xpower;
 
 //left-fric-PID
 float left_fric_data[PID_DATA_LEN]
-	={0.032f,0.0007f,0.15f,20.0f,0.00f,0.0f,0.0f,0.0f,0.3f,0.00f,0.0f,0.0f,0.0f,00.0f};
+	={0.0051f,0.00018f,0.0f,15.30f,1.70f,0.0f,0.0f,0.0f,0.238f,0.00f,0.0f,0.0f,0.0f,00.0f};
 //right-fric-PID
 float right_fric_data[PID_DATA_LEN]
-	={0.032f,0.0008f,0.15f,20.0f,0.0f,0.0f,0.0f,0.0f,0.3f,0.00f,0.0f,0.0f,00.0f,00.0f};
+	={0.0051f,0.00018f,0.0f,15.30f,1.70f,0.0f,0.0f,0.0f,0.2238f,0.00f,0.0f,0.0f,0.0f,00.0f};
 //float left_fric_data[PID_DATA_LEN]
 //	={25.5f,			0.2f,			0.0f,				15000.0f,			4000.0f};
 ////right-fric-PID
@@ -59,8 +59,8 @@ void Fric_Init(void)
     M3508_Init(&fric.left_motor.motor,0x201,1,0.3);
     
 
-    PID_Init(&fric.left_motor.pid.speed_loop,left_fric_data,OutputFilter);
-	PID_Init(&fric.right_motor.pid.speed_loop,right_fric_data,OutputFilter);
+    PID_Init(&fric.left_motor.pid.speed_loop,left_fric_data,OutputFilter|Trapezoid_Intergral|Integral_Limit);
+	PID_Init(&fric.right_motor.pid.speed_loop,right_fric_data,OutputFilter|Trapezoid_Intergral|Integral_Limit);
 //	PID_Init(&fric.left_motor.pid.speed_loop,left_fric_data,Integral_Limit);
 //	PID_Init(&fric.right_motor.pid.speed_loop,right_fric_data,Integral_Limit);
 
@@ -72,13 +72,13 @@ void Fric_Status_Update(void)
 {
     M3508_Status_Update(&fric.left_motor.motor);
     M3508_Status_Update(&fric.right_motor.motor);
-	  Fric_Filter_Data_Update();
-    fric.left_motor.status.actual_speed =   meanFilter(fric.left_motor.status.feedback_speed,5);
-    fric.right_motor.status.actual_speed =   meanFilter(fric.right_motor.status.feedback_speed,5);
+//	  Fric_Filter_Data_Update();
+//    fric.left_motor.status.actual_speed =   meanFilter(fric.left_motor.status.feedback_speed,5);
+//    fric.right_motor.status.actual_speed =   meanFilter(fric.right_motor.status.feedback_speed,5);
 		watch_left=fric.left_motor.status.actual_speed;
 		watch_right=-fric.right_motor.status.actual_speed;
-//    fric.left_motor.status.actual_speed =  fric.left_motor.motor.feedback.velocity_lsb;
-//    fric.right_motor.status.actual_speed =   fric.right_motor.motor.feedback.velocity_lsb;
+    fric.left_motor.status.actual_speed =  fric.left_motor.motor.feedback.velocity_lsb;
+    fric.right_motor.status.actual_speed =   fric.right_motor.motor.feedback.velocity_lsb;
     fric.left_motor.status.given_current =   fric.left_motor.motor.status.given_current;
     fric.right_motor.status.given_current =   fric.right_motor.motor.status.given_current;
     fric.left_motor.status.temperature =   fric.left_motor.motor.status.temperature;
@@ -110,12 +110,20 @@ void Fric_Command_Update(void)
 //摩擦轮缓冲区更新
 float watch_pid_out_right;
 float watch_pid_out_left;
+float	watch_pid_iout_right;
+float	watch_pid_iout_left;
+float	watch_pid_dout_right;
+float	watch_pid_dout_left;
 void Fric_Current_Update(void)
 {
 		PID_Calculate(&fric.left_motor.pid.speed_loop, fric.left_motor.status.actual_speed,   fric.left_motor.command.target_speed);
 		PID_Calculate(&fric.right_motor.pid.speed_loop, fric.right_motor.status.actual_speed,   fric.right_motor.command.target_speed);
 			watch_pid_out_right=-fric.right_motor.pid.speed_loop.Output;
 			watch_pid_out_left	= fric.left_motor.pid.speed_loop.Output;
+		watch_pid_iout_right=-fric.right_motor.pid.speed_loop.Iout;
+		watch_pid_iout_left=fric.left_motor.pid.speed_loop.Iout;
+		watch_pid_dout_right=-fric.right_motor.pid.speed_loop.Dout;
+		watch_pid_dout_left=fric.left_motor.pid.speed_loop.Dout;
      M3508_Command_Update(&fric.left_motor.motor,fric.left_motor.pid.speed_loop.Output);
      M3508_Command_Update(&fric.right_motor.motor,fric.right_motor.pid.speed_loop.Output);      
 	

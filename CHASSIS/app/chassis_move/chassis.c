@@ -214,10 +214,26 @@ void Chassis_Mode_Command_Update(void)
         break;
         case    CHASSIS_SPIN:
         if(chassis.command.vx==0&&chassis.command.vy==0)
-        chassis.command.vw =  4.0f;
+        {
+				if(connection.connection_rx.spin_direction_flag==1)
+				chassis.command.vw =  4.0f;
+				else
+					chassis.command.vw =  -4.0f;
+				}
         else 
-				
+				{
+				if(connection.connection_rx.spin_direction_flag==1)
+				{
 					chassis.command.vw =  3.0f;
+					yaw.parameter.yaw_offset=-30.f;
+				}
+				
+				else
+					{
+					chassis.command.vw =  -3.0f;
+						yaw.parameter.yaw_offset=30.f;
+				}
+			}
 				
 				
         break;
@@ -322,6 +338,14 @@ void Tx_Super_Capacitor(void)
 	CAN_Send_Data(&hcan1,0x66,CAN1_0x66_Tx_Data,8);
 }
 
+void Supercap_Online_State_Task(void)
+{
+	if(chassis.supercap.online_state	==SUPERCAP_OFFLINE)
+			HAL_GPIO_WritePin(SUPERCAP_GPIO_Port, SUPERCAP_Pin, GPIO_PIN_SET);
+		else
+				HAL_GPIO_WritePin(SUPERCAP_GPIO_Port, SUPERCAP_Pin, GPIO_PIN_RESET);
+}
+
 void supercap_task(void)
 {
 	if(time.ms_count+time.s_count*1000-chassis.supercap.alive_ms-chassis.supercap.alive_s*1000>1500)
@@ -339,7 +363,7 @@ void supercap_task(void)
 		Power_Limition_Mode_Update();
 //		Supercap_State_Update();
 		Power_Limition_Kf_Update();
-
+		Supercap_Online_State_Task();
 	}
 
 }
