@@ -15,17 +15,44 @@ char change_cnt[7];
 	int32_t temp_pitch;
 	int32_t temp_supercap_per;
 	int32_t	last_temp_supercap_per;
+	char	precision_state,last_precision_state;
+	float	distance,delta_x,delta_y;
 float c_pos_x[12] = {0.01,0.01,0.01,0.9,0.9, 0.87,0.55, 0.54,0.40,0.53,0.3,0.4};
 float c_pos_y[12] = {0.8,0.7,0.6,0.8 ,0.75, 0.7,0.5, 0.05,0.1 ,0.15,0.5,0.7};
-float g_pos_x[CAP_GRAPHIC_NUM] = {0.05,0.05,0.05,0.5,0.92,0.459,0.62,0.5,0.42};
-float g_pos_y[CAP_GRAPHIC_NUM] = {0.74,0.64,0.54,0.5,0.64,0.36,0.1,0.8,0.1};
+float g_pos_x[CAP_GRAPHIC_NUM] = {0.05,0.05,0.05,0.5,0.92,0.459,0.62,0.5,0.3,0.7};
+float g_pos_y[CAP_GRAPHIC_NUM] = {0.74,0.64,0.54,0.5,0.64,0.36,0.1,0.8,0.3,0.75};
 float g_line_x[20]={0.657,0.541,0.343,0.459,0.5,0.5,0.49,0.51,0.48,0.52};
 float g_line_y[20]={0.0,0.36,0.0,0.36,0.0,0.5,0.392,0.392,0.37,0.37};
 /*瞄准线偏移量*/
-int AIM_bias_x = 0;
-int AIM_bias_y = 0;
-int placece_x[14]={0  , 50, 30,  30, 30,  10,  7,  7,  7,  10,  7,  7,  7 ,10 };
-int placece_y[15]={-80,-320,-80,-100,-120,-140,-160,-180,-200,-220,-240,-260,-280,10, 10 };
+
+float test_x,text_y;
+
+float Sqrt(float x)
+{
+    float y;
+    float delta;
+    float maxError;
+
+    if (x <= 0)
+    {
+        return 0;
+    }
+
+    // initial guess
+    y = x / 2;
+
+    // refine
+    maxError = x * 0.001f;
+
+    do
+    {
+        delta = (y * y) - x;
+        y -= delta / (2 * y);
+    } while (delta > maxError || delta < -maxError);
+
+    return y;
+}		
+
 int Graphic_Change_Check(void)
 {
 	int i;
@@ -35,6 +62,15 @@ int Graphic_Change_Check(void)
 		return Op_Init;	//返回Init,会一直发送Add，添加所有图层
 	}
 	
+//	delta_x=JudgeReceive.robot_pos_t.x-TARGET_X;
+//		delta_y=JudgeReceive.robot_pos_t.y-TARGET_Y;
+		delta_x=JudgeReceive.robot_pos_t.x-test_x;
+		delta_y=JudgeReceive.robot_pos_t.y-text_y;
+	distance=Sqrt(delta_x*delta_x+delta_y*delta_y);
+	if(distance<0.25)
+		precision_state	=	1;
+	else
+		precision_state	=	0;
 	if(connection.connection_rx.fric.flag!=connection.connection_rx.fric.last_flag)
 	{
 		Graphic_Change_Array[0]=Op_Change;
@@ -54,7 +90,7 @@ int Graphic_Change_Check(void)
 		change_cnt[2]=5;
 	}
 	
-		if(fabs(relative_angle-last_relative_angle)>0.1f)
+		if(fabs(relative_angle-last_relative_angle)>0.01f)
 	{
 		last_relative_angle=relative_angle;
 		Graphic_Change_Array[3]=Op_Change;
@@ -73,9 +109,14 @@ int Graphic_Change_Check(void)
 		change_cnt[4]=5;
 	}
 	
+		if(precision_state!=last_precision_state)
+	{
+		Graphic_Change_Array[5]=Op_Change;
+		change_cnt[5]=5;
 	
+	}
 	last_spin_mode=spin_mode;
-	
+	last_precision_state=precision_state;
 	for(i = 0;i<7;i++)
 	{
 		if(Graphic_Change_Array[i] == Op_Change)
@@ -108,13 +149,13 @@ int Char_Change_Check(void)
 
 		temp_supercap_per=chassis.supercap.supercap_per*1000;
 	temp_pitch=-connection.connection_rx.pitch_angle*1000;
-	if(fabs(connection.connection_rx.pitch_angle-connection.connection_rx.last_pitch_angle)>0.2)
+	if(fabs(connection.connection_rx.pitch_angle-connection.connection_rx.last_pitch_angle)>0.01)
 	{
 		connection.connection_rx.last_pitch_angle=connection.connection_rx.pitch_angle;
 		Char_Change_Array[3]=Op_Change;
 		change_cnt[3]=5;
 	}
-	if(abs(temp_supercap_per-last_temp_supercap_per)>20)
+	if(abs(temp_supercap_per-last_temp_supercap_per)>10)
 	{
 		last_temp_supercap_per=temp_supercap_per;
 		Char_Change_Array[6]=Op_Change;
@@ -274,7 +315,6 @@ void referee_data_load_String(int Op_type)
 			custom_char_draw.char_custom.grapic_data_struct.end_y=temp_supercap_per>>21&0x7ff;
 			memset(custom_char_draw.char_custom.data,'\0',sizeof(custom_char_draw.char_custom.data));
 			break;
-			
 			
 			default:
 			break;
@@ -547,6 +587,23 @@ void referee_data_load_Graphic(int Op_type)
 				custom_grapic_draw.graphic_custom.grapic_data_struct[3].start_y=g_pos_y[4] * SCREEN_WIDTH;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[3].radius=20;
 			if(Op_type == Op_Change) goto CONT_4;
+			PRECISION:
+				custom_grapic_draw.graphic_custom.grapic_data_struct[4].graphic_name[0] = 1;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[4].graphic_name[1] = 5;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[4].graphic_name[2] = 0;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[4].operate_tpye=Op_type;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[4].graphic_tpye=1;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[4].layer=6;
+			if(precision_state)
+				custom_grapic_draw.graphic_custom.grapic_data_struct[4].color=Green;
+			else
+				custom_grapic_draw.graphic_custom.grapic_data_struct[4].color=Red_Blue;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[4].width=2;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[4].start_x=g_pos_x[8] * SCREEN_LENGTH;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[4].start_y=g_pos_y[8] * SCREEN_WIDTH;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[4].end_x=g_pos_x[9] * SCREEN_LENGTH;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[4].end_y=g_pos_y[9] * SCREEN_WIDTH;
+				if(Op_type == Op_Change) goto CONT_5;
 				break;
 			case 2:
 					RELATIVE_:
@@ -577,23 +634,9 @@ void referee_data_load_Graphic(int Op_type)
 			custom_grapic_draw.graphic_custom.grapic_data_struct[0].end_y=40;
 			memset(custom_char_draw.char_custom.data,'\0',sizeof(custom_char_draw.char_custom.data));
 				if(Op_type == Op_Change) goto CONT_3;
-			/*超电部分*/
-//			custom_grapic_draw.graphic_custom.grapic_data_struct[1].graphic_name[0] = 3;
-//			custom_grapic_draw.graphic_custom.grapic_data_struct[1].graphic_name[1] = 2;
-//			custom_grapic_draw.graphic_custom.grapic_data_struct[1].graphic_name[2] = 0;
-//			custom_grapic_draw.graphic_custom.grapic_data_struct[1].operate_tpye=Op_type;
-//			custom_grapic_draw.graphic_custom.grapic_data_struct[1].graphic_tpye=4;
-//			custom_grapic_draw.graphic_custom.grapic_data_struct[1].layer=5;
-//			custom_grapic_draw.graphic_custom.grapic_data_struct[1].color=Cyan; 
-//			custom_grapic_draw.graphic_custom.grapic_data_struct[1].width=10;
-//			custom_grapic_draw.graphic_custom.grapic_data_struct[1].start_x=g_pos_x[3]*SCREEN_LENGTH;
-//			custom_grapic_draw.graphic_custom.grapic_data_struct[1].start_y=g_pos_x[3]*SCREEN_WIDTH;
-//			custom_grapic_draw.graphic_custom.grapic_data_struct[1].start_angle=start_angle;
-//			custom_grapic_draw.graphic_custom.grapic_data_struct[1].end_angle=end_angle;
-//			custom_grapic_draw.graphic_custom.grapic_data_struct[1].end_x=40;
-//			custom_grapic_draw.graphic_custom.grapic_data_struct[1].end_y=40;
-//			memset(custom_char_draw.char_custom.data,'\0',sizeof(custom_char_draw.char_custom.data));
-//				if(Op_type == Op_Change) goto CONT_3;
+		
+				
+
 				break;
 			
 			default:
@@ -647,6 +690,15 @@ void referee_data_load_Graphic(int Op_type)
 				change_cnt[4]--;
 			else
 			Graphic_Change_Array[4]=Op_None;
+		}
+		if(Graphic_Change_Array[5] == Op_Change)  
+		{
+			goto PRECISION;
+	CONT_5:
+			if(change_cnt[5])
+				change_cnt[5]--;
+			else
+			Graphic_Change_Array[5]=Op_None;
 		}
 	}
 }

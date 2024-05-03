@@ -19,7 +19,7 @@ INS_t INS;
 IMU_Param_t IMU_Param;
 PID_TypeDef TempCtrl;
 float tempCtrl_data[PID_DATA_LEN]
-	={1000.0f,20.0f,0.0f,2000.0f,300.0f,0.0f,0.0f,0.0f,0.0f,0.0f};
+	={2000.0f,100.0f,0.0f,2000.0f,300.0f,0.0f,0.0f,0.0f,0.0f,0.0f};
 
 const float xb[3] = {1, 0, 0};
 const float yb[3] = {0, 1, 0};

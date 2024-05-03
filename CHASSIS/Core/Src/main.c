@@ -108,6 +108,10 @@ int main(void)
 
 while (1)
   {
+		UI_Send_Char_Task();
+		HAL_Delay(5);
+			UI_Send_Graphic_Task();
+		HAL_Delay(5);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

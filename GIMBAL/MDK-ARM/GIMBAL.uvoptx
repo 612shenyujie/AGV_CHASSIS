@@ -118,7 +118,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGUARM</Key>
-          <Name>愴o</Name>
+          <Name></Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -252,6 +252,11 @@
           <count>19</count>
           <WinNumber>1</WinNumber>
           <ItemText>test_angle</ItemText>
+        </Ww>
+        <Ww>
+          <count>20</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>BMI088</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>

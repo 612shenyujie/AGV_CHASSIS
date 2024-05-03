@@ -3,6 +3,8 @@
 
 #include "stdint.h"
 
+#define TARGET_X	5
+#define TARGET_Y	5
 #define SEND_MAX_SIZE    128    //上传数据最大的长度
 #define frameheader_len  5       //帧头长度
 #define cmd_len          2       //命令码长度
@@ -27,7 +29,7 @@
 #define Black    7
 #define White    8
 
-#define CAP_GRAPHIC_NUM 9
+#define CAP_GRAPHIC_NUM 15
 #define PACK_NUM 10
 //图形数据
 typedef __packed struct

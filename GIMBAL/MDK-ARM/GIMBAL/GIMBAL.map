@@ -4543,7 +4543,7 @@ Memory Map of the image
 
   Image Entry point : 0x08000189
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00012f10, Max: 0x00100000, ABSOLUTE, COMPRESSED[0x00012a44])
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00012f10, Max: 0x00100000, ABSOLUTE, COMPRESSED[0x00012a4c])
 
     Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x00012840, Max: 0x00100000, ABSOLUTE)
 
@@ -5118,7 +5118,7 @@ Memory Map of the image
     0x08012820   0x00000020   Data   RO         8274    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x000056b0, Max: 0x0001c000, ABSOLUTE, COMPRESSED[0x00000204])
+    Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x000056b0, Max: 0x0001c000, ABSOLUTE, COMPRESSED[0x0000020c])
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -5206,7 +5206,7 @@ Image component sizes
        260         30          0          0         84       1709   i2c.o
       1564        120         48        128        312     747211   ins_task.o
       3160         26          0          4          0       8751   kalman_filter.o
-       330         28          0          0          0      15675   main.o
+       330         28          0          0          0      15679   main.o
       1190         86          0          0          0      11530   motor.o
       1790         44          0          0          0       9187   pid.o
       4192        242        144        212        768       8282   quaternionekf.o
@@ -5246,7 +5246,7 @@ Image component sizes
         32          4          0          0         40       2065   vision.o
 
     ----------------------------------------------------------------------
-     60346       3370       1160       1732      20448    1165343   Object Totals
+     60346       3370       1160       1732      20448    1165347   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         60          0          0         11          1          0   (incl. Padding)
 
@@ -5338,15 +5338,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     72192       4196       3648       1744      20448    1160561   Grand Totals
-     72192       4196       3648        516      20448    1160561   ELF Image Totals (compressed)
-     72192       4196       3648        516          0          0   ROM Totals
+     72192       4196       3648       1744      20448    1160565   Grand Totals
+     72192       4196       3648        524      20448    1160565   ELF Image Totals (compressed)
+     72192       4196       3648        524          0          0   ROM Totals
 
 ==============================================================================
 
     Total RO  Size (Code + RO Data)                75840 (  74.06kB)
     Total RW  Size (RW Data + ZI Data)             22192 (  21.67kB)
-    Total ROM Size (Code + RO Data + RW Data)      76356 (  74.57kB)
+    Total ROM Size (Code + RO Data + RW Data)      76364 (  74.57kB)
 
 ==============================================================================
 
