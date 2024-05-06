@@ -19,7 +19,7 @@ INS_t INS;
 IMU_Param_t IMU_Param;
 PID_TypeDef TempCtrl;
 float tempCtrl_data[PID_DATA_LEN]
-	={2000.0f,100.0f,0.0f,2000.0f,300.0f,0.0f,0.0f,0.0f,0.0f,0.0f};
+	={2000.0f,10.0f,0.0f,2000.0f,800.0f,0.0f,0.0f,0.0f,0.0f,0.0f};
 
 const float xb[3] = {1, 0, 0};
 const float yb[3] = {0, 1, 0};
@@ -28,7 +28,7 @@ const float zb[3] = {0, 0, 1};
 uint32_t INS_DWT_Count = 0;
 static float dt = 0, t = 0;
 uint8_t ins_debug_mode = 0;
-float RefTemp = 40;
+float RefTemp = 50;
 
 static void IMU_Param_Correction(IMU_Param_t *param, float gyro[3], float accel[3]);
 
@@ -44,9 +44,8 @@ void INS_Init(void)
 
     IMU_QuaternionEKF_Init(10, 0.001, 10000000, 1, 0);
     // imu heat init
-    PID_Init(&TempCtrl, tempCtrl_data, 0);
+    PID_Init(&TempCtrl, tempCtrl_data, Integral_Limit);
     HAL_TIM_PWM_Start(&htim10, TIM_CHANNEL_1);
-
     INS.AccelLPF = 0.0085;
 }
 

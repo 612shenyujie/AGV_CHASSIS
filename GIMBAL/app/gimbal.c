@@ -33,9 +33,9 @@ float gimbal_pitch_encoder_speed_data[PID_DATA_LEN]
 float gimbal_pitch_encoder_position_data[PID_DATA_LEN]
 	={9.77f,0.1f,0.35f,150.0f,10.0f,0.00f,0.5f,0.1f,0.5f,0.0f};
 float gimbal_pitch_imu_speed_data[PID_DATA_LEN]
-	={6000.0f,25.0f,0.0f,25000.0f,10000.0f,0.0f,1000.0f,100.0f,0.7f,0.0f};
+	={5000.0f,12.0f,0.0f,25000.0f,10000.0f,0.0f,1000.0f,100.0f,0.7f,0.0f};
 float gimbal_pitch_imu_position_data[PID_DATA_LEN]
-	={1.5f,0.1f,0.0f,4.0f,0.3f,0.01f,0.5f,0.1f,0.5f,0.0f};
+	={1.1f,0.0f,8.0f,4.0f,0.0f,0.001f,0.5f,0.1f,0.5f,0.0f};
 
 //Kp,Ki,Kd,MaxOut,Inter_limition,Deadband,Change_I_A,Change_I_B,OUTPUT_FILTER,DOUTPUT_FILTER
 /*****************************************yaw轴PID*****************************************************/
@@ -44,9 +44,9 @@ float gimbal_yaw_encoder_speed_data[PID_DATA_LEN]
 float gimbal_yaw_encoder_position_data[PID_DATA_LEN]
 	={10.0f,0.2f,1.0f,150.0f,20.0f,0.00f,10.0f,2.0f,0.5f,0.0f};
 float gimbal_yaw_imu_speed_data[PID_DATA_LEN]
-	={15500.0f,8.0f,1.0f,25000.0f,1000.0f,0.015f,0.5f,0.1f,0.5f,0.0f};
+	={13000.0f,1.0f,0.0f,25000.0f,1000.0f,0.015f,0.5f,0.1f,0.5f,0.0f};
 float gimbal_yaw_imu_position_data[PID_DATA_LEN]
-	={0.25f,0.0f,0.1,8.0f,0.0f,0.00f,1.0f,0.5f,0.5f,0.0f};
+	={0.225f,0.0f,0.08f,8.0f,0.0f,0.00f,1.0f,0.5f,0.5f,0.0f};
 
 
 /*******************************质心补偿参数******************************************/
@@ -402,7 +402,7 @@ void Gimbal_Mode_Change_Judge(void)
 	if(gimbal.parameter.last_mode==GIMBAL_MODE_PRECISION&&(gimbal.parameter.mode==GIMBAL_MODE_ABSOLUTE||gimbal.parameter.mode==GIMBAL_MODE_TOPANGLE))
 	{
 		gimbal.pitch.command.target_angle=0;
-		gimbal.affiliated_pitch.target_angle=37.0f;
+		gimbal.affiliated_pitch.target_angle=27.0f;
 		gimbal.affiliated_pitch.add_angle=0.f;
 	}
 	gimbal.parameter.last_mode=gimbal.parameter.mode;
@@ -416,7 +416,7 @@ void Gimbal_Init(void)
 
     gimbal.parameter.calibration_state = NO_CALIBRATION;
     gimbal.parameter.mode = GIMBAL_MODE_NO_FORCE;
-		gimbal.affiliated_pitch.target_angle=37.0f;
+		gimbal.affiliated_pitch.target_angle=27.0f;
 
     gimbal.pitch.parameter.number_ratio = 1.0f;
     gimbal.yaw.parameter.number_ratio = 2.0f;

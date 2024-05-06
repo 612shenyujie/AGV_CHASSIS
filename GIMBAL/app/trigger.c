@@ -32,6 +32,7 @@ void Trigger_Status_Update(void)
 
 //拨弹轮指令更新
 int32_t trigger_time=0;
+int16_t	error_cnt;
 void Trigger_Command_Update(void)
 {
 	int Delta;
@@ -42,6 +43,9 @@ void Trigger_Command_Update(void)
 	trigger_time++;
 	if(trigger.parameter.state!=TRIGGER_BRUSTING)
 	{
+		
+		
+		
 	if(trigger_time>50)
 	{
 		trigger_time=0;
@@ -57,6 +61,14 @@ void Trigger_Command_Update(void)
 	{
 			trigger.command.actual_target_position=trigger.command.target_total_position;
 	}
+	if(trigger.command.actual_target_position+trigger.status.total_angle>10.f)
+			error_cnt++;
+		else
+			error_cnt=0;
+		if(error_cnt>100)
+		{
+			trigger.command.actual_target_position=-trigger.status.total_angle-20.f;
+		}
 	PID_Calculate(&trigger.pid.angle_loop,trigger.status.total_angle,-trigger.command.actual_target_position);
 	trigger.command.target_speed	=	trigger.pid.angle_loop.Output;
 //		trigger.command.target_speed	=	-10;
