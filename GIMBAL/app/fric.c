@@ -17,10 +17,10 @@ XPOWER_COMMAND_T xpower;
 
 //left-fric-PID
 float left_fric_data[PID_DATA_LEN]
-	={0.0044f,0.0f,0.001f,20.0f,0.00f,0.0f,0.0f,0.0f,0.238f,0.00f,0.0f,0.0f,0.0f,00.0f};
+	={0.0044f,0.0f,0.0009f,20.0f,0.00f,0.0f,0.0f,0.0f,0.238f,0.00f,0.0f,0.0f,0.0f,00.0f};
 //right-fric-PID
 float right_fric_data[PID_DATA_LEN]
-	={0.0044f,0.0f,0.001f,20.0f,0.00f,0.0f,0.0f,0.0f,0.2238f,0.00f,0.0f,0.0f,0.0f,00.0f};
+	={0.00425f,0.0f,0.001f,20.0f,0.00f,0.0f,0.0f,0.0f,0.2238f,0.00f,0.0f,0.0f,0.0f,00.0f};
 //float left_fric_data[PID_DATA_LEN]
 //	={25.5f,			0.2f,			0.0f,				15000.0f,			4000.0f};
 ////right-fric-PID

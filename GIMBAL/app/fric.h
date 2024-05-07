@@ -22,7 +22,7 @@
 #define FRIC_NORMAL_SPEED 5167.f//15.2
 #define FRIC_NONE_SPEED 0.f
 
-#define XPOWER_OPEN 97.2f
+#define XPOWER_OPEN 121.2f
 #define XPOWER_CLOSE 0.f
 typedef __packed enum
 {
