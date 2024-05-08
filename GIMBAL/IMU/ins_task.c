@@ -48,6 +48,7 @@ void INS_Init(void)
     HAL_TIM_PWM_Start(&htim10, TIM_CHANNEL_1);
     INS.AccelLPF = 0.0085;
 }
+float	start_t,end_t,start_angle,end_angle,yaw_bias;
 
 void INS_Task(void)
 {
@@ -55,7 +56,7 @@ void INS_Task(void)
     const float gravity[3] = {0, 0, 9.81f};
     dt = DWT_GetDeltaT(&INS_DWT_Count);
     t += dt;
-
+		
     // ins update
     if ((count % 1) == 0)
     {
@@ -100,6 +101,19 @@ void INS_Task(void)
         INS.Pitch = QEKF_INS.Pitch;
         INS.Roll = QEKF_INS.Roll;
         INS.YawTotalAngle = QEKF_INS.YawTotalAngle;
+				
+				if(start_t==0)
+		{
+			start_t=t;
+			start_angle=INS.Yaw;
+		}
+		else
+		{
+			end_t=t;
+			end_angle=INS.Yaw;
+			yaw_bias=(end_angle-start_angle)/(end_t-start_t);
+			
+		}
     }
 
     // temperature control
