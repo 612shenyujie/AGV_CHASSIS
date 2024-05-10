@@ -398,7 +398,7 @@ static int8_t CDC_TransmitCplt_FS(uint8_t *Buf, uint32_t *Len, uint8_t epnum)
 /* USER CODE BEGIN PRIVATE_FUNCTIONS_IMPLEMENTATION */
 uint8_t Buffer[34],status;
 VISION_RESET VISION_RESET_FLAG=OFF;
-
+uint8_t test_id=6;
 Pack_t pack;
 void DMA_Send(void)
 { 
@@ -406,7 +406,7 @@ void DMA_Send(void)
 	time3=HAL_GetTick();
 	pack.hander       =0x5A;
 	pack.detect_color =1;
-	pack.target_id    =0x01;
+	pack.target_id    =test_id;
 	pack.roll         =0.0f;
 	pack.pitch        =-gimbal.pitch.status.actual_angle;
 	pack.yaw          =-gimbal.yaw.status.actual_angle;

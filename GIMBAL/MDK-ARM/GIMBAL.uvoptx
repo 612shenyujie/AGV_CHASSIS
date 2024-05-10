@@ -118,7 +118,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGUARM</Key>
-          <Name></Name>
+          <Name>x霺</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -292,6 +292,16 @@
           <count>27</count>
           <WinNumber>1</WinNumber>
           <ItemText>yaw_bias</ItemText>
+        </Ww>
+        <Ww>
+          <count>28</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>pack</ItemText>
+        </Ww>
+        <Ww>
+          <count>29</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>test_angle</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>

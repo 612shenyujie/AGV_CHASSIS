@@ -151,6 +151,8 @@ void Gimbal_Command_Update(void)
 			memset(&vision_control.command,0,sizeof(vision_control.command));
 			vision_control.command.pitch_angle=gimbal.pitch.status.actual_angle;
 			vision_control.command.yaw_angle=gimbal.yaw.status.actual_angle;
+			if(chassis.send.invert_flag&&vision_control.mode==VISION_OFF)
+			gimbal.yaw.command.target_angle-=180.f;
 			memset(&gimbal.pitch.pid,0,sizeof(gimbal.pitch.pid));
 			memset(&gimbal.yaw.pid,0,sizeof(gimbal.yaw.pid));
 			 PID_Init(&gimbal.pitch.pid.encoder_angle_loop,gimbal_pitch_encoder_position_data,Integral_Limit|ChangingIntegralRate|Trapezoid_Intergral|Trapezoid_Intergral);
@@ -436,7 +438,7 @@ void Gimbal_Init(void)
     PID_Init(&gimbal.yaw.pid.imu_speed_loop,gimbal_yaw_imu_speed_data,Integral_Limit|ChangingIntegralRate|Trapezoid_Intergral|Trapezoid_Intergral);
 }
 
-float test_angle=37.f;
+
 
 void Gimbal_Affiliated_Pitch_Task(void)
 {
