@@ -3,6 +3,7 @@
 GIMBAL_CONNECTION_T connection;
 
 float	actual_speed;
+uint16_t outpost_hp;
 
 void Chassis_Flag_Update(GIMBAL_CONNECTION_T *connection)
 {
@@ -47,12 +48,20 @@ void	Shoot_Speed_Update(void)
 				actual_speed=JudgeReceive.shoot_data.initial_speed;
 }
 
+void Outpost_HP_Update(void)
+{
+			if(JudgeReceive.robot_state.robot_id<=11)
+				outpost_hp=JudgeReceive.robot_hp.blue_outpost_HP;
+			else
+				outpost_hp=JudgeReceive.robot_hp.red_outpost_HP;
+}
+
 void Send_Speed_And_State_Task(void)
 {
 				CAN1_0xxf1_Tx_Data[0]=JudgeReceive.game_status.game_progress;
 				Shoot_Speed_Update();
-				CAN1_0xxf1_Tx_Data[1]=((uint16_t)(actual_speed*100))>>8;
-				CAN1_0xxf1_Tx_Data[2]=((uint16_t)(actual_speed*100));
+				memcpy(&CAN1_0xxf1_Tx_Data[1],&actual_speed,4);
+				memcpy(&CAN1_0xxf1_Tx_Data[5],&outpost_hp,2);
 				CAN_Send_Data(&hcan1,0xf1,CAN1_0xxf1_Tx_Data,8);
 				
 }

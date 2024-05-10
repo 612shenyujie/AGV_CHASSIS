@@ -143,6 +143,7 @@ typedef struct
 	float target_y;
 	float target_z;	
 	uint8_t UP_flag;
+	uint8_t fire_flag;
 	uint16_t crc16;
 }Pack_rx_t;
 #pragma pack()

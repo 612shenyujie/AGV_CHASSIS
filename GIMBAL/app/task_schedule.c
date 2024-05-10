@@ -1,6 +1,6 @@
 #include "task_schedule.h"
 #include "ins_task.h"
-
+#include "vision.h"
 
 TASK_TIME_T gimbal_time;
 float temp;
@@ -96,6 +96,10 @@ void Error_State_Judge(void)
 		if(gimbal.yaw.motor.parameter.receive_ms_time+gimbal.yaw.motor.parameter.receive_s_time*1000-gimbal_time.ms_count-gimbal_time.s_count*1000<-1000)
 		{
 			buzzer_setTask(&buzzer, BUZZER_DEVICE_OFFLINE_PRIORITY);
+		}
+		if(vision_control.command.ms_time+vision_control.command.s_time*1000-gimbal_time.ms_count-gimbal_time.s_count*1000<-1000)
+		{
+			vision_control.command.fire_flag=0;
 		}
 	}
 }

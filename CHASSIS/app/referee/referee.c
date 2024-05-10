@@ -114,6 +114,9 @@ void Judge_Buffer_Receive_Task(uint8_t *frame)
 			case POWER_HEAT_DATA_CMD_ID:
 				memcpy(&JudgeReceive.power_state,frame + index,16);
 			break;
+			case GAME_ROBOT_HP_CMD_ID	:
+				memcpy(&JudgeReceive.robot_hp,frame+index,32);
+				break;
 			case GAME_STATE_CMD_ID	:
 					memcpy(&JudgeReceive.game_status,frame + index,11);
 				break;

@@ -1,5 +1,5 @@
 #include "vision.h"
-
+#include "task_schedule.h"
 
 VISION_T vision_control;
 
@@ -9,6 +9,15 @@ const float bullet_v = 15.0;
 float x_offset;
 float y_offset;
 float z_offset=0.235;
+
+void Vision_Auto_Fire_Task(uint8_t	fire_flag)
+{
+	
+	
+	vision_control.command.fire_flag	=	fire_flag;
+	vision_control.command.s_time=gimbal_time.s_count;
+	vision_control.command.ms_time=gimbal_time.ms_count;
+}
 
 void Vision_Angle_Task(float target_yaw_angle,float target_pitch_angle)
 {
@@ -31,6 +40,12 @@ void Vision_Aim_Data_Task(float x,float y,float z)
 
 void Vision_Send_Task(void)
 {
+	if(vision_control.command.outpost_hp>0)
+		
+	vision_control.target_id=6;
+	else
+		vision_control.target_id=7;
+	
 	DMA_Send();
 
 }

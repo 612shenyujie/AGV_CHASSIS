@@ -381,7 +381,7 @@ void Chassis_Init(void)
     chassis.parameter.relative_angle    =   0.f;
 		chassis.parameter.power_limition_k	=1;
 		chassis.A_motor.zero_position = 0x1e80;
-		chassis.B_motor.zero_position = 0x1822;
+		chassis.B_motor.zero_position = 0x1888;
 		chassis.C_motor.zero_position = 0x1d62;
 		chassis.D_motor.zero_position = 0x01ac;
 		chassis.A_motor.active_status=1;

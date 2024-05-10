@@ -163,8 +163,10 @@ void CAN2_Call_Back(struct Struct_CAN_Rx_Buffer *rx)
         
         break;
 				case 0xf1:
-       vision_control.command.game_state	=	rx->Data[0];
-				vision_control.command.shoot_speed	=	((float)(rx->Data[1]<<8|rx->Data[2]))/100.f;
+				vision_control.command.game_state	=	rx->Data[0];
+				memcpy(&vision_control.command.shoot_speed,&rx->Data[1],4);
+				memcpy(&vision_control.command.outpost_hp,&rx->Data[5],2);
+				
         break;
     }
     switch(rx->Header.ExtId&0xff)

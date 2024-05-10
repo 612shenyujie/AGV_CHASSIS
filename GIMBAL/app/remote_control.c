@@ -715,13 +715,28 @@ void Trigger_Shoot_Number_Update(void)
 			break;
 		
 		case FRIC_RUNNING	:
-			if((!RC.rc_receive.key_board.button.CTRL)&&RC.rc_receive.mouse.press_l	&&	delay_time.shoot_number_cnt	==	0&&trigger.parameter.online_state)
+			if(vision_control.mode	==	VISION_OFF)
+			{
+				if((!RC.rc_receive.key_board.button.CTRL)&&RC.rc_receive.mouse.press_l	&&	delay_time.shoot_number_cnt	==	0&&trigger.parameter.online_state)
 			{
 				trigger.parameter.state	=	TRIGGER_RUNNING;
 				delay_time.shoot_number_cnt=400;
 				trigger.parameter.shoot_num++;
 				trigger.parameter.reactive_flag	=	1;
 			}
+		}
+			else
+			{
+			if(	vision_control.command.fire_flag		&&	delay_time.shoot_number_cnt	==	0&&trigger.parameter.online_state)
+			{
+				trigger.parameter.state	=	TRIGGER_RUNNING;
+				delay_time.shoot_number_cnt=2500;
+				trigger.parameter.shoot_num++;
+				trigger.parameter.reactive_flag	=	1;
+			}
+			}
+			
+			
 		case FRIC_BRUSTING	:
 			if(RC.rc_receive.key_board.button.CTRL	&&	RC.rc_receive.mouse.press_l	&&	delay_time.shoot_number_cnt	==	0&&trigger.parameter.online_state)
 			{

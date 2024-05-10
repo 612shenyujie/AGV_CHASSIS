@@ -21,8 +21,8 @@ float c_pos_x[12] = {0.01,0.01,0.01,0.9,0.9, 0.87,0.55, 0.54,0.40,0.53,0.3,0.4};
 float c_pos_y[12] = {0.8,0.7,0.6,0.8 ,0.75, 0.7,0.5, 0.05,0.1 ,0.15,0.5,0.7};
 float g_pos_x[CAP_GRAPHIC_NUM] = {0.05,0.05,0.05,0.5,0.92,0.459,0.62,0.5,0.3,0.7};
 float g_pos_y[CAP_GRAPHIC_NUM] = {0.74,0.64,0.54,0.5,0.64,0.36,0.1,0.8,0.3,0.75};
-float g_line_x[20]={0.657,0.541,0.343,0.459,0.5,0.5,0.49,0.51,0.48,0.52,0.47,0.53,0.46,0.54};
-float g_line_y[20]={0.0,0.36,0.0,0.36,0.0,1.0,0.618,0.618,0.585,0.585,0.551,0.551,0.444,0.444};
+float g_line_x[20]={0.657,0.541,0.343,0.459,0.5,0.5,0.49,0.51,0.48,0.52,0.47,0.53,0.46,0.54,0.478,0.490,0.484,0.484};
+float g_line_y[20]={0.0,0.36,0.0,0.36,0.0,1.0,0.618,0.618,0.585,0.585,0.551,0.551,0.444,0.444,0.538,0.538,0.544,0.533};
 /*瞄准线偏移量*/
 
 float test_x,text_y;
@@ -604,6 +604,35 @@ void referee_data_load_Graphic(int Op_type)
 				custom_grapic_draw.graphic_custom.grapic_data_struct[4].end_x=g_pos_x[9] * SCREEN_LENGTH;
 				custom_grapic_draw.graphic_custom.grapic_data_struct[4].end_y=g_pos_y[9] * SCREEN_WIDTH;
 				if(Op_type == Op_Change) goto CONT_5;
+			
+							/*公路区瞄准线*/
+				custom_grapic_draw.graphic_custom.grapic_data_struct[5].graphic_name[0] = 1;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[5].graphic_name[1] = 6;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[5].graphic_name[2] = 0;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[5].operate_tpye=Op_type;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[5].graphic_tpye=0;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[5].layer=6;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[5].color=Green;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[5].width=2;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[5].start_x=g_line_x[14] * SCREEN_LENGTH;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[5].start_y=g_line_y[14] * SCREEN_WIDTH;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[5].end_x=g_line_x[15] * SCREEN_LENGTH;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[5].end_y=g_line_y[15] * SCREEN_WIDTH;
+				
+				/*11m瞄准线*/
+				custom_grapic_draw.graphic_custom.grapic_data_struct[6].graphic_name[0] = 1;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[6].graphic_name[1] = 7;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[6].graphic_name[2] = 0;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[6].operate_tpye=Op_type;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[6].graphic_tpye=0;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[6].layer=6;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[6].color=Green;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[6].width=2;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[6].start_x=g_line_x[16] * SCREEN_LENGTH;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[6].start_y=g_line_y[16] * SCREEN_WIDTH;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[6].end_x=g_line_x[17] * SCREEN_LENGTH;
+				custom_grapic_draw.graphic_custom.grapic_data_struct[6].end_y=g_line_y[17] * SCREEN_WIDTH;
+				break;
 				break;
 			case 2:
 					RELATIVE_:

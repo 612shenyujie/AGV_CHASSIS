@@ -406,7 +406,7 @@ void DMA_Send(void)
 	time3=HAL_GetTick();
 	pack.hander       =0x5A;
 	pack.detect_color =1;
-	pack.target_id    =test_id;
+	pack.target_id    =vision_control.target_id;
 	pack.roll         =0.0f;
 	pack.pitch        =-gimbal.pitch.status.actual_angle;
 	pack.yaw          =-gimbal.yaw.status.actual_angle;
@@ -438,8 +438,9 @@ void cdc_vcp_data_rx (uint8_t *buf, uint32_t Len)
 			if(start_receive_flag == 1)
 			{   
 
-//				 Vision_Aim_Data_Task(pack_rx.target_x,pack_rx.target_y,pack_rx.target_z);
 				Vision_Angle_Task(pack_rx.target_yaw,pack_rx.target_pitch);
+				Vision_Auto_Fire_Task(pack_rx.fire_flag);
+				
 				break;
 			}
 

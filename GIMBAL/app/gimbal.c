@@ -371,7 +371,7 @@ void Gimbal_Mode_Change_Judge(void)
 	if(gimbal.parameter.last_mode==GIMBAL_MODE_ABSOLUTE&&gimbal.parameter.mode==GIMBAL_MODE_PRECISION)
 	{
 		gimbal.pitch.command.target_angle=-10.45f;
-		gimbal.affiliated_pitch.target_angle	=	31.f;
+		gimbal.affiliated_pitch.target_angle	=	27.f;
 		gimbal.affiliated_pitch.add_angle=0.f;
 	}
 	if(gimbal.parameter.mode==GIMBAL_MODE_PRECISION)
@@ -385,19 +385,19 @@ void Gimbal_Mode_Change_Judge(void)
 		if(gimbal.affiliated_pitch.state	==	AFFILIATED_PITCH_LOW_ANGLE	&&	gimbal.affiliated_pitch.last_state	!=	AFFILIATED_PITCH_LOW_ANGLE)
 		{
 		gimbal.affiliated_pitch.add_angle=0.f;
-			gimbal.affiliated_pitch.target_angle	=	31.f;
+			gimbal.affiliated_pitch.target_angle	=	27.f;
 		}
 			
 		if(gimbal.affiliated_pitch.state	==	AFFILIATED_PITCH_MID_ANGLE	&&	gimbal.affiliated_pitch.last_state	!=	AFFILIATED_PITCH_MID_ANGLE)
 		{
 		gimbal.affiliated_pitch.add_angle=0.f;
-			gimbal.affiliated_pitch.target_angle	=29.f;
+			gimbal.affiliated_pitch.target_angle	=27.f;
 		}	
 		
 		if(gimbal.affiliated_pitch.state	==	AFFILIATED_PITCH_HIGH_ANGLE	&&	gimbal.affiliated_pitch.last_state	!=	AFFILIATED_PITCH_HIGH_ANGLE)
 		{
 		gimbal.affiliated_pitch.add_angle=0.f;
-			gimbal.affiliated_pitch.target_angle	=	20.f;
+			gimbal.affiliated_pitch.target_angle	=	27.f;
 		}		
 		
 	}
