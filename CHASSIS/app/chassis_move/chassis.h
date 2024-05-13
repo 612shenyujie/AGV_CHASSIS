@@ -19,7 +19,7 @@
 #define Uniform_Acceleration 1 //匀加速模式，用于平滑速度曲线
 #define Ease_Out 2 //缓出模式
 
-#define GIMBAL_HEAD_ANGLE 51.4f
+#define GIMBAL_HEAD_ANGLE 47.24f
 #define Acceleration 50 //加速度，用于平滑速度曲线的匀加速模式
 
 #define CHASSIS_SPEED_X_CHANGE_MAX 20.f

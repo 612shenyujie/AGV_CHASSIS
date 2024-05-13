@@ -16,7 +16,7 @@ char change_cnt[7];
 	int32_t temp_supercap_per;
 	int32_t	last_temp_supercap_per;
 	char	precision_state,last_precision_state;
-	float	distance,delta_x,delta_y;
+	float	distance_1,distance_2,delta_x,delta_y;
 float c_pos_x[12] = {0.01,0.01,0.01,0.9,0.9, 0.87,0.55, 0.54,0.40,0.53,0.3,0.4};
 float c_pos_y[12] = {0.8,0.7,0.6,0.8 ,0.75, 0.7,0.5, 0.05,0.1 ,0.15,0.5,0.7};
 float g_pos_x[CAP_GRAPHIC_NUM] = {0.05,0.05,0.05,0.5,0.92,0.459,0.62,0.5,0.3,0.7};
@@ -25,7 +25,7 @@ float g_line_x[20]={0.657,0.541,0.343,0.459,0.5,0.5,0.49,0.51,0.48,0.52,0.47,0.5
 float g_line_y[20]={0.0,0.36,0.0,0.36,0.0,1.0,0.618,0.618,0.585,0.585,0.551,0.551,0.444,0.444,0.538,0.538,0.544,0.533};
 /*瞄准线偏移量*/
 
-float test_x,text_y;
+float target_x_1,target_x_2,target_y_1,target_y_2;
 
 float Sqrt(float x)
 {
@@ -62,12 +62,27 @@ int Graphic_Change_Check(void)
 		return Op_Init;	//返回Init,会一直发送Add，添加所有图层
 	}
 	
-//	delta_x=JudgeReceive.robot_pos_t.x-TARGET_X;
-//		delta_y=JudgeReceive.robot_pos_t.y-TARGET_Y;
-		delta_x=JudgeReceive.robot_pos_t.x-test_x;
-		delta_y=JudgeReceive.robot_pos_t.y-text_y;
-	distance=Sqrt(delta_x*delta_x+delta_y*delta_y);
-	if(distance<0.25)
+		if(JudgeReceive.robot_state.robot_id<101)
+		{
+			target_x_1=0.f;
+			target_y_1=0.f;
+			target_x_2=0.f;
+			target_y_2=0.f;
+		}
+		else
+		{
+			target_x_1=0.f;
+			target_y_1=0.f;
+			target_x_2=0.f;
+			target_y_2=0.f;
+		}
+		delta_x=JudgeReceive.robot_pos_t.x-target_x_1;
+		delta_y=JudgeReceive.robot_pos_t.y-target_y_1;
+	distance_1=Sqrt(delta_x*delta_x+delta_y*delta_y);
+	delta_x=JudgeReceive.robot_pos_t.x-target_x_2;
+		delta_y=JudgeReceive.robot_pos_t.y-target_y_2;
+	distance_2=Sqrt(delta_x*delta_x+delta_y*delta_y);
+	if(distance_2<0.25||distance_1<0.25)
 		precision_state	=	1;
 	else
 		precision_state	=	0;
