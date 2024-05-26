@@ -1,7 +1,7 @@
 #include "task_schedule.h"
 #include "ins_task.h"
 #include "vision.h"
-
+#include "referee.h"
 TASK_TIME_T gimbal_time;
 float temp;
 int16_t cnt;
@@ -26,6 +26,7 @@ void Init_Task(void)
 		Trigger_Init();
 		//初始化底盘通信
 		Chassis_Connection_Init();
+	  Referee_Init();
 	  buzzer_init_example();
 		buzzer_setTask(&buzzer, BUZZER_DJI_STARTUP_PRIORITY);
 	 
@@ -40,14 +41,10 @@ void Error_State_Judge(void)
 	{
 		
 		//如果上一次接收时间小于当前接收时间，则清空键盘，鼠标和rc接收数据
-		if(RC.rc_receive.receive_ms_time+RC.rc_receive.receive_s_time*1000-gimbal_time.ms_count-gimbal_time.s_count*1000<-1000)
+		if((RC.rc_receive.receive_ms_time+RC.rc_receive.receive_s_time*1000-gimbal_time.ms_count-gimbal_time.s_count*1000<-1000)&&RC.state==1)
 		{
-			memset(&RC.rc_receive.key_board,0,sizeof(RC.rc_receive.key_board));
-			memset(&RC.rc_receive.rc,0,sizeof(RC.rc_receive.rc));
-			memset(&RC.rc_receive.mouse,0,sizeof(RC.rc_receive.mouse));
-			gimbal.parameter.mode=GIMBAL_MODE_NO_FORCE;
-			chassis.send.mode	=	CHASSIS_MODE_NOFORCE;
-			fric.parameter.mode=	FRIC_STOP;
+			RC.state=0;
+			
 //			buzzer_setTask(&buzzer, BUZZER_DEVICE_OFFLINE_PRIORITY);
 		}
 	}
@@ -59,6 +56,10 @@ void Error_State_Judge(void)
 		{
 			buzzer_setTask(&buzzer, BUZZER_DEVICE_OFFLINE_PRIORITY);
 		}
+		if((remote_controller.ms_t+remote_controller.s_t*1000-gimbal_time.ms_count-gimbal_time.s_count*1000<-1000)&&remote_controller.state==1)
+		{
+		remote_controller.state=0;
+		}
 	}
 	if(gimbal_time.ms_count%16==2)
 	{
@@ -67,6 +68,15 @@ void Error_State_Judge(void)
 		if(fric.right_motor.motor.parameter.receive_ms_time+fric.right_motor.motor.parameter.receive_s_time*1000-gimbal_time.ms_count-gimbal_time.s_count*1000<-1000)
 		{
 			buzzer_setTask(&buzzer, BUZZER_DEVICE_OFFLINE_PRIORITY);
+		}
+		if(RC.state==0&&remote_controller.state==0)
+		{
+			memset(&RC.rc_receive.key_board,0,sizeof(RC.rc_receive.key_board));
+			memset(&RC.rc_receive.rc,0,sizeof(RC.rc_receive.rc));
+			memset(&RC.rc_receive.mouse,0,sizeof(RC.rc_receive.mouse));
+			gimbal.parameter.mode=GIMBAL_MODE_NO_FORCE;
+			chassis.send.mode	=	CHASSIS_MODE_NOFORCE;
+			fric.parameter.mode=	FRIC_STOP;
 		}
 	}
 	if(gimbal_time.ms_count%16==3)
@@ -144,7 +154,6 @@ void task_schedule()
 			//执行移动任务
 			Remote_Task();
 			//执行云台任务
-
 			Gimbal_Task();
 			//执行摩擦轮任务
 			Fric_Task();
@@ -156,6 +165,7 @@ void task_schedule()
 				if(gimbal_time.ms_count%5==0)
 				Vision_Send_Task();
 				
+				referee_unpack_fifo_data();
 			
 			break;
 		//默认状态

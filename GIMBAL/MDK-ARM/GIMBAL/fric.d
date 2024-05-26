@@ -47,3 +47,6 @@ gimbal\fric.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h
 gimbal\fric.o: ..\app\can_connection.h
 gimbal\fric.o: ../Core/Inc/tim.h
 gimbal\fric.o: ../Core/Inc/main.h
+gimbal\fric.o: ..\app\trigger.h
+gimbal\fric.o: ..\app\vision.h
+gimbal\fric.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

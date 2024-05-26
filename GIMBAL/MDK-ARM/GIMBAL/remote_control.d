@@ -67,3 +67,5 @@ gimbal\remote_control.o: ../bsp/buzzer_bsp.h
 gimbal\remote_control.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 gimbal\remote_control.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
 gimbal\remote_control.o: ..\app\vision.h
+gimbal\remote_control.o: ..\app\referee.h
+gimbal\remote_control.o: ..\app\algorithmOfCRC.h

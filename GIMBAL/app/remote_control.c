@@ -7,6 +7,7 @@
 #include "vision.h"
 #include "can_connection.h"
 #include "trigger.h"
+#include "referee.h"
 #define RC_huart    huart3
 #define RC_UART		USART3
 #define RC_dma		hdma_usart3_rx
@@ -134,6 +135,7 @@ void USART3_IRQHandler(void)
 			if(this_time_rx_len == RC_FRAME_LENGTH)
 			{
 				sbus_to_rc(sbus_rx_buf[0], &RC.rc_receive);
+				RC.state=1;
 				if(RC_data_is_error()==1)
 				{
 					RC_restart(SBUS_RX_BUF_NUM);
@@ -163,6 +165,7 @@ void USART3_IRQHandler(void)
 			{
 				//����ң��������
 				sbus_to_rc(sbus_rx_buf[1], &RC.rc_receive);
+				RC.state=1;
 				if(RC_data_is_error()==1)
 				{
 					RC_restart(SBUS_RX_BUF_NUM);
@@ -309,6 +312,14 @@ void Control_Mode_Update(void)
 			{
 				gimbal.parameter.mode = GIMBAL_MODE_ABSOLUTE;
 				chassis.send.mode = CHASSIS_MODE_ABSOLUTE;
+				vision_control.mode=VISION_OFF;
+				chassis.send.vision_flag	=	VISION_OFF;
+
+			}
+					if (switch_is_mid(SW_L)&&gimbal.parameter.mode == GIMBAL_MODE_PRECISION&&vision_control.mode==VISION_ON)
+			{
+				gimbal.parameter.mode = GIMBAL_MODE_PRECISION;
+				chassis.send.mode = CHASSIS_MODE_PRECISE;
 				vision_control.mode=VISION_OFF;
 				chassis.send.vision_flag	=	VISION_OFF;
 
@@ -467,8 +478,7 @@ void Vision_Control_Mode_Update(void)
 				
 					vision_control.mode=VISION_ON;
 					chassis.send.vision_flag	=	VISION_ON;
-					gimbal.parameter.mode = GIMBAL_MODE_ABSOLUTE;
-					chassis.send.mode = CHASSIS_MODE_ABSOLUTE;
+				
 				
 				
 			}
@@ -619,7 +629,7 @@ void Precision_Mode_Update(void)
 		
 			break;
 		case KEYBOARD_CONTROL :
-			if((RC.rc_receive.key_board.button.CTRL)&&RC.rc_receive.key_board.button.R)
+			if(RC.rc_receive.key_board.button.G)
 			{
 				if(delay_time.precision_mode_cnt==0&&gimbal.parameter.mode!=GIMBAL_MODE_PRECISION)
 				{
@@ -638,28 +648,28 @@ void Precision_Mode_Update(void)
 					delay_time.precision_mode_cnt=400;
 				}
 			}
-			if(RC.rc_receive.key_board.button.SHIFT&&RC.rc_receive.key_board.button.R&&gimbal.parameter.mode==GIMBAL_MODE_PRECISION)
-			{
-			if(delay_time.distance_change_cnt==0&&gimbal.parameter.precision_distance==FIVE_METER_DISTANCE)
-			{
-				delay_time.distance_change_cnt=400;
-				gimbal.parameter.precision_distance=SEVEN_METER_DISTANCE;
-				gimbal.affiliated_pitch.state	=	AFFILIATED_PITCH_MID_ANGLE;
-			}
-			if(delay_time.distance_change_cnt==0&&gimbal.parameter.precision_distance==SEVEN_METER_DISTANCE)
-			{
-				delay_time.distance_change_cnt=400;
-				gimbal.parameter.precision_distance=TEN_METER_DISTANCE;
-				gimbal.affiliated_pitch.state	=	AFFILIATED_PITCH_HIGH_ANGLE;
-			}
-			if(delay_time.distance_change_cnt==0&&gimbal.parameter.precision_distance==TEN_METER_DISTANCE)
-			{
-				delay_time.distance_change_cnt=400;
-				gimbal.parameter.precision_distance=FIVE_METER_DISTANCE;
-				gimbal.affiliated_pitch.state	=	AFFILIATED_PITCH_LOW_ANGLE;
-			}
-				
-			}
+//			if(RC.rc_receive.key_board.button.SHIFT&&RC.rc_receive.key_board.button.R&&gimbal.parameter.mode==GIMBAL_MODE_PRECISION)
+//			{
+//			if(delay_time.distance_change_cnt==0&&gimbal.parameter.precision_distance==FIVE_METER_DISTANCE)
+//			{
+//				delay_time.distance_change_cnt=400;
+//				gimbal.parameter.precision_distance=SEVEN_METER_DISTANCE;
+//				gimbal.affiliated_pitch.state	=	AFFILIATED_PITCH_MID_ANGLE;
+//			}
+//			if(delay_time.distance_change_cnt==0&&gimbal.parameter.precision_distance==SEVEN_METER_DISTANCE)
+//			{
+//				delay_time.distance_change_cnt=400;
+//				gimbal.parameter.precision_distance=TEN_METER_DISTANCE;
+//				gimbal.affiliated_pitch.state	=	AFFILIATED_PITCH_HIGH_ANGLE;
+//			}
+//			if(delay_time.distance_change_cnt==0&&gimbal.parameter.precision_distance==TEN_METER_DISTANCE)
+//			{
+//				delay_time.distance_change_cnt=400;
+//				gimbal.parameter.precision_distance=FIVE_METER_DISTANCE;
+//				gimbal.affiliated_pitch.state	=	AFFILIATED_PITCH_LOW_ANGLE;
+//			}
+//				
+//			}
 			break;
 		
 	}
@@ -727,10 +737,17 @@ void Trigger_Shoot_Number_Update(void)
 		}
 			else
 			{
-			if(	vision_control.command.fire_flag		&&	delay_time.shoot_number_cnt	==	0&&trigger.parameter.online_state)
+//			if(	vision_control.command.fire_flag		&&	delay_time.shoot_number_cnt	==	0&&trigger.parameter.online_state)
+//			{
+//				trigger.parameter.state	=	TRIGGER_RUNNING;
+//				delay_time.shoot_number_cnt=2500;
+//				trigger.parameter.shoot_num++;
+//				trigger.parameter.reactive_flag	=	1;
+//			}
+				if((!RC.rc_receive.key_board.button.CTRL)&&RC.rc_receive.mouse.press_l	&&	delay_time.shoot_number_cnt	==	0&&trigger.parameter.online_state)
 			{
 				trigger.parameter.state	=	TRIGGER_RUNNING;
-				delay_time.shoot_number_cnt=2500;
+				delay_time.shoot_number_cnt=400;
 				trigger.parameter.shoot_num++;
 				trigger.parameter.reactive_flag	=	1;
 			}
@@ -890,14 +907,42 @@ void Affiliated_Pitch_Update(void)
 
 }
 
+void Fast_Running_Task(void)
+{
+	if(gimbal.parameter.mode==GIMBAL_MODE_PRECISION)
+	{
+		if(fabs(RC.rc_sent.y_speed)>220||fabs(RC.rc_sent.x_speed)>220)
+		{
+			gimbal.parameter.mode=GIMBAL_MODE_ABSOLUTE;
+			chassis.send.mode = CHASSIS_MODE_ABSOLUTE;
+		}
+	}
+}
+
 void Remote_Task(void)
 {
+	
+	if(!RC.state&&remote_controller.state)
+	{
+		RC.rc_receive.key_board.key_code=JudgeReceive.remote_control_t.key_code;
+		RC.rc_receive.mouse.press_l=JudgeReceive.remote_control_t.left_button_down;
+		RC.rc_receive.mouse.press_r=JudgeReceive.remote_control_t.right_button_down;
+		RC.rc_receive.mouse.x=JudgeReceive.remote_control_t.mouse_x;
+		RC.rc_receive.mouse.y=JudgeReceive.remote_control_t.mouse_y;
+		RC.rc_receive.mouse.z=JudgeReceive.remote_control_t.mouse_z;
+		if(gimbal.parameter.mode==GIMBAL_MODE_NO_FORCE)
+		{
+		gimbal.parameter.mode=GIMBAL_MODE_ABSOLUTE;
+			chassis.send.mode=CHASSIS_MODE_ABSOLUTE;
+		}
+	}
+	
 	//吊射模式状态更新
 	Precision_Mode_Update();
 	//射击数量更新
 	Trigger_Shoot_Number_Update();
 	//底盘随动状态更新
-	Follow_Switch_Flag_Update();
+//	Follow_Switch_Flag_Update();
 	//更新反转标志状态
 	Invert_Flag_Update();
 	//更新摩擦轮模式状态
@@ -912,5 +957,6 @@ void Remote_Task(void)
 	Rc_Mode_Update();
 	Xpower_Mode_Update();
 	UI_mode_Update();
+	Fast_Running_Task();
 };
 

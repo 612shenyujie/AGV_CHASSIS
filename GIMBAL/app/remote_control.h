@@ -8,8 +8,8 @@
 
 #include "stdint.h"
 //¼üÊó¿ØÖÆ²ÎÊý
-#define CHASSIS_LOW_SPEED	120
-#define CHASSIS_HIGH_SPEED 250
+#define CHASSIS_LOW_SPEED	150
+#define CHASSIS_HIGH_SPEED 300
 
 #define KEY_MID 0
 #define KEY_MAX 427
@@ -149,6 +149,7 @@ typedef __packed struct
 	RC_CONTROL_T rc_receive;
 	RC_GET_t			rc_sent;
 	CONTROL_MODE_T	mode;
+	uint8_t					state;
 }RC_T;
 
 typedef __packed struct

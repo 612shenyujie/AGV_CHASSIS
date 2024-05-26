@@ -72,3 +72,5 @@ gimbal\task_schedule.o: ../Components/kalman_filter.h
 gimbal\task_schedule.o: ../Components/Algorithm/Include/arm_math.h
 gimbal\task_schedule.o: ../Drivers/CMSIS/Include/core_cm4.h
 gimbal\task_schedule.o: ..\app\vision.h
+gimbal\task_schedule.o: ..\app\referee.h
+gimbal\task_schedule.o: ..\app\algorithmOfCRC.h

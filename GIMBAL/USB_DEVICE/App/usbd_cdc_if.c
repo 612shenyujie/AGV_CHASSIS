@@ -28,7 +28,7 @@
 #include "stdbool.h"
 #include "gimbal.h"
 #include "vision.h"
-
+#include "algorithmOfCRC.h"
 /* USER CODE END INCLUDE */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -62,18 +62,18 @@
   * @param[in] wCRC : CRC16 init value(default : 0xFFFF)
   * @return : CRC16 checksum
   */
-uint16_t Get_CRC16_Check_Sum(const uint8_t * pchMessage, uint32_t dwLength, uint16_t wCRC)
-{
-  uint8_t ch_data;
+//uint16_t Get_CRC16_Check_Sum(const uint8_t * pchMessage, uint32_t dwLength, uint16_t wCRC)
+//{
+//  uint8_t ch_data;
 
-  if (pchMessage == NULL) return 0xFFFF;
-  while (dwLength--) {
-    ch_data = *pchMessage++;
-    wCRC = (wCRC >> 8) ^ W_CRC_TABLE[(wCRC ^ ch_data) & 0x00ff];
-  }
+//  if (pchMessage == NULL) return 0xFFFF;
+//  while (dwLength--) {
+//    ch_data = *pchMessage++;
+//    wCRC = (wCRC >> 8) ^ W_CRC_TABLE[(wCRC ^ ch_data) & 0x00ff];
+//  }
 
-  return wCRC;
-}
+//  return wCRC;
+//}
 
 /**
   * @brief CRC16 Verify function
@@ -82,17 +82,17 @@ uint16_t Get_CRC16_Check_Sum(const uint8_t * pchMessage, uint32_t dwLength, uint
   * @return : True or False (CRC Verify Result)
   */
 
-bool Verify_CRC16_Check_Sum(const uint8_t * pchMessage, uint32_t dwLength)
-{
-  uint16_t w_expected = 0;
+//bool Verify_CRC16_Check_Sum(const uint8_t * pchMessage, uint32_t dwLength)
+//{
+//  uint16_t w_expected = 0;
 
-  if ((pchMessage == NULL) || (dwLength <= 2)) return false;
+//  if ((pchMessage == NULL) || (dwLength <= 2)) return false;
 
-  w_expected = Get_CRC16_Check_Sum(pchMessage, dwLength - 2, CRC16_INIT);
-  return (
-    (w_expected & 0xff) == pchMessage[dwLength - 2] &&
-    ((w_expected >> 8) & 0xff) == pchMessage[dwLength - 1]);
-}
+//  w_expected = Get_CRC16_Check_Sum(pchMessage, dwLength - 2, CRC16_INIT);
+//  return (
+//    (w_expected & 0xff) == pchMessage[dwLength - 2] &&
+//    ((w_expected >> 8) & 0xff) == pchMessage[dwLength - 1]);
+//}
 /**
 
 @brief Append CRC16 value to the end of the buffer
@@ -100,17 +100,17 @@ bool Verify_CRC16_Check_Sum(const uint8_t * pchMessage, uint32_t dwLength)
 @param[in] dwLength : Stream length = Data + checksum
 @return none
 */
-void Append_CRC16_Check_Sum(uint8_t * pchMessage, uint32_t dwLength)
-{
-  uint16_t w_crc = 0;
+//void Append_CRC16_Check_Sum(uint8_t * pchMessage, uint32_t dwLength)
+//{
+//  uint16_t w_crc = 0;
 
-  if ((pchMessage == NULL) || (dwLength <= 2)) return;
+//  if ((pchMessage == NULL) || (dwLength <= 2)) return;
 
-  w_crc = Get_CRC16_Check_Sum(pchMessage, dwLength - 2, CRC16_INIT);
+//  w_crc = Get_CRC16_Check_Sum(pchMessage, dwLength - 2, CRC16_INIT);
 
-  pchMessage[dwLength - 2] = (uint8_t)(w_crc & 0x00ff);
-  pchMessage[dwLength - 1] = (uint8_t)((w_crc >> 8) & 0x00ff);
-}
+//  pchMessage[dwLength - 2] = (uint8_t)(w_crc & 0x00ff);
+//  pchMessage[dwLength - 1] = (uint8_t)((w_crc >> 8) & 0x00ff);
+//}
 /* USER CODE END PRIVATE_TYPES */
 
 /**

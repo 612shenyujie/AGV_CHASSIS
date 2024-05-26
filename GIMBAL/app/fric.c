@@ -11,6 +11,8 @@
 #include "fric.h"
 #include "can_connection.h"
 #include "tim.h"
+#include	"trigger.h"
+#include "vision.h"
 
 FRIC_T  fric;
 XPOWER_COMMAND_T xpower;
@@ -86,6 +88,7 @@ void Fric_Status_Update(void)
 		fric.parameter.lr_error=fric.left_motor.status.actual_speed+fric.right_motor.status.actual_speed;
 }
 //摩擦轮命令更新
+float fric_speed_offset;
 void Fric_Command_Update(void)
 {
     switch(fric.parameter.mode)
@@ -96,8 +99,12 @@ void Fric_Command_Update(void)
 						chassis.send.fric_speed=fric.left_motor.command.target_speed;
         break;  
 			case FRIC_RUNNING  :
-            fric.left_motor.command.target_speed =   FRIC_NORMAL_SPEED;
-            fric.right_motor.command.target_speed =  - FRIC_NORMAL_SPEED;
+						if(trigger.parameter.shoot_num<10&&vision_control.command.game_state==4)
+							fric_speed_offset=500;
+						else
+							fric_speed_offset=0;
+            fric.left_motor.command.target_speed =   FRIC_NORMAL_SPEED+fric_speed_offset;
+            fric.right_motor.command.target_speed =  - FRIC_NORMAL_SPEED+fric_speed_offset;
 						chassis.send.fric_speed=fric.left_motor.command.target_speed;
         break;
         case FRIC_STOP  :
